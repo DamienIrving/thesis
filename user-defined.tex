@@ -1,0 +1,36 @@
+%%
+%% VERSION HISTORY
+%%    22 May 2006 - John Papandriopoulos - Original version
+%%    12 Jul 2007 - John Papandriopoulos - Converted into template
+%%
+
+\usepackage{setspace}
+\onehalfspacing 
+
+\usepackage{natbib}
+\usepackage{enumerate}
+\usepackage[capitalise]{cleveref}
+
+
+% AMS packages
+%\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[mathscr]{eucal}
+
+% Allow equations to break over pages...
+\interdisplaylinepenalty=2500
+% Command to stop equation breaks
+% Note: enclose this in braces when used...
+\newcommand{\donotsplitoverpages}{\interdisplaylinepenalty=10000}
+
+% Graphics
+\ifx\pdftexversion\undefined
+  \usepackage[dvips]{graphicx}
+\else
+  \usepackage[pdftex]{graphicx}
+\fi
+
+% References
+\bibliographystyle{bib/ametsoc2014}    

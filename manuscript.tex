@@ -1,0 +1,92 @@
+
+\documentclass[11pt,a4paper,titlepage,twoside,openright]{book}
+
+% Use the UniMelb Dissertation Template
+\usepackage{style/uomthesis}
+
+% For drafts uncomment the following line
+%\usepackage[light,timestamp,first]{draftcopy}
+
+% Comment out the following line TO MARK blank pages with the 
+% text "This page intentionally left blank."
+\newcommand{\markblankpages}{}
+
+% Comment out the following line for the copy submitted to the library
+\newcommand{\archivalpapernote}{}
+
+% User defined commands
+\input{user-defined}
+
+\begin{document}
+
+	%%
+	%% Front matter
+	%%
+	\begin{frontmatter}
+
+		\frontmatterheadings
+
+		% Collect the dissertation information for the title page
+		\input{metadata}
+		% Generate the title page
+		\maketitle
+
+		\input{abstract}
+
+		% Author declaration
+		\makedeclaration
+
+		% Acknowledgements
+		\input{acknowledgements}
+
+		% Preface
+		\input{preface}
+
+		% TOC, LOF, LOT
+		{%
+			\singlespacing%
+			\tableofcontents%
+			\listoffigures%
+			% Do not include a list of tables if you have less
+			% than 10 tables, as per SGS suggestion.
+			%\listoftables
+		   \clearpage%
+		}%
+
+   \end{frontmatter}
+
+	%%
+	%% Main matter
+	%%
+	\begin{mainmatter}
+
+		\mainmatterheadings
+
+		\input{chapter-introduction}
+		\input{chapter-methods}
+		\input{chapter-zonalwaves}
+		\input{chapter-psa}
+		\input{chapter-reproducibility}
+		\input{chapter-conclusions}
+								
+	\end{mainmatter}
+
+	%%
+	%% Bibliography
+	%%
+	\addcontentsline{toc}{part}{Bibliography}		
+
+	\bibliography{bib/references}
+	
+	%%
+	%% Appendix
+	%%
+	\begin{appendix}
+
+		\input{appendix}
+
+	\end{appendix}
+
+
+\end{document}
+%... and of four years work! :-)
