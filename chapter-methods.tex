@@ -3,24 +3,55 @@
 
 %=========================================================================
 
-This covers data, general data analysis methods and computation.
+This chapter covers data, general data analysis methods and computation.
+
 
 \section{Data}
 
 %===========================
 
-Blah.
+\subsection{Overview}
+
+The series of reliable, spatially complete atmospheric data available for the mid-to-high southern latitudes is relatively short. The reanalysis projects have produced sequences of surface and upper air fields that in some cases date back to the 1950s \citep{Kistler2001,Uppala2005,Kobayashi2015}, however it is generally accepted that these have limited value prior to 1979 at high southern latitudes, due to a lack of satellite sounder data for use in the assimilation process \citep{Hines2000}.
+
+The latest generation reanalysis datasets (which all date back to at least 1979) are the European Centre for Medium-Range Weather Forecasts Interim Reanalysis \citep[ERA-Interim;][]{Dee2011}, Modern Era Retrospective-analysis for Research and Applications \citep[Merra;][]{Rienecker2011}, Climate Forecast System Reanalysis \citep[CFSR;][]{Saha2010} and Japanese 55-year Reanalysis \citep[JRA-55;][]{Kobayashi2015}. While assessments of the validity of these datasets in the mid-to-high southern latitudes have only just begun to emerge, the available evidence suggests that ERA-Interim may be the superior product. In comparison to its peers, ERA-Interim best reproduces the vertical temperature structure \citep{Screen2012}, precipitation variability \citep{Bromwich2011,Nicolas2011} and mean sea level pressure and 500 hPa geopotential height at station locations \citep{Bracegirdle2012} around Antarctica. As such, daily timescale ERA-Interim data for the 36-year period 1 January 1979 to 31 December 2014 was used in this study.
+
+While ERA-Interim may be considered the superior reanalysis product, it should be said that all reanalysis datasets need to be treated with caution in the mid-to-high southern latitudes due to the sparsity of observational data. There are also well-known difficulties with the representation of low-frequency variability and trends in reanalysis data, due to factors such as changes in the observing system, transitions between multiple production streams, and/or various other errors that can occur in a complex reanalysis production \citep{Dee2014}. These issues are highly relevant to the PSA pattern trends discussed in this study, but are somewhat less critical for the results pertaining to seasonal and interannual variability.
+
+\subsection{ERA-Interim reanalysis}
+
+Reanalysis projects typically provide both analysis and forecast fields for download. The analysis fields are the output of the data assimilation cycle at each time interval, which for ERA-Interim is every six hours. They represent arguably the most accurate possible depiction of the atmospheric state for several dozen variables that are all coherent on the calculation grid. These analysis fields are then used to initialise weather forecasts for the coming hours/days. ERA-Interim forecasts are initialised twice daily at 0000 UTC and 1200 UTC and forecast fields are available for 3, 6, 9 and 12 hours post initialisation.  
+
+In this study we utilise the six-hourly 500 hPa zonal and meridional wind, 500 hPa geopotential height, surface air temperature, sea ice fraction, sea surface temperature and mean sea level pressure analysis fields, from which a daily mean time series was calculated for each variable. For precipitation, the `total precipitation' forecast fields were used (i.e. the sum of the convective and large-scale precipitation, which are also provided separately). Each forecast field represents the accumulated precipitation since initialisation, so the daily rainfall total was calculated as the sum of the two 12 hours post initialisation accumulation fields for each day. The horizontal resolution of the ERA-Interim data used here was 0.75$^{\circ}$ latitude by 0.75$^{\circ}$ longitude. 
 
 
-\section{Data analysis techniques}
+\section{Data analysis}
 
 %===========================
 
-Anomalies, composites, periodograms, climate indices.
+\subsection{Anomalies}
+All anomaly data discussed in the paper represent the daily anomaly. For instance, in preparing the 30-day running mean surface air temperature anomaly data series, a 30-day running mean was first applied to the daily surface air temperature data. The mean value for each day in this 30-day running mean data series was then calculated to produce a daily climatology (i.e. the multi-year daily mean). The corresponding daily mean value was then subtracted at each data time to obtain the anomaly.  
+
+\subsection{Composites}
+Annual and seasonal mean composites are presented throughout the paper for key variables. To produce these composites, a mean spatial map was calculated across all data times that (a) fell within the season of interest, and (b) exceeded a specified threshold value. To determine the statistical significance of the composite mean at each grid point, two-sided, independent sample t-tests were used to calculate the probability ($p$) that the composite mean value was not significantly different from the climatological (i.e. all data times) mean for that season.
+
+\subsection{Periodograms}
+The characteristics of data series that have been Fourier-transformed are often summarised using a plot known as a periodogram or Fourier line spectrum \citep{Wilks2011}. These plots are also referred to as a power or density spectrum, and most commonly display the squared amplitudes ($C_k^2$) of the Fourier transform coefficients as a function of their corresponding frequencies ($\omega_k$). As an alternative to the squared amplitude, we have chosen to rescale the vertical axis and instead use the $R^2$ statistic commonly computed in regression analysis. The $R^2$ for the $k$th harmonic is,
+
+\begin{equation}\label{eq:variance_explained}
+R_k^2 = \frac{(n/2)C_k^2}{(n-1)s_y^2}
+\end{equation}
+
+\noindent where $s_y^2$ is the sample variance and $n$ the length of the data series. This rescaling is particularly useful as it shows the proportion of variance in the original data series accounted for by each harmonic \citep{Wilks2011}.
+
+\subsection{Climate indices}
+Two of the major modes of SH climate variability are the Southern Annular Mode (SAM) and El Ni\~{n}o Southern Oscillation (ENSO). In order to assess their relationship with the PWI, the Antarctic Oscillation Index \citep[AOI;][]{Gong1999} and Ni\~{n}o 3.4 index \citep{Trenberth2001} were calculated from 30-day running mean data (i.e. the same timescale that was used to calculate the PWI). The former represents the normalised difference of zonal mean sea level pressure between 40$^{\circ}$S and 65$^{\circ}$S, while the latter is the sea surface temperature anomaly for the region in the central tropical Pacific Ocean bounded by 5$^{\circ}$S-5$^{\circ}$N and 190-240$^{\circ}$E. 
 
 
 \section{Computation}
 
 %===========================
 
-Blah.
+The results in this thesis were obtained using a number of different software packages. A collection of command line utilities known as the NetCDF Operators (NCO) and Climate Data Operators (CDO) were used to edit the attributes of netCDF files and to perform routine calculations on those files (e.g. the calculation of anomalies and climatologies) respectively. For more complex analysis and visualisation, a Python distribution called Anaconda was used. In addition to the Numerical Python \citep[NumPy;][]{VanDerWalt2011} and Scientific Python (SciPy) libraries that come installed by default with Anaconda, a Python library called xray was used for reading/writing netCDF files and data analysis. Similarly, in addition to Matplotlib \citep[the default Python plotting library;][]{Hunter2007}, Iris, Cartopy and Seaborn were used to generate many of the figures. Iris was also used for rotating the global coordinate system and meridional wind (via the PROJ.4 Cartographic Projections Library), and the pyqt\_fit, eofs and windspharm libraries were used for kernel density estimation, EOF analysis and for calculating the streamfunction respectively.
+
+To facilitate the reproducibility of the results presented, an accompanying Figshare repository has been created to document the computational methodology (TODO: create Figshare page). In addition to a more detailed account (i.e. version numbers, release dates, web addresses) of the software packages discussed above, the Figshare repository contains a supplementary file for each figure in the paper, outlining the computational steps performed from initial download of the ERA-Interim data through to the final generation of the plot. A version controlled repository of the code referred to in those supplementary files can be found at \url{https://github.com/DamienIrving/climate-analysis}. The rationale behind this approach to documenting computational results is explained in Section X.
