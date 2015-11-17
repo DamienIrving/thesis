@@ -161,6 +161,9 @@
 %% Custom commands
 %%
 
+% Set the ORCID id
+\newcommand{\orcid}[1]{\def\@orcid{#1}}
+
 % Set the department
 \newcommand{\department}[1]{\def\@department{#1}}
 
@@ -199,6 +202,7 @@
 					\vspace{1cm}
 				{\Large
 					{\@author} \par
+					{\small ORCID identifier: \@orcid} \par
 						\vspace{3cm}
 					Submitted in total fulfilment of the requirements of the degree of \par
 					\bigskip
