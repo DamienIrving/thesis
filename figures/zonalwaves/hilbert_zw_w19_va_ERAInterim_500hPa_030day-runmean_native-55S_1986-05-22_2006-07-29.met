@@ -1,0 +1,14 @@
+Mon Nov 16 09:11:28 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/visualisation/plot_hilbert.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_030day-runmean_native.nc va /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/hilbert_zw_w19_va_ERAInterim_500hPa_030day-runmean_native-55S_1986-05-22_2006-07-29.eps 1 2 --latitude -55 -55 --dates 1986-05-22 2006-07-29 --wavenumbers 1 9 --figure_size 15 6 --envelope 1 9 (Git hash: a9573e4)
+Tue Jun 30 07:35:49 2015: cdo runmean,30 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_030day-runmean_native.nc
+Mon Jun 29 07:29:50 2015: ncatted -O -a missing_value,va,d,, va_ERAInterim_500hPa_daily_native.nc
+Thu Mar 19 16:55:06 2015: ncatted -O -a axis,time,c,c,T /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc
+Thu Mar 19 15:44:22 2015: ncatted -O -a missing_value,va,o,f,-32767. /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc
+Wed Mar 18 17:17:14 2015: cdo mergetime va_ERAInterim_500hPa_daily-2014-06-01-to-2014-12-31_native.nc ../data/va_ERAInterim_500hPa_daily_native_orig.nc ../data/va_ERAInterim_500hPa_daily_native.nc
+Mon Nov 10 17:15:49 2014: ncatted -O -a level,va,o,c,500hPa va_ERAInterim_500hPa_daily_native.nc
+Mon Nov 10 16:31:05 2014: ncatted -O -a long_name,va,o,c,northward_wind va_ERAInterim_500hPa_daily_native.nc
+Thu Aug 21 10:57:46 2014: ncatted -O -a axis,time,c,c,T va_ERAInterim_500hPa_daily_native.nc
+Thu Aug 21 10:34:46 2014: ncrename -O -v v,va va_ERAInterim_500hPa_daily_native.nc
+Thu Aug 21 10:26:49 2014: cdo invertlat -sellonlatbox,0,359.9,-90,90 -daymean va_ERAInterim_500hPa_6hourly_native.nc va_ERAInterim_500hPa_daily_native.nc
+Thu Aug 21 10:14:59 2014: cdo mergetime ../download/va_ERAInterim_500hPa_6hourly-1979-1988_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-1989-1998_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-1999-2008_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc va_ERAInterim_500hPa_6hourly_native.nc
+Thu Aug 21 10:13:35 2014: ncpdq -P upk va_ERAInterim_500hPa_6hourly-2009-2014_native.nc va_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc
+2014-08-20 23:16:22 GMT by grib_to_netcdf-1.13.0: grib_to_netcdf /data/data01/netcdf-atls04-20140820231025-46030-4696.target -o /data/data01/netcdf-atls04-20140820231553-46030-4697.nc 

@@ -1,0 +1,95 @@
+Tue Jun 30 13:49:46 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/visualisation/plot_map.py 1 1 --infile /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/composites/sf-composite_samgt75pct-pwigt90pct_ERAInterim_500hPa_030day-runmean_native-zonal-anom-shextropics15.nc sf_annual none none none contour0 1 --output_projection SouthPolarStereo --infile /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/composites/sf-composite_samlt25pct-pwigt90pct_ERAInterim_500hPa_030day-runmean_native-zonal-anom-shextropics15.nc sf_annual none none none contour1 1 --contour_levels -20 -16 -12 -8 -4 0 4 8 12 16 20 --ofile /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/composites/sf-composite_samgt75pct-samlt25pct-pwigt90pct_ERAInterim_500hPa_030day-runmean_native-zonal-anom-shextropics15.png --contour_colours 0.7 black (Git hash: 1a906a7)
+
+History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/composites/sf-composite_samlt25pct-pwigt90pct_ERAInterim_500hPa_030day-runmean_native-zonal-anom-shextropics15.nc: 
+
+Tue Jun 30 13:45:26 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_composite.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_030day-runmean_native-zonal-anom.nc sf /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/composites/sf-composite_samlt25pct-pwigt90pct_ERAInterim_500hPa_030day-runmean_native-zonal-anom-shextropics15.nc --date_file /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samlt25pct-pwigt90pct_ERAInterim_surface_030day-runmean_native.txt --region shextropics15 --no_sig (Git hash: 1a906a7)
+
+    History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_030day-runmean_native-zonal-anom.nc: 
+
+    Tue Jun 30 10:27:44 2015: cdo runmean,30 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_daily_native-zonal-anom.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_030day-runmean_native-zonal-anom.nc
+    Tue Jun 30 10:27:11 2015: cdo -O mergetime /mnt/meteo0/data/simmonds/dbirving/temp/temp-zonal-anom_1979-1983.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-zonal-anom_1984-1988.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-zonal-anom_1989-1993.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-zonal-anom_1994-1998.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-zonal-anom_1999-2003.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-zonal-anom_2004-2008.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-zonal-anom_2009-2013.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-zonal-anom_2014-2018.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_daily_native-zonal-anom.nc
+    Tue Jun 30 10:27:08 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_zonal_anomaly.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_daily_native.nc sf /mnt/meteo0/data/simmonds/dbirving/temp/temp-zonal-anom_2014-2018.nc --time 2014-01-01 2018-12-31 (Git hash: 1a906a7)
+    Tue Jun 30 10:13:04 2015: cdo -O mergetime /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_1979-1981.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_1982-1984.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_1985-1987.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_1988-1990.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_1991-1993.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_1994-1996.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_1997-1999.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_2000-2002.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_2003-2005.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_2006-2008.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_2009-2011.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_2012-2014.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_daily_native.nc
+    Tue Jun 30 10:12:58 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_wind_quantities.py streamfunction /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/ua_ERAInterim_500hPa_daily_native.nc ua /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc va /mnt/meteo0/data/simmonds/dbirving/temp/temp-streamfunction_2012-2014.nc --time 2012-01-01 2014-12-31 (Git hash: 1a906a7)
+
+        History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/ua_ERAInterim_500hPa_daily_native.nc: 
+
+        Mon Jun 29 10:18:54 2015: ncatted -O -a long_name,ua,o,c,eastward_wind /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/ua_ERAInterim_500hPa_daily_native.nc
+        Mon Jun 29 07:29:41 2015: ncatted -O -a missing_value,ua,d,, ua_ERAInterim_500hPa_daily_native.nc
+        Thu Mar 19 14:39:40 2015: ncatted -O -a axis,time,c,c,T /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/ua_ERAInterim_500hPa_daily_native.nc
+        Thu Mar 19 13:25:29 2015: ncatted -O -a missing_value,ua,o,f,-32767. /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/ua_ERAInterim_500hPa_daily_native.nc
+        Wed Mar 18 17:14:31 2015: cdo mergetime ua_ERAInterim_500hPa_daily-2014-06-01-to-2014-12-31_native.nc ../data/ua_ERAInterim_500hPa_daily_native_orig.nc ../data/ua_ERAInterim_500hPa_daily_native.nc
+        Mon Nov 10 16:30:02 2014: ncatted -O -a level,ua,o,c,500hPa ua_ERAInterim_500hPa_daily_native.nc
+        Mon Nov 10 15:20:22 2014: ncatted -O -a long_name,ua,o,c,eastward_wind ua_ERAInterim_500hPa_daily_native.nc
+        Thu Aug 21 08:51:34 2014: ncatted -O -a axis,time,c,c,T ua_ERAInterim_500hPa_daily_native_ed.nc ua_ERAInterim_500hPa_daily_native.nc
+        Thu Aug 21 08:50:04 2014: cdo invertlat ua_ERAInterim_500hPa_daily_native.nc ua_ERAInterim_500hPa_daily_native_ed.nc
+        Thu Aug 21 08:37:41 2014: ncatted -O -a axis,time,c,c,T ua_ERAInterim_500hPa_daily_native.nc
+        Thu Aug 21 08:37:32 2014: ncrename -O -v u,ua ua_ERAInterim_500hPa_daily_native.nc
+        Thu Aug 21 08:31:38 2014: cdo sellonlatbox,0,359.9,-90,90 -daymean ua_ERAInterim_500hPa_6hourly_native.nc ua_ERAInterim_500hPa_daily_native.nc
+        Thu Aug 21 08:17:22 2014: cdo mergetime ../download/ua_ERAInterim_500hPa_6hourly-1979-1988_native_unpacked.nc ../download/ua_ERAInterim_500hPa_6hourly-1989-1998_native_unpacked.nc ../download/ua_ERAInterim_500hPa_6hourly-1999-2008_native_unpacked.nc ../download/ua_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc ua_ERAInterim_500hPa_6hourly_native.nc
+        Thu Aug 21 08:14:59 2014: ncpdq -P upk ua_ERAInterim_500hPa_6hourly-2009-2014_native.nc ua_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc
+        Wed Aug 20 03:49:28 2014: Initial download of 6 hourly, 500 hPa zonal wind ERA-Interim data in 5 or 10 year chunks (e.g. ua_ERAInterim_500hPa_6hourly-2009-2014_native.nc) from http://apps.ecmwf.int/datasets/data/interim-full-daily/  
+
+        History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc: 
+
+        Mon Jun 29 07:29:50 2015: ncatted -O -a missing_value,va,d,, va_ERAInterim_500hPa_daily_native.nc
+        Thu Mar 19 16:55:06 2015: ncatted -O -a axis,time,c,c,T /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc
+        Thu Mar 19 15:44:22 2015: ncatted -O -a missing_value,va,o,f,-32767. /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc
+        Wed Mar 18 17:17:14 2015: cdo mergetime va_ERAInterim_500hPa_daily-2014-06-01-to-2014-12-31_native.nc ../data/va_ERAInterim_500hPa_daily_native_orig.nc ../data/va_ERAInterim_500hPa_daily_native.nc
+        Mon Nov 10 17:15:49 2014: ncatted -O -a level,va,o,c,500hPa va_ERAInterim_500hPa_daily_native.nc
+        Mon Nov 10 16:31:05 2014: ncatted -O -a long_name,va,o,c,northward_wind va_ERAInterim_500hPa_daily_native.nc
+        Thu Aug 21 10:57:46 2014: ncatted -O -a axis,time,c,c,T va_ERAInterim_500hPa_daily_native.nc 
+        Thu Aug 21 10:34:46 2014: ncrename -O -v v,va va_ERAInterim_500hPa_daily_native.nc
+        Thu Aug 21 10:26:49 2014: cdo invertlat -sellonlatbox,0,359.9,-90,90 -daymean va_ERAInterim_500hPa_6hourly_native.nc va_ERAInterim_500hPa_daily_native.nc
+        Thu Aug 21 10:14:59 2014: cdo mergetime ../download/va_ERAInterim_500hPa_6hourly-1979-1988_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-1989-1998_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-1999-2008_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc va_ERAInterim_500hPa_6hourly_native.nc
+        Thu Aug 21 10:13:35 2014: ncpdq -P upk va_ERAInterim_500hPa_6hourly-2009-2014_native.nc va_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc
+        Wed Aug 20 23:16:22 2014: Initial download of 6 hourly, 500 hPa meridional wind ERA-Interim data in 5 or 10 year chunks (e.g. va_ERAInterim_500hPa_6hourly-2009-2014_native.nc) from http://apps.ecmwf.int/datasets/data/interim-full-daily/ 
+ 
+    History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samlt25pct-pwigt90pct_ERAInterim_surface_030day-runmean_native.txt: 
+
+    Tue Jun 30 13:45:19 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/combine_dates.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_pwigt90pct_ERAInterim_500hPa_030day-runmean_native.txt /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samlt25pct_ERAInterim_surface_030day-runmean_native.txt /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samlt25pct-pwigt90pct_ERAInterim_surface_030day-runmean_native.txt (Git hash: 1a906a7)
+
+        History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_pwigt90pct_ERAInterim_500hPa_030day-runmean_native.txt: 
+
+        Tue Jun 30 08:43:35 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/create_date_list.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/pwi_va_ERAInterim_500hPa_030day-runmean_native.nc pwi /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_pwigt90pct_ERAInterim_500hPa_030day-runmean_native.txt --metric_threshold 90pct --threshold_direction greater (Git hash: 1a906a7)
+        Tue Jun 30 08:06:46 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_climate_index.py PWI /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/envva_w19_ERAInterim_500hPa_030day-runmean_native.nc envva /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/pwi_va_ERAInterim_500hPa_030day-runmean_native.nc (Git hash: 1a906a7)
+        Tue Jun 30 08:04:25 2015: cdo -O mergetime /mnt/meteo0/data/simmonds/dbirving/temp/temp-hilbert_1979-1983.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-hilbert_1984-1988.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-hilbert_1989-1993.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-hilbert_1994-1998.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-hilbert_1999-2003.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-hilbert_2004-2008.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-hilbert_2009-2013.nc /mnt/meteo0/data/simmonds/dbirving/temp/temp-hilbert_2014-2018.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/envva_w19_ERAInterim_500hPa_030day-runmean_native.nc
+        Tue Jun 30 08:04:23 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_fourier_transform.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_030day-runmean_native.nc va /mnt/meteo0/data/simmonds/dbirving/temp/temp-hilbert_2014-2018.nc 1 9 hilbert --time 2014-01-01 2018-12-31 (Git hash: 1a906a7)
+        Tue Jun 30 07:35:49 2015: cdo runmean,30 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_030day-runmean_native.nc
+
+        History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samlt25pct_ERAInterim_surface_030day-runmean_native.txt: 
+
+        Tue Jun 30 13:45:18 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/create_date_list.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/sam_ERAInterim_surface_030day-runmean_native.nc sam /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samlt25pct_ERAInterim_surface_030day-runmean_native.txt --metric_threshold 25pct --threshold_direction less (Git hash: 1a906a7)
+    
+            History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/sam_ERAInterim_surface_030day-runmean_native.nc:
+    
+            Tue Jun 30 13:38:57 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_climate_index.py SAM /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/psl_ERAInterim_surface_030day-runmean_native-shextropics30.nc psl /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/sam_ERAInterim_surface_030day-runmean_native.nc (Git hash: 1a906a7)
+            Tue Jun 30 13:31:54 2015: cdo runmean,30 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/psl_ERAInterim_surface_daily_native-shextropics30.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/psl_ERAInterim_surface_030day-runmean_native-shextropics30.nc
+            Tue Jun 30 09:11:01 2015: ncatted -O -a missing_value,psl,d,, psl_ERAInterim_surface_daily_native-shextropics30.nc
+            Tue Mar  3 15:26:55 2015: ncatted -O -a long_name,psl,o,c,mean_sea_level_pressure psl_ERAInterim_surface_daily_native-shextropics30.nc
+            Tue Mar  3 15:26:52 2015: ncatted -O -a standard_name,psl,o,c,mean_sea_level_pressure psl_ERAInterim_surface_daily_native-shextropics30.nc
+            Tue Mar  3 15:26:50 2015: ncatted -O -a calendar,global,d,, psl_ERAInterim_surface_daily_native-shextropics30.nc
+            Tue Mar  3 15:26:48 2015: ncatted -O -a axis,time,c,c,T psl_ERAInterim_surface_daily_native-shextropics30.nc
+            Tue Mar  3 15:26:45 2015: ncrename -O -v msl,psl psl_ERAInterim_surface_daily_native-shextropics30.nc
+            Tue Mar  3 15:26:42 2015: ncatted -O -a axis,time,c,c,T psl_ERAInterim_surface_daily_native-shextropics30.nc
+            Tue Mar  3 15:23:21 2015: ncatted -O -a missing_value,msl,o,c,-32767. psl_ERAInterim_surface_daily_native-shextropics30.nc
+            Tue Mar 03 15:20:23 2015: cdo invertlat -sellonlatbox,0,359.9,-90,90 -daymean psl_ERAInterim_surface_6hourly_native-shextropics30.nc psl_ERAInterim_surface_daily_native-shextropics30.nc
+            Tue Mar 03 15:04:22 2015: cdo mergetime psl_ERAInterim_surface_6hourly-1979-1983_native-shextropics30.nc psl_ERAInterim_surface_6hourly-1984-1988_native-shextropics30.nc psl_ERAInterim_surface_6hourly-1989-1993_native-shextropics30.nc psl_ERAInterim_surface_6hourly-1994-1998_native-shextropics30.nc psl_ERAInterim_surface_6hourly-1999-2003_native-shextropics30.nc psl_ERAInterim_surface_6hourly-2004-2008_native-shextropics30.nc psl_ERAInterim_surface_6hourly-2009-2014_native-shextropics30.nc psl_ERAInterim_surface_6hourly_native-shextropics30.nc
+            Tue Mar  3 15:03:13 2015: ncpdq -P upk psl_ERAInterim_surface_6hourly-2009-2014_native-shextropics30.nc psl_ERAInterim_surface_6hourly-2009-2014_native-shextropics30.nc
+            Tue Mar  3 03:17:47 2015: Initial download of 6 hourly, sea level pressure ERA-Interim data in 5 or 10 year chunks (e.g. psl_ERAInterim_surface_6hourly-2009-2014_native.nc) from http://apps.ecmwf.int/datasets/data/interim-full-daily/
+  
+
+History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/composites/sf-composite_samgt75pct-pwigt90pct_ERAInterim_500hPa_030day-runmean_native-zonal-anom-shextropics15.nc: 
+
+Tue Jun 30 13:45:17 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_composite.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_030day-runmean_native-zonal-anom.nc sf /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/composites/sf-composite_samgt75pct-pwigt90pct_ERAInterim_500hPa_030day-runmean_native-zonal-anom-shextropics15.nc --date_file /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samgt75pct-pwigt90pct_ERAInterim_surface_030day-runmean_native.txt --region shextropics15 --no_sig (Git hash: 1a906a7)
+ 
+    History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samgt75pct-pwigt90pct_ERAInterim_surface_030day-runmean_native.txt: 
+
+    Tue Jun 30 13:38:59 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/combine_dates.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_pwigt90pct_ERAInterim_500hPa_030day-runmean_native.txt /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samgt75pct_ERAInterim_surface_030day-runmean_native.txt /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samgt75pct-pwigt90pct_ERAInterim_surface_030day-runmean_native.txt (Git hash: 1a906a7)
+
+    History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samgt75pct_ERAInterim_surface_030day-runmean_native.txt: 
+
+    Tue Jun 30 13:38:59 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/create_date_list.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/sam_ERAInterim_surface_030day-runmean_native.nc sam /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/indexes/dates_samgt75pct_ERAInterim_surface_030day-runmean_native.txt --metric_threshold 75pct --threshold_direction greater (Git hash: 1a906a7)
+  
+
+ 
