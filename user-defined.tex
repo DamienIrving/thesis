@@ -1,8 +1,3 @@
-%%
-%% VERSION HISTORY
-%%    22 May 2006 - John Papandriopoulos - Original version
-%%    12 Jul 2007 - John Papandriopoulos - Converted into template
-%%
 
 \usepackage{setspace}
 \onehalfspacing 
@@ -11,6 +6,15 @@
 \usepackage{enumerate}
 \usepackage[capitalise]{cleveref}
 
+
+% Feature boxes
+% Could change p to H to force the location
+\usepackage{float}
+\floatstyle{plain}
+\newfloat{featurebox}{p}{lob}
+\floatname{featurebox}{Box}
+
+\usepackage{tcolorbox}
 
 % AMS packages
 %\usepackage{amsfonts}
