@@ -18,7 +18,7 @@ The results presented in this thesis are completely reproducible. This chapter e
 
 In devising a procedure that might be adopted as a minimum communication standard, it was important to first consider why computational scientists do not currently publish their code. The literature on this topic is relatively sparse, however a recent survey of the machine learning community found that the top reason for not sharing code was the perceived time required to prepare it for publication, followed by the prospect of dealing with questions from users  \citep{Stodden2010}. While many researchers are sympathetic to the ideals of open science and reproducible research, it appears that the practicalities seem too difficult and time consuming, particularly when the pressure to publish is so strong and unrelenting.
 
-The bewildering array of suggested tools and best practices is one reason why an individual working in the weather and climate sciences might place reproducibility in the `too hard' basket. An appropriate solution for any given scientist no doubt exists within that collection of tools and practices, but it is heavily obscured. Consider the `regular' scientist described in Box 1. In consulting the literature on reproducible computational research, they would be confronted with options including data provenance tracking systems like VisTrails \citep{Freire2012} and PyRDM \citep{Jacobs2014}, software environment managers like Docker and Vagrant \citep{Stodden2014}, and even online services like RunMyCode.org where your code and data can be run by others \citep{Stodden2012}. These might be fantastic options for small teams of software engineers or experienced scientific programmers dealing with very large workflows (e.g. the post-processing of thousands of CMIP5 model runs), complex model simulations and/or production style code (e.g. they might be developing a satellite retrieval algorithm that has high re-use potential in the wider community), but a regular scientist has neither the requisite computational experience or a research problem of sufficient scale and complexity to necessarily require and/or make use of such tools. The procedure employed by IS2015 was designed with this regular scientist in mind. It looked to minimise both the time involved and the complexity of the associated tools, while at the same time remaining faithful to established best practices in scientific computing.
+The bewildering array of suggested tools and best practices is one reason why an individual working in the weather and climate sciences might place reproducibility in the `too hard' basket. An appropriate solution for any given scientist no doubt exists within that collection of tools and practices, but it is heavily obscured. Consider the `regular' scientist described in Box \ref{box:regular_scientist}. In consulting the literature on reproducible computational research, they would be confronted with options including data provenance tracking systems like VisTrails \citep{Freire2012} and PyRDM \citep{Jacobs2014}, software environment managers like Docker and Vagrant \citep{Stodden2014}, and even online services like RunMyCode.org where your code and data can be run by others \citep{Stodden2012}. These might be fantastic options for small teams of software engineers or experienced scientific programmers dealing with very large workflows (e.g. the post-processing of thousands of CMIP5 model runs), complex model simulations and/or production style code (e.g. they might be developing a satellite retrieval algorithm that has high re-use potential in the wider community), but a regular scientist has neither the requisite computational experience or a research problem of sufficient scale and complexity to necessarily require and/or make use of such tools. The procedure employed by IS2015 was designed with this regular scientist in mind. It looked to minimise both the time involved and the complexity of the associated tools, while at the same time remaining faithful to established best practices in scientific computing.
 
 
 \begin{featurebox}
@@ -39,13 +39,14 @@ Some scientists might be regular in most but not all aspects of their work (e.g.
 
 \end{tcolorbox}
 
-\caption{Description of a regular scientist}
+\caption{\label{box:regular_scientist}
+Description of a regular scientist}
 \end{featurebox}
 
   
 \subsection{Components}
 
-At first glance, the only difference between a regular journal article and that of IS2015 is the addition of a short computation section (Box 2). That section accompanied the traditional description of data and methods within the article and briefly cited the major software packages used in the research, before pointing the reader to three key supplementary items: (1) a more detailed description of the software used, (2) a version controlled and publicly available code repository and (3) a collection of supplementary log files that captured the data processing steps taken in producing each key result. The repository was hosted at a popular code sharing website called GitHub, while the detailed software description and log files were hosted at Figshare \citep{Irving2015}, which is a website where researchers commonly archive the `long tail' of their research (e.g. supplementary figures, code and data). 
+At first glance, the only difference between a regular journal article and that of IS2015 is the addition of a short computation section (Section \ref{s:computation}). That section accompanied the traditional description of data and methods within the article and briefly cited the major software packages used in the research, before pointing the reader to three key supplementary items: (1) a more detailed description of the software used, (2) a version controlled and publicly available code repository and (3) a collection of supplementary log files that captured the data processing steps taken in producing each key result. The repository was hosted at a popular code sharing website called GitHub, while the detailed software description and log files were hosted at Figshare \citep{Irving2015}, which is a website where researchers commonly archive the `long tail' of their research (e.g. supplementary figures, code and data). 
 
 \subsubsection{Software description}
 
@@ -59,17 +60,54 @@ In addition to providing a link to the associated Github repository, IS2015 prov
 
 \subsubsection{Log files}\label{s:log_files}
 
-A code repository and software description on their own are not much use to a reader; they also need to know how that code was used in generating the results presented in the paper. It turns out that in the weather and climate sciences, the answer to adequately documenting the computational steps involved in producing a given result has been staring us in the face for years. As a community we have almost universally adopted a self-describing file format (i.e. a format where metadata can be stored within the file) called network Common Data Form (netCDF), which means we have been able to develop numerous software tools for processing and manipulating data stored in that format. The most well known of these are a collection of command line tools known as the NetCDF Operators (NCO) and Climate Data Operators (CDO). Whenever an NCO or CDO command is executed, a time stamp followed by a copy of the command line entry is automatically placed into the global attributes of the output netCDF file, thus maintaining a history of the provenance of that data (see Box 3 for examples of NCO and CDO entries).
+A code repository and software description on their own are not much use to a reader; they also need to know how that code was used in generating the results presented in the paper. It turns out that in the weather and climate sciences, the answer to adequately documenting the computational steps involved in producing a given result has been staring us in the face for years. As a community we have almost universally adopted a self-describing file format (i.e. a format where metadata can be stored within the file) called network Common Data Form (netCDF), which means we have been able to develop numerous software tools for processing and manipulating data stored in that format. The most well known of these are a collection of command line tools known as the NetCDF Operators (NCO) and Climate Data Operators (CDO). Whenever an NCO or CDO command is executed, a time stamp followed by a copy of the command line entry is automatically placed into the global attributes of the output netCDF file, thus maintaining a history of the provenance of that data (see Box \ref{box:log_file} for examples of NCO and CDO entries).
 
-What is important here is not the specific software tools or file format (there are many researchers who do not use NCO, CDO, or netCDF files) but rather the deceptively simple method for recording previous computational steps. Using any of the programming languages common to the weather and climate sciences, a user can obtain details of the associated command line entry and append such text to the global attributes of a netCDF file (or a corresponding metadata text file if dealing with file formats that are not self-describing). In fact, in all of these languages such tasks can be achieved with just one or two lines of additional code [e.g. see \citet{Irving2015a} for a short lesson on how to do this using Python]. IS2015 provided a log file containing a complete NCO/CDO-style history for each figure; see Box 3 for details of one of those files and the associated page on Figshare for the complete set.
+What is important here is not the specific software tools or file format (there are many researchers who do not use NCO, CDO, or netCDF files) but rather the deceptively simple method for recording previous computational steps. Using any of the programming languages common to the weather and climate sciences, a user can obtain details of the associated command line entry and append such text to the global attributes of a netCDF file (or a corresponding metadata text file if dealing with file formats that are not self-describing). In fact, in all of these languages such tasks can be achieved with just one or two lines of additional code [e.g. see \citet{Irving2015a} for a short lesson on how to do this using Python]. IS2015 provided a log file containing a complete NCO/CDO-style history for each figure; see Box \ref{box:log_file} for details of one of those files and the associated page on Figshare for the complete set.
 
 An important feature of these log files is that they are both readable and writable by any weather and climate scientist. If advanced practitioners are tracking their computational steps with tools like VisTrails then they can certainly submit log files (or equivalent documentation) exported from those tools, but as a minimum standard it is important that elaborate tools are not a requirement. By spelling out every single computational step (i.e. from initial data download to the final plot/result), the log files also ensure that readers do not need to be familiar with build tools like Make or other workflow management tools in order to figure out which computational steps were executed and in what order. Other features of note include:
 \begin{itemize}
-\item Besides a slight amendment to the initial download entry of the log file shown in Box 3 (the default text provided by the ERA-Interim data server was not particularly self explanatory), no manual editing of its contents was done. This means that if a reviewer asked for a slight modification to the figure, for instance, the regeneration of a new log file would be trivial. By resisting the urge to clean up the file (e.g. one might consider removing path details like \verb|/mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/|) it also doubles as a record that is highly useful to the author in retracing their own steps (e.g. they could use it to recall where they stored the output data on their local machine).
+\item Besides a slight amendment to the initial download entry of the log file shown in Box \ref{box:log_file} (the default text provided by the ERA-Interim data server was not particularly self explanatory), no manual editing of its contents was done. This means that if a reviewer asked for a slight modification to the figure, for instance, the regeneration of a new log file would be trivial. By resisting the urge to clean up the file (e.g. one might consider removing path details) it also doubles as a record that is highly useful to the author in retracing their own steps (e.g. they could use it to recall where they stored the output data on their local machine).
 \item As previously mentioned, it cannot be assumed that the latest version of any code repository was used to generate all the results in a given paper. The unique version control revision number / hash value was therefore recorded in the log files, wherever a script written by the author was executed. Languages like Python, R and MATLAB are able to link with version control systems like Git, so the retrieval of the revision number can be automated.
 \item When more than one input file is passed to an NCO or CDO function, the history of only one of those files is retained in the output file. On occasions where this is not appropriate (i.e. where the histories of the multiple input files are very different), it is important to ensure that the history of all input files is retained. There are a number of examples of this in the log files provided on Figshare. 
 \end{itemize}
   
+ 
+ \begin{featurebox}
+
+\begin{tcolorbox}[width=\textwidth]
+
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, breaklines=true]
+Tue Jun 30 08:57:37 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/visualisation/plot_hilbert.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_030day-runmean_native.nc va /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/hilbert_zw_w19_va_ERAInterim_500hPa_030day-runmean_native-55S_1986-05-22_2006-07-29.png 1 2 --latitude -55 --dates 1986-05-22 2006-07-29 --wavenumbers 1 9 --figure_size 15 6 (Git hash: 1a906a7)
+
+Tue Jun 30 07:35:49 2015: cdo runmean,30 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_030day-runmean_native.nc
+
+Wed Mar 18 17:17:14 2015: cdo mergetime va_ERAInterim_500hPa_daily-2014-06-01-to-2014-12-31_native.nc ../data/va_ERAInterim_500hPa_daily_native_orig.nc ../data/va_ERAInterim_500hPa_daily_native.nc
+
+Mon Nov 10 17:15:49 2014: ncatted -O -a level,va,o,c,500hPa va_ERAInterim_500hPa_daily_native.nc
+
+Mon Nov 10 16:31:05 2014: ncatted -O -a long_name,va,o,c,northward_wind va_ERAInterim_500hPa_daily_native.nc
+
+Thu Aug 21 10:57:46 2014: ncatted -O -a axis,time,c,c,T va_ERAInterim_500hPa_daily_native.nc
+
+Thu Aug 21 10:34:46 2014: ncrename -O -v v,va va_ERAInterim_500hPa_daily_native.nc
+
+Thu Aug 21 10:26:49 2014: cdo invertlat -sellonlatbox,0,359.9,-90,90 -daymean va_ERAInterim_500hPa_6hourly_native.nc va_ERAInterim_500hPa_daily_native.nc
+
+Thu Aug 21 10:14:59 2014: cdo mergetime ../download/va_ERAInterim_500hPa_6hourly-1979-1988_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-1989-1998_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-1999-2008_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc va_ERAInterim_500hPa_6hourly_native.nc
+
+Thu Aug 21 10:13:35 2014: ncpdq -P upk va_ERAInterim_500hPa_6hourly-2009-2014_native.nc va_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc
+
+Wed Aug 20 23:16:22 2014: Initial download of 6 hourly, 500 hPa meridional wind ERA-Interim data in 5 or 10 year chunks (e.g. va_ERAInterim_500hPa_6hourly-2009-2014_native.nc) from http://apps.ecmwf.int/datasets/data/interim-full-daily/
+\end{lstlisting}
+
+\end{tcolorbox}
+
+\caption{\label{box:log_file}
+Log file corresponding to Figure X. Details regarding the software and code referred to in the log file are provided in Section \ref{s:computation}.}
+
+\end{featurebox}  
+ 
+ 
 %===========================
 
 \section{A new minimum standard}
@@ -124,31 +162,8 @@ While widespread adoption of this minimum standard would be a great starting poi
   
 
 
- 
-%\section*{Box 3: Example log file}
-%
-%The following is the log file corresponding to Figure \ref{fig:example_figure}. It shows every command line entry executed in creating the figure from the initial download of the underlying data to the final generation of the figure. Details regarding the software and code referred to in the log file are provided in the example computation section (Box 2).
 
-%\begin{lstlisting}[basicstyle=\small]
-%Tue Jun 30 08:57:37 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/visualisation/plot_hilbert.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_030day-runmean_native.nc va /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/zw/figures/hilbert_zw_w19_va_ERAInterim_500hPa_030day-runmean_native-55S_1986-05-22_2006-07-29.png 1 2 --latitude -55 --dates 1986-05-22 2006-07-29 --wavenumbers 1 9 --figure_size 15 6 (Git hash: 1a906a7)
 
-%Tue Jun 30 07:35:49 2015: cdo runmean,30 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_030day-runmean_native.nc
 
-%Wed Mar 18 17:17:14 2015: cdo mergetime va_ERAInterim_500hPa_daily-2014-06-01-to-2014-12-31_native.nc ../data/va_ERAInterim_500hPa_daily_native_orig.nc ../data/va_ERAInterim_500hPa_daily_native.nc
 
-%Mon Nov 10 17:15:49 2014: ncatted -O -a level,va,o,c,500hPa va_ERAInterim_500hPa_daily_native.nc
 
-%Mon Nov 10 16:31:05 2014: ncatted -O -a long_name,va,o,c,northward_wind va_ERAInterim_500hPa_daily_native.nc
-
-%Thu Aug 21 10:57:46 2014: ncatted -O -a axis,time,c,c,T va_ERAInterim_500hPa_daily_native.nc
-
-%Thu Aug 21 10:34:46 2014: ncrename -O -v v,va va_ERAInterim_500hPa_daily_native.nc
-
-%Thu Aug 21 10:26:49 2014: cdo invertlat -sellonlatbox,0,359.9,-90,90 -daymean va_ERAInterim_500hPa_6hourly_native.nc va_ERAInterim_500hPa_daily_native.nc
-
-%Thu Aug 21 10:14:59 2014: cdo mergetime ../download/va_ERAInterim_500hPa_6hourly-1979-1988_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-1989-1998_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-1999-2008_native_unpacked.nc ../download/va_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc va_ERAInterim_500hPa_6hourly_native.nc
-
-%Thu Aug 21 10:13:35 2014: ncpdq -P upk va_ERAInterim_500hPa_6hourly-2009-2014_native.nc va_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc
-
-%Wed Aug 20 23:16:22 2014: Initial download of 6 hourly, 500 hPa meridional wind ERA-Interim data in 5 or 10 year chunks (e.g. va_ERAInterim_500hPa_6hourly-2009-2014_native.nc) from http://apps.ecmwf.int/datasets/data/interim-full-daily/
-%\end{lstlisting}
