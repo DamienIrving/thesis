@@ -12,11 +12,68 @@ The chapter presents a new method for objectively identifying Southern Hemispher
 
 %================================
 
+\section{Methodology}
+
+\subsection{Wave envelope}
+
+A possible way of addressing the shortcomings of the previous approaches borrows from recent advances in the automated identification of Rossby wave packets. In particular, \citet{Zimin2003} pioneered a method of identifying the envelope of atmospheric waveforms based on the Hilbert transform, which is a well known technique in digital signal processing but had been scarcely applied in the atmospheric sciences. In defining their algorithm, \citet{Zimin2003} consider the real function $\upsilon(x)$ on an equally-spaced grid along a latitude circle, which is parameterised by $x$, with $0 < x \leq 2\pi$. The grid points are located at $x = 2 \pi l / N$, where $l = 1, 2, \dotsc, N$ and $N$ is an even integer. The first step of the algorithm is to compute the Fourier transform of $\upsilon(x)$:
+
+\begin{equation}\label{eq:fourier_transform}
+\hat{\upsilon}_k = \frac{1}{N}\sum_{l=1}^N \upsilon \left( \frac{2 \pi l}{N} \right) e^{-2 \pi ikl/N},\qquad k = -\frac{N}{2} + 1, \dotsc, \frac{N}{2}
+\end{equation}
+
+\noindent The inverse Fourier transform is then applied to a selected band ($0 < k_{min} \leq k \leq k_{max}$) of the positive wavenumber half of the Fourier spectrum (this is the part of the process that was inspired by the Hilbert transform):
+
+\begin{equation}\label{eq:inverse_transform}
+w \left( \frac{2 \pi l}{N} \right) = 2 \sum_{k=k_{min}}^{k_{max}} \hat{\upsilon}_k e^{2\pi ikl/N}
+\end{equation}
+
+\noindent The (complex number) amplitude of the resulting waveform ($w$) represents the wave envelope ($E$):
+
+\begin{equation}\label{eq:wave_envelope}
+E(2 \pi l / N) = | w(2 \pi l / N) |
+\end{equation}
+
+\noindent The various components of this process are illustrated in Figure \ref{fig:example_hilbert} for the case where $\upsilon(x)$ is the meridional wind along the 54.75$^{\circ}$S latitude circle. 
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=1\columnwidth]{figures/zonalwaves/hilbert_zw_w19_va_ERAInterim_500hPa_030day-runmean_native-55S_1986-05-22_2006-07-29.eps}
+\caption{\label{fig:example_hilbert}
+Wave envelope of the 30-day running mean, 500 hPa meridional wind for 22 May 1986 and 29 July 2006 at 54.75$^{\circ}$S. The original meridional wind (solid blue), individual Fourier components for wavenumbers 1-9 (as defined in Equation \ref{eq:fourier_transform}; grey dashed), reconstructed signal from the inverse Fourier transform (Equation \ref{eq:inverse_transform} with wavenumbers 1-9 retained; dashed orange), and wave envelope (Equation \ref{eq:wave_envelope}; solid orange) are all shown. %
+}
+\end{center}
+\end{figure}
+
+Subsequent studies have gone on to apply the \citet{Zimin2003} algorithm in the context of identifying and tracking Rossby wave packets in daily timescale data \citep{Glatt2014,Souders2014}, however its utility in identifying waveforms on longer temporal and larger spatial scales has not previously been investigated. In these studies, a spatial map of the wave envelope is constructed for each data time (i.e. $E(t,\lambda,\phi)$, where $t$, $\lambda$ and $\phi$ represent time, latitude and longitude respectively). The utility of these maps is evident when considering the two maps (Figure \ref{fig:example_envelope}) that correspond to the single-latitude examples shown in Figure \ref{fig:example_hilbert}. For (the diurnal averages of) both 22 May 1986 and 29 July 2006, it is clear that the wavenumber three component of the Fourier transform is dominant at 54.75$^{\circ}$S (and at the other nearby latitudes not shown in Figure \ref{fig:example_hilbert}). An analysis based on single wavenumbers could lead one to believe that both data times are associated with a pronounced hemispheric ZW3 pattern, despite the fact that this is clearly only true for 29 July (Figure \ref{fig:example_envelope}). On 22 May the spatial scale of the anomalous flow from 200-260$^{\circ}$E approximately matches wavenumber three, but elsewhere the flow is strongly zonal. The other components of the Fourier transform serve to modulate the wavenumber three component accordingly, and by using the wave envelope as opposed to a single wavenumber approach, this useful information is retained.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.84\columnwidth]{figures/zonalwaves/envva-w19_ERAInterim_500hPa_030day-runmean_native_1986-05-22_2006-07-29.eps}
+\caption{\label{fig:example_envelope}
+Wave envelope (calculated from the 30-day running mean, 500 hPa meridional wind) for 22 May 1986 and 29 July 2006. The black contours show the corresponding 500 hPa streamfunction zonal anomaly (dashed contours indicate negative values and the contour interval is $5 \times 10^6 \: m^2 s^{-1}$). Wavenumbers 1-9 were retained and the 54.75$^{\circ}$S latitude band is indicated with a grey dashed line for ease of comparison with Figure \ref{fig:example_hilbert}. %
+}
+\end{center}
+\end{figure}
 
 
+\subsection{Index of planetary wave activity}
 
+To define and calculate an appropriate metric of planetary wave activity, $E(t,\lambda,\phi)$ was calculated from the 500 hPa meridional wind. The latitudinal dimension of $E(t,\lambda,\phi)$ was eliminated by calculating the meridional maximum over the range 40-70$^{\circ}$S, and then the zonal median was taken to eliminate the longitudinal dimension and arrive at a single `Planetary Wave Index' (PWI) value for each data time. Since wavenumbers 1-9 were retained during the process (i.e. essentially all wavenumbers), the PWI represents an integrated measure of the `waviness' of the hemispheric circulation.
 
+The meridional wind was used in calculating the PWI because it fundamentally reflects the presence of waves in the zonal flow. If the flow is purely zonal there are no waves and $v = 0$, while the magnitude of $v$ reflects the activity of the waves. The meridional wind is also directly involved with meridional transports of heat and moisture, which impacts directly on surface temperature, precipitation and sea ice. In fact, many studies have shown that $v$ (either filtered or unfiltered) contains much more dynamic information about synoptic processes than alternatives like the geopotential height or streamfunction \citep[e.g.][]{Berbery1996,Hoskins2005,Petoukhov2013}, neither of which has a \textit{direct} involvement with meridional exchanges. 
 
+While better suited to the purposes of our study, the selection of $v$ has important implications for the Fourier analyses we present. From the geostrophic relation we know that $v \propto dZ / dx$, which means that $Z$ tends to be dominated by longer wavelengths (or smaller wavenumbers) than $v$. In particular, since $Z$ is a sinusoidal function of $x$ in Fourier space, it follows that $v_k \propto k Z_k$ for any given wavenumber $k$, meaning more of the variance in $v$ is explained by the synoptic (and shorter) waves than it is for $Z$. This is an important distinction that is discussed further in the Results section. Besides the selection of the meridional wind, a number of other factors were taken into consideration in devising this methodology:
+\begin{itemize}
+\item The results show little sensitivity to the choice of atmospheric level because planetary waves are equivalent barotropic. 500 hPa was selected as it represents a mid-to-upper tropospheric level that is below the tropopause in all seasons and at all latitudes of interest.
+\item The wave envelope is slightly smoother if wavenumbers greater than 9 are left out of the Hilbert transform, but otherwise the result is not appreciably different from when all wavenumbers are retained.
+\item The meridional maximum (over 40-70$^{\circ}$S) was taken to allow for slight north/south variations in the mean latitude of planetary wave activity and also for the fact that the waveform is not perfectly zonally oriented. 
+\item The zonal median (as opposed to the mean or integral) was taken to guard against large values in one part of the hemisphere overly influencing the end result.
+\end{itemize}
+
+In order to be consistent with much of the existing literature, the majority of the analysis focuses on the monthly timescale. Monthly mean data were obtained by applying a 30-day running mean to the daily (i.e. diurnally averaged) ERA-Interim data, so as to maximise the monthly information available from the dataset. As noted by previous authors \citep[e.g.][]{Kidson1988}, potentially useful information may be lost if only twelve (i.e. calendar month) samples are taken every year. Dates are labeled as the 16th day of the 30-day period (e.g. the labeled date 1979-01-16 spans the period 1979-01-01 to 1979-01-30).   
+    
+    
 %================================
 
 \section{Results}
