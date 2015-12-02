@@ -1,11 +1,11 @@
 
-\chapter{Methods}
+\chapter{Methods}\label{c:methods}
 
 %=========================================================================
 
 \begin{synopsis}
 
-This chapter documents the datasets, data analysis procedures and computation procedures common to all results presented in this thesis.
+This chapter documents the datasets, data analysis procedures and computation procedures common to all results presented in the thesis.
 
 \end{synopsis}
 
@@ -32,14 +32,17 @@ In this study we utilise the six-hourly 500 hPa zonal and meridional wind, 500 h
 
 %===========================
 
+\subsection{Timescale}
+In order to be consistent with much of the existing literature, the majority of the analysis presented in the thesis focuses on the monthly timescale. Monthly mean data were obtained by applying a 30-day running mean to the daily (i.e. diurnally averaged) ERA-Interim data, so as to maximise the monthly information available from the dataset. As noted by previous authors \citep[e.g.][]{Kidson1988}, potentially useful information may be lost if only twelve (i.e. calendar month) samples are taken every year. Dates are labeled as the 16th day of the 30-day period (e.g. the labeled date 1979-01-16 spans the period 1979-01-01 to 1979-01-30). 
+
 \subsection{Anomalies}
-All anomaly data discussed in the paper represent the daily anomaly. For instance, in preparing the 30-day running mean surface air temperature anomaly data series, a 30-day running mean was first applied to the daily surface air temperature data. The mean value for each day in this 30-day running mean data series was then calculated to produce a daily climatology (i.e. the multi-year daily mean). The corresponding daily mean value was then subtracted at each data time to obtain the anomaly.  
+All anomaly data discussed in the thesis represent the daily anomaly. For instance, in preparing the 30-day running mean surface air temperature anomaly data series, a 30-day running mean was first applied to the daily surface air temperature data. The mean value for each day in this 30-day running mean data series was then calculated to produce a daily climatology (i.e. the multi-year daily mean). The corresponding daily mean value was then subtracted at each data time to obtain the anomaly.  
 
 \subsection{Composites}
-Annual and seasonal mean composites are presented throughout the paper for key variables. To produce these composites, a mean spatial map was calculated across all data times that (a) fell within the season of interest, and (b) exceeded a specified threshold value. To determine the statistical significance of the composite mean at each grid point, two-sided, independent sample t-tests were used to calculate the probability ($p$) that the composite mean value was not significantly different from the climatological (i.e. all data times) mean for that season.
+Annual and seasonal mean composites are presented throughout the thesis for key temporal subsets (e.g. all data times where an index of interest exceeds a threshold value). To determine the statistical significance of the composite mean at each grid point, two-sided, independent sample t-tests were used to calculate the probability ($p$) that the composite mean value was not significantly different from the climatological (i.e. all data times) mean for that season.
 
 \subsection{Periodograms}
-The characteristics of data series that have been Fourier-transformed are often summarised using a plot known as a periodogram or Fourier line spectrum \citep{Wilks2011}. These plots are also referred to as a power or density spectrum, and most commonly display the squared amplitudes ($C_k^2$) of the Fourier transform coefficients as a function of their corresponding frequencies ($\omega_k$). As an alternative to the squared amplitude, we have chosen to rescale the vertical axis and instead use the $R^2$ statistic commonly computed in regression analysis. The $R^2$ for the $k$th harmonic is,
+The characteristics of data series that have been Fourier-transformed are often summarised using a plot known as a periodogram or Fourier line spectrum \citep{Wilks2011}. These plots are also referred to as a power or density spectrum, and most commonly display the squared amplitudes ($C_k^2$) of the Fourier transform coefficients as a function of their corresponding frequencies ($\omega_k$). As an alternative to the squared amplitude, the periodgrams presented in this thesis display a rescaled vertical axis that uses the $R^2$ statistic commonly computed in regression analysis. The $R^2$ for the $k$th harmonic is,
 
 \begin{equation}\label{eq:variance_explained}
 R_k^2 = \frac{(n/2)C_k^2}{(n-1)s_y^2}
@@ -48,7 +51,7 @@ R_k^2 = \frac{(n/2)C_k^2}{(n-1)s_y^2}
 \noindent where $s_y^2$ is the sample variance and $n$ the length of the data series. This rescaling is particularly useful as it shows the proportion of variance in the original data series accounted for by each harmonic \citep{Wilks2011}.
 
 \subsection{Climate indices}
-Two of the major modes of SH climate variability are the Southern Annular Mode (SAM) and El Ni\~{n}o Southern Oscillation (ENSO). In order to assess their relationship with the PWI, the Antarctic Oscillation Index \citep[AOI;][]{Gong1999} and Ni\~{n}o 3.4 index \citep{Trenberth2001} were calculated from 30-day running mean data (i.e. the same timescale that was used to calculate the PWI). The former represents the normalised difference of zonal mean sea level pressure between 40$^{\circ}$S and 65$^{\circ}$S, while the latter is the sea surface temperature anomaly for the region in the central tropical Pacific Ocean bounded by 5$^{\circ}$S-5$^{\circ}$N and 190-240$^{\circ}$E. 
+Two of the major modes of SH climate variability are the Southern Annular Mode (SAM) and El Ni\~{n}o Southern Oscillation (ENSO). In order to assess their relationship with the major zonal asymmetries of the SH circulation, the Antarctic Oscillation Index \citep[AOI;][]{Gong1999} and Ni\~{n}o 3.4 index \citep{Trenberth2001} were calculated from 30-day running mean data (i.e. the same timescale that was used for the rest of the analysis). The former represents the normalised difference of zonal mean sea level pressure between 40$^{\circ}$S and 65$^{\circ}$S, while the latter is the sea surface temperature anomaly for the region in the central tropical Pacific Ocean bounded by 5$^{\circ}$S-5$^{\circ}$N and 190-240$^{\circ}$E. 
 
 
 \section{Computation}\label{s:computation}
@@ -57,4 +60,4 @@ Two of the major modes of SH climate variability are the Southern Annular Mode (
 
 The results in this thesis were obtained using a number of different software packages. A collection of command line utilities known as the NetCDF Operators (NCO) and Climate Data Operators (CDO) were used to edit the attributes of netCDF files and to perform routine calculations on those files (e.g. the calculation of anomalies and climatologies) respectively. For more complex analysis and visualisation, a Python distribution called Anaconda was used. In addition to the Numerical Python \citep[NumPy;][]{VanDerWalt2011} and Scientific Python (SciPy) libraries that come installed by default with Anaconda, a Python library called xray was used for reading/writing netCDF files and data analysis. Similarly, in addition to Matplotlib \citep[the default Python plotting library;][]{Hunter2007}, Iris, Cartopy and Seaborn were used to generate many of the figures. Iris was also used for rotating the global coordinate system and meridional wind (via the PROJ.4 Cartographic Projections Library), and the pyqt\_fit, eofs and windspharm libraries were used for kernel density estimation, EOF analysis and for calculating the streamfunction respectively.
 
-To facilitate the reproducibility of the results presented, an accompanying Figshare repository has been created to document the computational methodology (TODO: create Figshare page). In addition to a more detailed account (i.e. version numbers, release dates, web addresses) of the software packages discussed above, the Figshare repository contains a supplementary file for each figure in the paper, outlining the computational steps performed from initial download of the ERA-Interim data through to the final generation of the plot. A version controlled repository of the code referred to in those supplementary files can be found at \url{https://github.com/DamienIrving/climate-analysis}. The rationale behind this approach to documenting computational results is explained in Section X.
+To facilitate the reproducibility of the results presented, an accompanying Figshare repository has been created to document the computational methodology (TODO: create Figshare page). In addition to a more detailed account (i.e. version numbers, release dates, web addresses) of the software packages discussed above, the Figshare repository contains a supplementary file for each figure in the paper, outlining the computational steps performed from initial download of the ERA-Interim data through to the final generation of the plot. A version controlled repository of the code referred to in those supplementary files can be found at \url{https://github.com/DamienIrving/climate-analysis}. The rationale behind this approach to documenting computational results is explained in Chapter \ref{c:reproducibility}.
