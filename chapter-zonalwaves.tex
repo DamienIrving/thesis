@@ -17,7 +17,7 @@ The chapter presents a new method for objectively identifying Southern Hemispher
 Existing studies of SH zonal wave activity have tended to use a stationary identification method such as a grid point metric or EOF analysis. As discussed in Section \ref{s:zw_overview}, a shortcoming of these approaches is that they are unable to capture phase variations in the wave pattern of interest. Some studies have allowed the phase to vary by isolating a single Fourier mode instead, but in failing to incorporate the modulating effect of the other Fourier modes this approach assumes a constant amplitude waveform. By adapting the wave envelope construct routinely used in the identification of synoptic-scale Rossby wave packets, the method developed here fully exploits the capabilities of Fourier analysis and allows both the wave phase and amplitude to vary.
  
  
-\subsection{Wave envelope}
+\subsection{Wave envelope}\label{s:envelope}
 
 In devising an improved solution for the automated identification of Rossby wave packets, \citet{Zimin2003} pioneered a method of identifying the envelope of atmospheric waveforms based on the Hilbert transform, which is a well known technique in digital signal processing but had been scarcely applied in the atmospheric sciences. In defining their algorithm, \citet{Zimin2003} consider the real function $\upsilon(x)$ on an equally-spaced grid along a latitude circle, which is parameterised by $x$, with $0 < x \leq 2\pi$. The grid points are located at $x = 2 \pi l / N$, where $l = 1, 2, \dotsc, N$ and $N$ is an even integer. The first step of the algorithm is to compute the Fourier transform of $\upsilon(x)$:
 
