@@ -51,13 +51,63 @@ Description of a regular scientist}
 
 %===========================  
   
-\section{An approach to documenting the computational aspects of a research project}\label{s:reproducibility_approach}
+\section{Documenting the computational aspects of a research project}\label{s:reproducibility_approach}
 
 At first glance, the only difference between a regular thesis or journal article and that presented here is the addition of a short computation section (e.g. Section \ref{s:computation}). That section accompanies the traditional description of data and methods and briefly cites the major software packages used in the research, before pointing the reader to three key supplementary items: (1) a more detailed description of the software used, (2) a version controlled and publicly available code repository and (3) a collection of supplementary log files that capture the data processing steps taken in producing each key result. The repository was hosted at a popular code sharing website called GitHub, while the detailed software description and log files were hosted at Figshare \citep{IrvingFigshare2016}, which is a website where researchers commonly archive the `long tail' of their research (e.g. supplementary figures, code and data). 
 
 \subsection{Software description}
 
-There is an important difference between citing the software that was used in a study (i.e. so that the authors get appropriate academic credit) and describing it in sufficient detail so as to convey the precise version and computing environment \citep{Jackson2012}. Recognising this, the computation section should begin with a high-level description of the software used, which includes citations to any papers written about the software. Authors of scientific software are increasingly publishing with journals like the \textit{Journal of Open Research Software}, so it is important for users of that software to cite those papers within their manuscripts. This high-level description is also useful for briefly articulating what general tasks each software item was used for (e.g. plotting, data analysis, file manipulation). Such an overview does not provide sufficient detail to recreate the computing environment used in the study, so it is also necessary to provide a link to a supplementary file that documents the precise version of each software package used and the operating system upon which it was run (namely the name, version number, release date, institution and DOI or URL). 
+There is an important difference between citing the software that was used in a study (i.e. so that the authors get appropriate academic credit) and describing it in sufficient detail so as to convey the precise version and computing environment \citep{Jackson2012}. Recognising this, the computation section should begin with a high-level description of the software used, which includes citations to any papers written about the software. Authors of scientific software are increasingly publishing with journals like the \textit{Journal of Open Research Software}, so it is important for users of that software to cite those papers within their manuscripts. This high-level description is also useful for briefly articulating what general tasks each software item was used for (e.g. plotting, data analysis, file manipulation). Such an overview does not provide sufficient detail to recreate the computing environment used in the study, so it is also necessary to provide a link to a supplementary file that documents the precise version of each software package used and the operating system upon which it was run (namely the name, version number, release date, institution and DOI or URL; Box \ref{box:software_description}). 
+
+\begin{featurebox}
+
+\begin{tcolorbox}[width=\textwidth]
+
+\begin{lstlisting}[basicstyle=\footnotesize\ttfamily, breaklines=true]
+Operating system: 
+
+Ubuntu. 12.04. April 2012. Canonical Ltd.
+    http://www.ubuntu.com/
+
+Software packages:
+
+netCDF Operators. 4.4.6. September 2014. netCDF Operators Project.
+    http://sourceforge.net/projects/nco/
+Climate Data Operators. 1.7.0. October 2015. Max Plank Institut fur Meteorologie. Hamburg, Germany. 
+    https://code.zmaw.de/projects/cdo
+Anaconda. 2.0.1. July 2014. Continuum Analytics. Austin, Texas.
+    http://docs.continuum.io/anaconda/
+Python. 2.7.10. May 2015. Python Software Foundation.
+    https://www.python.org/
+NumPy. 1.10.1. October 2015. NumPy Developers. 
+    http://www.numpy.org/
+SciPy. 0.16.0. July 2015. SciPy Developers.
+    http://www.scipy.org/scipylib/
+xray. 0.5.1. June 2015. xray Developers.
+    http://xray.readthedocs.org/
+windspharm. 1.3.1. June 2014. Andrew Dawson.
+    http://ajdawson.github.io/windspharm/
+eofs. 0.5.0. June 2014. Andrew Dawson.
+    http://ajdawson.github.io/eofs/
+pyqt_fit. 1.3.3. August 2014. Pierre Barbier de Reuille. 
+    https://pyqt-fit.readthedocs.org/
+matplotlib. 1.4.3. July 2015. Matplotlib Development Team.
+    http://matplotlib.org/
+seaborn. 0.6.0. June 2015. Michael Waskom.
+    http://stanford.edu/~mwaskom/software/seaborn/
+iris. 1.8.1. June 2015. Met Office. Exeter, England.
+    http://scitools.org.uk/
+cartopy. 0.13.0. June 2015. Met Office. Exeter, England.
+    http://scitools.org.uk/
+
+\end{lstlisting}
+
+\end{tcolorbox}
+
+\caption{\label{box:software_description}
+Software environment used in producing the results presented in this thesis \citep[and documented at][]{IrvingFigshare2016}}
+
+\end{featurebox}  
 
 \subsection{Code repository}
 
@@ -110,7 +160,7 @@ Wed Aug 20 23:16:22 2014: Initial download of 6 hourly, 500 hPa meridional wind 
 \end{tcolorbox}
 
 \caption{\label{box:log_file}
-Log file corresponding to Figure X. Details regarding the software and code referred to in the log file are provided in Section \ref{s:computation}.}
+Log file corresponding to Figure \ref{fig:example_hilbert}. Details regarding the software and code referred to in the log file are provided in Section \ref{s:computation}.}
 
 \end{featurebox}  
  
