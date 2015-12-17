@@ -58,7 +58,7 @@
 \headheight 14pt
 
 % We don't want any margin for headers
-%\topmargin 0pt
+\topmargin 0pt
 
 % We don't wany any par margins
 \marginparwidth 0pt
@@ -172,6 +172,7 @@
 
 % 80 word summary+
 \newcommand{\summary}[1]{\def\@summary{#1}}
+
 
 %%
 %% Title page and copyright
@@ -369,18 +370,18 @@
 %%
 
 \def\@makechapterhead#1{%
-  \vspace*{25\p@}%
+  \vspace*{0\p@}%was 25
   {\parindent \z@ \raggedright \normalfont \singlespacing
     \ifnum \c@secnumdepth >\m@ne
       \if@mainmatter
         \huge\centering\smallcapstitle \@chapapp\space \thechapter
         \par\nobreak
-        \vskip 10\p@
+        \vskip 10\p@ % was 10
       \fi
     \fi
     \interlinepenalty\@M
     \Huge\smallcapstitle #1\par\nobreak
-    \vskip 40\p@
+    \vskip 40\p@ %was 40
   }%
 }
 
@@ -391,12 +392,12 @@
 %%
 
 \def\@makeschapterhead#1{%
-  \vspace*{50\p@}%
+  \vspace*{0\p@}% was 50
   {\parindent \z@ \raggedright
     \normalfont
     \interlinepenalty\@M
     \Huge\centering\smallcapstitle #1\par\nobreak
-    \vskip 40\p@
+    \vskip 40\p@ % was 40
   }%
 }
 
