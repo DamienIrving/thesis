@@ -11,6 +11,11 @@ This chapter explains the rationale behind the approach taken in documenting the
 
 %===========================
 
+The analysis of ERA-Interim data presented in the preceding chapters required the use of numerous software packages. Most of these contain many more sub-packages or libraries, which together perform a specific task such as data visualisation, EOF analysis, spherical grid rotation or manipulation of netCDF file attributes. A major component of the research therefore involved writing many thousands of lines of code to bring these packages and sub-packages together into a coherent data analysis workflow. For parts of the workflow where no ready-made software package existed, it was also necessary to essentially write a new package/function for that task (e.g. a new Hilbert transform function was written by combining pre-existing Fourier analysis routines from the SciPy library).
+
+Given the computationally intensive nature of the data analysis, it would be impossible for another researcher to replicate the results presented without access to the 
+
+
 In proposing a solution to the reproducibility crisis in computational research, it was first necessary to consult the literature on (a) why researchers do not currently publish their code, and (b) what computational best practices they should be following when they do (Section \ref{s:reproducibility_review}). An approach to documenting the computational aspects of a research project could then be devised that seeks to reduce the barriers for researchers, while at the same time promoting established best practices in scientific computing (Section \ref{s:reproducibility_approach}). That approach was implemented in the publication of both this thesis and the journal papers arising from it. It was also used as a starting point for a proposed minimum communication standard that could be adopted by journals in the weather and climate sciences (Section \ref{s:reproducibility_standards}), and as the basis for a set of lesson materials aimed at researchers wanting to learn the skills required to adhere to those standards (Section \ref{s:reproducibility_lessons}). 
 
 
