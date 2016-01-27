@@ -1,0 +1,2732 @@
+     Characterising the zonally
+asymmetric features of the Southern
+Hemisphere extratropical circulation
+   and their influence on regional
+         climate variability
+                      Damien Brent Irving
+                  ORCID identier: 0000-0003-1258-5002
+
+
+
+
+Submitted in total fullment of the requirements of the degree of
+
+                   Doctor of Philosophy
+
+
+
+                      School of Earth Sciences
+                  THE UNIVERSITY OF MELBOURNE
+
+
+
+
+                            January 2016
+                                   Abstract
+
+The major zonally asymmetric features of the Southern Hemisphere (SH) extratropical
+circulation are the zonal wavenumber one (ZW1), zonal wavenumber three (ZW3) and
+the Pacific-South American (PSA) pattern. These tropospheric waveforms play a critical
+role in the meridional transport of heat and moisture and in the development of blocked
+ow, causing the regional surface climate to vary strongly depending on the strength,
+frequency and phase of their activity. The PSA pattern is widely regarded as the primary mechanism by which the El Nino-Southern Oscillation (ENSO) influences the high
+southern latitudes, and in recent years it has been suggested as a mechanism by which
+longer-term tropical sea surface temperature trends have influenced the Antarctic climate.
+   This thesis presents novel approaches to identifying both the zonal waves and PSA
+pattern in model output. In comparison to existing wave identification methods, the
+approaches more fully exploit the information available from Fourier analysis. For the
+zonal wave analysis, this was achieved by adapting the wave envelope construct recently
+used in the identification of synoptic-scale Rossby wave packets. In order to apply similar
+methods to the non-zonal PSA pattern, a grid rotation method traditionally used in ocean
+modelling was used to orient the equator along the approximate great circle path of the
+pattern. These new wave identification methods were applied to ERA-Interim reanalysis
+data in order to analyse the climatological characteristics of the waveforms and their
+influence on regional climate variability. The results reveal that both the zonal waves and
+PSA pattern are important drivers of temperature, precipitation and sea ice variability in
+the mid-to-high southern latitudes. While ZW1 and ZW3 are both prominent features
+of the climatological circulation, the defining feature of highly meridional hemispheric
+states is an enhancement of the ZW3 component. identified seasonal trends towards the
+negative phase of the PSA pattern were largely inconsistent with recent high latitude
+temperature and sea ice trends. Only a weak relationship was identified between the
+PSA pattern and ENSO, suggesting that the pattern might be better conceptualised as
+preferred regional atmospheric response to various external (and internal) forcings.
+   The analysis of large datasets such as ERA-Interim requires extensive use of vari-
+ous software tools and packages, to the point where coding/programming is a major
+component of the research methodology. Despite this strong reliance on computation,
+traditional academic publishing formats and conventions do not allow for the documen-
+tation of computer software and code, which means it is impossible to replicate and verify
+
+                                           iii
+much of today s academic literature. In an attempt to provide a practical solution to this
+so-called reproducibility crisis, the zonal wave and PSA pattern results have been pre-
+sented in a reproducible manner. The procedure used to document the computational
+aspects of the research was developed to be consistent with recommended best practices
+in scientific computing and seeks to minimise the time burden on authors. It should pro-
+vide a starting point for weather and climate scientists looking to publish reproducible
+research, and it is proposed that relevant academic journals could adopt the procedure
+as a formal minimum standard.
+
+
+
+
+                                            xiii
+                                   Chapter 1
+
+                              Introduction
+
+The study of the atmospheric general circulation is concerned with the dynamics of the
+climate system. It considers the time averaged characteristics of variables such as wind,
+temperature, humidity and precipitation, with the averaging applied over a period long
+enough to remove the effect of individual weather systems, but short enough to retain
+monthly and seasonal variations. For a planet with a longitudinally uniform surface,
+the ow averaged over such a period would be the same at all points along a given
+latitude circle, since the average influence of zonally asymmetric transient eddies (i.e.
+weather disturbances) would be the same at all points. Large-scale topography and
+continent-ocean heating contrasts on Earth, however, provide strong forcing for zonally
+asymmetric planetary-scale motions in the monthly and seasonally averaged ow. These
+longitudinally dependent components of the general circulation may be categorised as
+quasi-stationary circulations, which vary relatively little in time (and are often referred
+to as stationary or planetary waves); monsoonal circulations, which are seasonally re-
+versing; or various subseasonal and interannual components which together account for
+low-frequency variability (Holton and Hakim, 2013).
+   In the Southern Hemisphere (SH) extratropics, the primary zonal asymmetries are
+the quasi-stationary zonal wavenumber one (ZW1) and zonal wavenumber three (ZW3)
+circulations and a mode of low frequency variability known as the Pacific-South Amer-
+ican (PSA) pattern. When superimposed on the zonal-mean circulation, the ZW1, ZW3
+and PSA pattern produce local regions of enhanced and diminished time mean westerly
+winds, which strongly influence the development and propagation of transient weather
+disturbances. Persistent (or blocked) weather patterns, for instance, are typically associ-
+ated with high-amplitude waves in the upper troposphere (e.g. Trenberth and Mo, 1985;
+Renwick, 2005). These waveforms are also associated with the meridional transport of
+heat and moisture, which means variability in their amplitude and phase is associated
+with monthly and seasonal variations in variables such as temperature, precipitation and
+sea ice. Understanding the atmospheric drivers of climate variability in the mid-to-high
+southern latitudes has become an area of renewed interest recent years, in light of the
+rapid climatic changes observed in that region. Of particular relevance to the ZW1, ZW3
+and PSA pattern is the fact that West Antarctica and the Antarctic Peninsula are among
+
+                                            1
+2                                                                               Introduction
+
+
+the most rapidly warming regions on Earth (e.g. Nicolas and Bromwich, 2014) and that
+Antarctic sea ice has undergone a dramatic spatial redistribution (e.g. Simmonds, 2015).
+    New insights into the characteristics of the atmospheric general circulation and its
+influence on regional climate variability are typically obtained via the analysis of data
+arising from carefully designed weather model simulations. These simulations might be
+global reanalysis efforts that aim to provide a temporally and spatially complete depic-
+tion of the historical atmospheric state, or custom simulations that try to isolate particular
+aspects of the circulation by prescribing certain sea surface temperatures (SSTs) or by en-
+hancing/diminishing certain physical processes. Analysis of the large datasets arising
+from these simulations requires extensive use of various software tools and packages, to
+the point where coding/programming is a major component of the research methodol-
+ogy. Despite this strong reliance on computation, traditional academic publishing for-
+mats and conventions do not allow for the documentation of computer software and
+code, which means it is impossible to replicate and verify most of the literature on the
+zonal waves and PSA pattern presented in journal articles today. A similar situation
+exists in many other research disciplines and has contributed greatly to the current re-
+producibility crisis in published research (e.g. Peng, 2011).
+    This chapter explores the details of our current climatological understanding of the
+zonal waves and PSA pattern, with particular focus on the methods used to identify and
+quantify these waveforms in relevant studies. The subsequent chapters go on to present
+updated climatologies that not only utilise a longer and higher quality dataset than pre-
+vious studies, but that also develop and apply new wave identification methods. In an
+attempt to provide a practical solution to the reproducibility crisis in weather and cli-
+mate science, the results discussed in those chapters have been presented in a completely
+reproducible manner. It is proposed that the approach taken in documenting the compu-
+tational aspects of the work could be adopted as a minimum communication standard
+by relevant academic journals.
+
+
+
+1.1    The zonal waves
+
+It was van Loon and Jenne (1972) who first noted that SH planetary wave activity is dom-
+inated by two zonally-oriented, quasi-stationary waveforms of wavenumber one and
+wavenumber three (e.g. Figure 1.1). Since that landmark study, the ZW1 and ZW3 pat-
+terns have been identified as dominant features of the mid-latitude circulation on daily
+(e.g. Kidson, 1988), seasonal (e.g. Mo and White, 1985) and interannual (e.g. Karoly, 1989)
+timescales. Corresponding metrics and climatologies have been developed (Raphael,
+2004; Hobbs and Raphael, 2007) and their relationship with circulation features including
+the Amundsen Sea Low (ASL; Turner et al., 2013) and two prominent quasi-stationary an-
+1.1 The zonal waves                                                                      3
+
+
+
+
+Figure 1.1: Mean 500 hPa circulation for July 2001 (left), which approximately resembles
+the superposition of the corresponding wavenumber one (top right) and three (bottom
+right) components of a Fourier transform. Grey streamlines indicate the direction of the
+wind, while the black contours show the streamfunction zonal anomaly (dashed contours
+indicate negative values and the contour interval is 5.0  106 m2 s"1 ).
+
+
+ticyclones in the sub-Antarctic western hemisphere (Hobbs and Raphael, 2010) have been
+investigated.
+   While these climatologies and investigations reveal many of the basic characteristics
+of the ZW1 and ZW3 patterns (e.g. their variability and spatial pattern), with the ex-
+ception of the ZW3 sea ice analyses of Raphael (2007) and Yuan and Li (2008) and the
+ZW1 SST results of Hobbs and Raphael (2007), subsequent studies have not extended
+these climatologies to consider the influence of the zonal waves on key variables such as
+surface air temperature and precipitation. Related studies on topics such as Australian
+(Frederiksen et al., 2014) and Patagonian (Garreaud et al., 2013) precipitation variability
+sometimes mention a ZW3-like pattern in passing, but the literature lacks a broad, hemi-
+spheric perspective on the link between planetary wave activity and regional climate
+variability. One reason for this might be that the ZW1 and ZW3 patterns never really
+occur in isolation, which makes analyses of just one or the other somewhat problematic
+(Hobbs and Raphael, 2010).
+   In analysing the zonal waves, these previous studies have tended to dene metrics
+based on either a stationary pattern or Fourier decomposition. With respect to the former,
+Raphael (2004) defines a ZW3 index that is essentially the average 500 hPa geopotential
+4                                                                            Introduction
+
+
+height zonal anomaly across three key points (the annual average location of the ridges of
+the ZW3 pattern in the 500 hPa geopotential height eld), while Yuan and Li (2008) use
+the principal component of the leading Empirical Orthogonal Function (EOF) mode of
+the surface monthly meridional wind. The stationary nature of these approaches means
+they cannot fully capture the subtle seasonal migration in the phase of the ZW3 (approx-
+imately 15 degrees of longitude on average; e.g. van Loon and Rogers, 1984; Mo and
+White, 1985) or the occurrence of patterns whose phase does not approximately coincide
+with the location of the three analysis points or leading EOF mode.
+
+
+    A number of studies have analysed the zonal waves by using a Fourier transform
+to express the upper tropospheric geopotential height in the frequency domain as op-
+posed to the spatial domain (Hobbs and Raphael, 2007, 2010; Turner et al., 2013). The
+output of a Fourier transform can be expressed in terms of a magnitude and phase for
+each wavenumber (or frequency/harmonic; the terminology differs in the literature), so
+these studies simply analysed the magnitude and phase information corresponding to
+wavenumber one and/or wavenumber three. While this might be considered an im-
+provement on a grid point or EOF method in the sense that the phase is allowed to vary,
+a shortcoming is that the result is a constant amplitude wave over the entire longitudi-
+nal domain. The two major anticyclones associated with the ZW3 pattern (located over
+the western and eastern South Pacific respectively) are known to be positively covari-
+ant with respect to their location (indicating a coordinated wave pattern) but not am-
+plitude (Hobbs and Raphael, 2010), while in many cases ZW1- and/or ZW3-like vari-
+ability is only prevalent over part of the hemisphere. As discussed in the seminal work
+of van Loon and Jenne (1972), it is clear that the other Fourier components (i.e. the non-
+wavenumber one or three waves) are required to modulate the amplitude of the ZW1 and
+ZW3 variability, and potentially vital information can be lost if those extra components
+are not incorporated when defining a metric of planetary wave activity.
+
+
+    None of the aforementioned studies attempted to combine their ZW1 and ZW3 met-
+rics to get a measure of the net planetary wave activity, so for an example of this we must
+turn to the Northern Hemisphere (NH). In analysing the relationship between planetary
+wave activity and regional weather extremes, Screen and Simmonds (2014) calculated
+the 500 hPa geopotential height Fourier amplitudes for a range of wavenumbers of inter-
+est, and then simply counted the number of positive and negative magnitude anomalies.
+While this may be an appropriate approach for the NH, it too fails to account for the fact
+that some of the waveforms in a Fourier transform act to modulate others (rather than
+to represent a clear spatial characteristic of the ow) and thus it may not be appropriate
+to count all magnitude anomalies (a limitation that was noted by Screen and Simmonds
+(2014)).
+1.2 The PSA pattern                                                                        5
+
+
+1.2      The PSA pattern
+
+First named by Mo and Ghil (1987), the PSA pattern was identified in a number of studies
+of the large-scale SH circulation during the late 1980s and early 1990s (e.g. Kidson, 1988;
+Ghil and Mo, 1991; Lau et al., 1994). A link between the pattern and Rossby wave dis-
+                                 
+persion associated with the El Nino-Southern Oscillation (ENSO) was soon found (e.g.
+Karoly, 1989), and this work was followed by a number of detailed analyses of the char-
+acteristics of the pattern and its downstream impacts (e.g. Mo and Higgins, 1998; Mo,
+2000; Mo and Paegle, 2001).
+   The PSA pattern is most commonly analysed with respect to a pair of EOF modes
+(e.g. Figure 1.2). Known as PSA-1 and PSA-2, these modes are in quadrature and depict
+a wave train extending along an approximate great circle path from the eastern Pacific
+to the south-west Atlantic. Some authors interpret these patterns as a single eastward
+propagating wave (Mo and Higgins, 1998), while others argue that variability in the PSA
+sector is better described as a set of geographically xed regimes (Robertson and Me-
+choso, 2003). The PSA-1 has been related to SST anomalies over the central and eastern
+Pacific on a decadal timescale, while on an interannual timescale it appears as a response
+to ENSO (Mo and Paegle, 2001). The association of PSA-2 with tropical variability is less
+clear, with some authors relating it to the quasi-biennial component of ENSO variability
+(Mo, 2000) and others to the Madden Julian Oscillation (Renwick and Revell, 1999). Inter-
+pretations of the PSA-2 mode are also complicated by its degenerate (North et al., 1982)
+nature (e.g. Figure 1; Mo, 2000). While most of the features of the PSA pattern are consis-
+tent with theory and/or modelling of Rossby wave dispersion from anomalous tropical
+heat sources (e.g. Liu and Alexander, 2007; Li et al., 2015b), it is recognised that the pat-
+tern can also result from internal atmospheric fluctuations caused by instabilities of the
+basic state (and that both mechanisms likely act in concert; e.g. Grimm and Ambrizzi,
+2009).
+   It has been shown that the PSA pattern plays a role in blocking events (Sinclair et al.,
+1997; Renwick and Revell, 1999) and South American rainfall variability (Mo and Paegle,
+2001) and is also closely related to prominent regional features such as the ASL (Turner
+et al., 2013), Antarctic Dipole (Yuan and Martinson, 2001), Antarctic Circumpolar Wave
+(Christoph et al., 1998) and Southern Annular Mode (SAM; e.g. Ding et al., 2012). While
+these are all important mid-to-high latitude impacts and relationships, in recent years
+the PSA pattern has been mentioned most frequently in the literature in relation to the
+rapid warming observed over West Antarctica and the Antarctic Peninsula (Nicolas and
+Bromwich, 2014). In particular, it has been suggested that seasonal trends in tropical Pa-
+cic SSTs may be responsible, via circulation trends resembling the PSA pattern, for win-
+ter (and to a lesser extent spring) surface warming in West Antarctica (Ding et al., 2011)
+and autumn surface warming across the Antarctic Peninsula (Ding and Steig, 2013). The
+6                                                                              Introduction
+
+
+
+Figure 1.2: EOF analysis of the monthly 500 hPa zonal streamfunction anomaly from the
+ERA-Interim reanalysis over the period 1979 2014. This is the most common method,
+variable and timescale used to investigate the PSA pattern and the data are presented
+as the correlation of the corresponding principal component with the original eld. The
+second and third EOF modes are degenerate according to the North et al. (1982) rule
+of thumb, which means the sample eignenvectors (i.e. EOF-2 and EOF-3) represent a
+random mixture of the true eigenvector. In this case, EOF-1 resembles the PSA-1 mode
+described in the literature, while EOF-3 resembles the PSA-2 mode. Different ltering,
+datasets, time periods and EOF methodologies influence the location and magnitude of
+the anomaly centres slightly, but the overall structure of the EOF-1 mode and the de-
+generate nature of EOF-2 and EOF-3 are a consistent feature. Green lines indicate the
+search region of interest defined in Section 4.1.1 (referred to as the  PSA sector ) and the
+percentage of variance explained is indicated for each EOF mode.
+1.3 The reproducibility crisis                                                          7
+
+
+pattern has also been associated with declines in sea ice in the Amundsen and Belling-
+shausen Seas (Schneider et al., 2012a) and glacier retreat in the Amundsen Sea Embay-
+ment (Steig et al., 2012).
+   In identifying the PSA pattern as a possible contributor to these trends, the afore-
+mentioned studies looked through the lens of the variable/s of interest. For instance,
+Ding et al. (2011) performed a maximum covariance analysis to examine the relationship
+between central Pacific SSTs and the broader SH circulation (the 200hPa geopotential
+height). The second mode of that analysis revealed a circulation resembling the PSA
+pattern (and that brings warm air over West Antarctica), and atmospheric model runs
+forced with the associated central Pacific SSTs produced a PSA-like wave train. While
+this is certainly a valid research methodology, the result would be more robust if a climatology of PSA pattern activity also displayed trends consistent with warming in West
+Antarctica. This concept of teleconnection reversibility was recently invoked to question
+the relationship between Indian Ocean SSTs and heat waves in south-western Australia
+(Boschat et al., 2016).
+
+
+
+1.3    The reproducibility crisis
+
+The rise of computational science has led to unprecedented opportunities in the weather
+and climate sciences. Ever more powerful computers enable experiments that would
+have been considered impossible only a decade ago, while new hardware technologies
+allow data collection in even the most inaccessible places. In order to analyse the vast
+quantities of data now available to them, modern practitioners   most of whom are not
+computational experts   use an increasingly diverse set of software tools and packages.
+Today s weather or climate scientist is far more likely to be found debugging code writ-
+ten in Python, MATLAB, Interactive Data Language (IDL), NCAR Command Language
+(NCL) or R, than to be poring over satellite images or releasing radiosondes.
+   This computational revolution is not unique to the weather and climate sciences and
+has led to something of a reproducibility crisis in published research (e.g. Peng, 2011).
+Most papers do not make the data and code underpinning key findings available, nor do
+they adequately specify the software packages and libraries used to execute that code.
+This means it is impossible to replicate and verify most of the computational results pre-
+sented in journal articles today. By extension (and perhaps even more importantly), it is
+also impossible for readers to interrogate the data processing methodology. If a reader
+cannot nd out which Python library was used in re-gridding a particular dataset, how
+can they build upon that re-gridding method and/or apply it in their own context?
+   A movement within the computational science community has arisen in response to
+this crisis, calling for existing communication standards to be adapted to include the
+8                                                                               Introduction
+
+
+data and code associated with published findings (e.g. Stodden and Miguez, 2014). The
+movement has also been active in producing best practice recommendations to guide sci-
+entists and stakeholders (e.g. Prli and Procter, 2012; Stodden, 2012; Sandve et al., 2013;
+                                   c
+Stodden and Miguez, 2014), and similar calls and guidelines have appeared in numerous
+editorials and commentaries in recent years (e.g. Barnes, 2010; Merali, 2010; Ince et al.,
+2012). In response to this sustained campaign, there has been a modest but perceptible
+reaction from funding agencies and academic journals. Agencies like the U.S. National
+Science Foundation now require dataset disclosure and encourage software availability,
+however this is not consistently enforced and compliance is largely left to the authors
+themselves (Stodden et al., 2013). A recent review of journal policies found a trend to-
+ward data and code availability, but overall the vast majority of journals have no data or
+code policy (Stodden et al., 2013).
+    Similar to many other computational disciplines, in the weather and climate sciences
+progress on code availability is lagging behind data availability. The societies behind
+most of the major journals (American Meteorological Society, Royal Meteorological Society, American Geophysical Union and European Geosciences Union) all have official
+data policies (e.g. Mayernik et al., 2015), however only two of the four indicate that code
+is included under their broad definition of data or metadata. Where code is included,
+statements regarding code availability consist of brief, vague suggestions that are not en-
+forced by editors and reviewers. New journals such as Geoscientific Model Development
+have arisen for documenting work where code/software is the primary output (e.g. the
+development of a new climate model), but little progress has been made in document-
+ing the computational aspects of research where code is ancillary to the main focus (i.e.
+where the code is not of sufficient consequence to require a standalone paper devoted to
+its description). Given that much of the research conducted by weather and climate sci-
+entists is based on previously documented datasets and/or models (e.g. a paper might
+analyse a reanalysis dataset or the output from running a well-known atmospheric model
+forced with anomalous sea surface temperatures), ancillary code availability (as opposed
+to data availability or primary code availability) is the component of the reproducibility
+crisis common to essentially all research today.
+    While it is tempting to simply decry the slow response of journals and funding agen-
+cies in the face of this crisis, the reality is that examples of reproducible weather and cli-
+mate research upon which to base new communication standards have only just begun to
+emerge. For instance, the Max Planck Institute for Meteorology (MPI-M) recently enacted
+a policy (Stevens, cited 2015) that requires all primary data (including ancillary code) to
+be archived, and papers adhering to that policy are now starting to be published (e.g.
+Stevens, 2015). There are also a limited number of examples from other research disci-
+plines, where highly motivated computational scientists have taken a variety of different
+approaches to publishing reproducible results (e.g. Hanigan et al., 2012; Ketcheson and
+1.4 Thesis outline                                                                        9
+
+
+Ahmadia, 2012; Crooks and Hailegiorgis, 2014; Bremges et al., 2015; Schmitt et al., 2015).
+In order to set well informed communication standards, journals and funding agencies
+require many more examples of reproducible research, in addition to robust discussions
+on the practicalities of different approaches and how they might be implemented as for-
+mal standards.
+
+
+
+1.4   Thesis outline
+This thesis presents a detailed climatological account of the major zonal asymmetries of
+the SH extratropical circulation. In order to overcome the shortcomings of current wave
+identification methods, new methods are devised that adapt data processing techniques
+more commonly used in meteorological and oceanographic research. The application of
+these methods reveals many new insights into the characteristics of the ZW1, ZW3 and
+PSA pattern and their influence on regional climate variability and trends. The thesis also
+provides a practical solution to the reproducibility crisis in weather and climate research.
+Rather than adopt an approach that only works for the research at hand, a procedure
+for documenting the computational aspects of a research project was developed that re-
+duces the barriers for researchers while also promoting good programming practices. It
+should provide a starting point for weather and climate scientists looking to publish re-
+producible research, and a detailed proposal is put forward outlining how the procedure
+might be adopted as a formal minimum standard by relevant academic journals.
+   The data, general data analysis techniques and computational procedures are out-
+lined in Chapter 2. The new wave identification methods and corresponding climatolo-
+gies for the zonal waves and PSA pattern are then described in Chapters 3 and 4 respec-
+tively, while the practical solution to the reproducibility crisis is covered in Chapter 5.
+The major contributions of the thesis are summarised in Chapter 6, along with a discus-
+sion of the associated limitations and directions for further research.
+                                      Chapter 2
+                                      Methods
+    This chapter documents the datasets, data analysis procedures and computation procedures com-
+  mon to all results presented in the thesis.
+
+
+
+
+2.1     Data
+
+2.1.1   Overview
+
+The series of reliable, spatially complete atmospheric data available for the mid-to-high
+southern latitudes is relatively short. The reanalysis projects have produced sequences of
+surface and upper air elds that in some cases date back as far as the 1940s (Kistler et al.,
+2001; Uppala et al., 2005; Kobayashi et al., 2015), however it is generally accepted that
+these have limited value prior to 1979 at high southern latitudes, due to a lack of satellite
+sounder data for use in the assimilation process (Hines et al., 2000).
+   The latest generation reanalysis datasets (which all date back to at least 1979) are
+the European Centre for Medium-Range Weather Forecasts Interim Reanalysis (ERA-
+Interim; Dee et al., 2011), Modern Era Retrospective-analysis for Research and Applica-
+tions (MERRA; Rienecker et al., 2011), Climate Forecast System Reanalysis (CFSR; Saha
+et al., 2010) and Japanese 55-year Reanalysis (JRA-55; Kobayashi et al., 2015). While as-
+sessments of the validity of these datasets in the mid-to-high southern latitudes have
+only just begun to emerge, the available evidence suggests that ERA-Interim may be the
+superior product. In comparison to its peers, ERA-Interim best reproduces the vertical
+temperature structure (Screen and Simmonds, 2012), precipitation variability (Bromwich
+et al., 2011; Nicolas and Bromwich, 2011) and mean sea level pressure and 500 hPa geopo-
+tential height at station locations (Bracegirdle and Marshall, 2012) around Antarctica. As
+such, daily timescale ERA-Interim data for the 36 year period 1 January 1979 to 31 De-
+cember 2014 was used in this study.
+   While ERA-Interim may be considered the superior reanalysis product, it should be
+said that all reanalysis datasets need to be treated with caution in the mid-to-high south-
+ern latitudes due to the sparsity of observational data. There are also well-known difficulties with the representation of low-frequency variability and trends in reanalysis data,
+
+                                                11
+12                                                                                Methods
+
+
+due to factors such as changes in the observing system, transitions between multiple
+production streams, and/or various other errors that can occur in a complex reanalysis
+production (Dee et al., 2014). These issues are highly relevant to the PSA pattern trends
+discussed in Chapter 4, but are somewhat less critical for the results pertaining to sea-
+sonal and interannual variability.
+
+
+
+2.1.2   ERA-Interim reanalysis
+
+Reanalysis projects typically provide both analysis and forecast fields for download. The
+analysis fields are the output of the data assimilation cycle at each time interval, which
+for ERA-Interim is every six hours. They represent arguably the most accurate possible
+depiction of the atmospheric state for several dozen variables that are all coherent on the
+calculation grid. These analysis fields are then used to initialise weather forecasts for the
+coming hours/days. ERA-Interim forecasts are initialised twice daily at 0000 UTC and
+1200 UTC and forecast fields are available for 3, 6, 9 and 12 hours post initialisation.
+     This study utilises the six-hourly 500 hPa zonal and meridional wind, 500 hPa geopotential height, surface air temperature, sea ice fraction, sea surface temperature and mean
+sea level pressure analysis fields, from which daily means were calculated for each variable. For precipitation, the  total precipitation  forecast fields were used (i.e. the sum of
+the convective and large-scale precipitation, which are also provided separately). Each
+forecast eld represents the accumulated precipitation since initialisation, so the daily
+rainfall total was calculated as the sum of the two 12 hours post initialisation accumulation fields for each day. The horizontal resolution of the ERA-Interim data used here was
+0.75% latitude by 0.75% longitude.
+
+
+
+
+2.2     Data analysis
+
+2.2.1   Timescale
+
+In order to be consistent with much of the existing literature, the majority of the analysis presented in the thesis focuses on the monthly timescale. Monthly mean data were
+obtained by applying a 30 day running mean to the daily (i.e. diurnally averaged) ERA-
+Interim data, so as to maximise the monthly information available from the dataset. As
+noted by previous authors (e.g. Kidson, 1988), potentially useful information may be lost
+if only twelve (i.e. calendar month) samples are taken every year. Dates are labeled
+as the 16th day of the 30 day period (e.g. the labeled date 1979-01-16 spans the period
+1979-01-01 to 1979-01-30).
+2.2 Data analysis                                                                          13
+
+
+2.2.2   Anomalies
+
+All anomaly data discussed in the thesis represent the daily anomaly. For instance, in
+preparing the 30 day running mean surface air temperature anomaly data series, a 30
+day running mean was first applied to the daily surface air temperature data. The mean
+value for each day in this 30 day running mean data series was then calculated to produce
+a daily climatology (i.e. the multi-year daily mean). The corresponding daily mean value
+was then subtracted at each data time to obtain the anomaly.
+
+
+
+2.2.3   Composites
+
+Annual and seasonal mean composites are presented throughout the thesis for key temporal subsets (e.g. all data times where an index of interest exceeds a threshold value). To
+determine the statistical significance of the composite mean at each grid point, two-sided,
+independent sample t-tests were used to calculate the probability ( p) that the composite
+mean value was not significantly different from the climatological (i.e. all data times)
+mean for that season.
+
+
+
+2.2.4   Periodograms
+
+The characteristics of data series that have been Fourier-transformed are often summarised
+using a plot known as a periodogram or Fourier line spectrum (Wilks, 2011). These plots
+are also referred to as a power or density spectrum, and most commonly display the
+                     2
+squared amplitudes (Ck ) of the Fourier transform coefficients as a function of their corre-
+sponding frequencies (k ). As an alternative to the squared amplitude, the periodgrams
+presented in this thesis display a rescaled vertical axis that uses the R2 statistic commonly
+computed in regression analysis. The R2 for the kth harmonic is,
+
+                                                       2
+                                             (n/2)Ck
+                                      R2 =                                               (2.1)
+                                       k
+                                             ( n " 1) s2
+                                                       y
+
+where s2 is the sample variance and n the length of the data series. This rescaling is partic-
+       y
+ularly useful as it shows the proportion of variance in the original data series accounted
+for by each harmonic (Wilks, 2011).
+
+
+
+2.2.5   Climate indices
+
+Two of the major modes of SH climate variability are the SAM and ENSO. In order to as-
+sess their relationship with the major zonal asymmetries of the SH circulation, the Antarctic Oscillation Index (AOI; Gong and Wang, 1999) and Nino 3.4 index (Trenberth and
+14                                                                              Methods
+
+
+Stepaniak, 2001) were calculated from 30 day running mean data (i.e. the same timescale
+that was used for the rest of the analysis). The former represents the normalised differ-
+ence of zonal mean sea level pressure between 40% S and 65% S, while the latter is the SST
+anomaly for the region in the central tropical Pacific Ocean bounded by 5% S to 5% N and
+190 to 240% E.
+
+
+
+2.3     Computation
+The results presented in this thesis were obtained using a number of different software
+packages. A collection of command line utilities known as the NetCDF Operators (NCO)
+and Climate Data Operators (CDO) were used to edit the attributes of netCDF files and
+to perform routine calculations on those files (e.g. the calculation of anomalies and climatologies) respectively. For more complex analysis and visualisation, a Python distri-
+bution called Anaconda was used. In addition to the Numerical Python (NumPy; Van
+Der Walt et al., 2011) and scientific Python (SciPy) libraries that come installed by de-
+fault with Anaconda, a Python library called xray was used for reading/writing netCDF
+les and data analysis. Similarly, in addition to Matplotlib (the default Python plotting
+library; Hunter, 2007), Iris, Cartopy and Seaborn were used to generate many of the g-
+ures. Iris was also used for rotating the global coordinate system and meridional wind
+(via the PROJ.4 Cartographic Projections Library), and the pyqt t, eofs and windspharm
+libraries were used for kernel density estimation, EOF analysis and for calculating the
+streamfunction respectively.
+     To ensure the reproducibility of the results presented, an accompanying Figshare
+repository has been created to document the computational methodology (Irving, 2016a).
+In addition to a more detailed account (i.e. version numbers, release dates, web ad-
+dresses) of the software packages discussed above, the Figshare repository contains a
+supplementary file for each figure in the thesis, outlining the computational steps per-
+formed from initial download of the ERA-Interim data through to the final generation of
+the plot. A version controlled repository of the code referred to in those supplementary
+files can be found at https://github.com/DamienIrving/climate-analysis.
+The rationale behind this approach to documenting computational results is explained
+in Chapter 5.
+                                         Chapter 3
+                   Zonal wave climatology
+
+     The chapter presents a new method for objectively identifying Southern Hemisphere zonal wave
+  activity. The method is used to characterise the climatological characteristics of the zonal waves and
+  their influence on regional climate variability.
+
+
+
+3.1     Methodology
+
+Existing studies of SH zonal wave activity have tended to use a stationary identication method such as a grid point metric or EOF analysis. As discussed in Section 1.1, a
+shortcoming of these approaches is that they are unable to capture phase variations in
+the wave pattern of interest. Some studies have allowed the phase to vary by isolating
+a single Fourier mode instead, but in failing to incorporate the modulating effect of the
+other Fourier modes, this approach assumes a constant amplitude waveform. By adapt-
+ing the wave envelope construct that has been recently applied in the identification of
+synoptic-scale Rossby wave packets, the method developed here is able to incorporate
+this modulating effect, thus allowing both the wave amplitude and phase to vary.
+
+
+
+3.1.1   Wave envelope
+
+In devising an improved approach to the automated identification of Rossby wave pack-
+ets, Zimin et al. (2003) pioneered a method of identifying the envelope of atmospheric
+waveforms based on the Hilbert transform, which is a well known technique in digital
+signal processing but had been scarcely applied in the atmospheric sciences. In construct-
+ing their algorithm, Zimin et al. (2003) consider the real function ( x ) on an equally-
+spaced grid along a latitude circle, which is parameterised by x, with 0 < x d" 2 . The
+grid points are located at x = 2 l / N , where l = 1, 2, . . . , N and N is an even integer. The
+rst step of the algorithm is to compute the Fourier transform of ( x ):
+
+                               N
+                                     2 l                             N              N
+                          1
+                              "            e"2 ikl / N ,    k="
+                   
+                   k =                                                 + 1, . . . ,                 (3.1)
+                          N           N                               2              2
+                              l =1
+
+The inverse Fourier transform is then applied to a selected band (0 < k min d" k d" k max ) of
+
+                                                    15
+16                                                                                                         Zonal wave climatology
+
+                            1986-05-22                                                                     2006-07-29
+        8                                                                      15
+
+
+
+        6
+                                                                               10
+
+
+        4
+                                                                                5
+
+        2
+ms"1
+
+
+
+
+                                                                       ms"1
+                                                                                0
+
+        0
+
+                                                                               "5
+       "2
+
+
+                                                                                                                   mean meridional wind, 54.75S
+                                                                              "10
+       "4
+                                                                                                                   reconstructed signal (wavenumbers 1-9)
+                                                                                                                   wave envelope (wavenumbers 1-9)
+                                                                                                                   Fourier components
+       "6                                                                     "15
+            0    50   100   150          200   250       300    350                 0      50        100   150          200      250        300       350
+                                  longitude                                                                      longitude
+
+
+
+Figure 3.1: Wave envelope of the 30 day running mean, 500 hPa meridional wind for 22
+May 1986 and 29 July 2006 at 54.75% S. The original meridional wind (purple), individual
+Fourier components for wavenumbers 1 9 (as defined in Equation 3.1; grey dashed),
+reconstructed signal from the inverse Fourier transform (Equation 3.2 with wavenumbers
+1 9 retained; dashed orange), and wave envelope (Equation 3.3; solid orange) are all
+shown.
+
+
+
+the positive wavenumber half of the Fourier spectrum (this is the part of the process that
+was inspired by the Hilbert transform):
+
+                                                                       k max
+                                                       2 l
+                                                                        "           k e2 ikl / N
+                                                                                    
+                                                               =2
+                                               w                                                                                                   (3.2)
+                                                        N             k =k min
+
+The (complex number) amplitude of the resulting waveform (w) represents the wave
+envelope (E):
+
+
+                                                     E (2 l / N ) = | w (2 l / N ) |                                                             (3.3)
+
+The various steps in this process are illustrated in Figure 3.1 for the case where ( x ) is
+the meridional wind along the 54.75% S latitude circle.
+            Subsequent studies have gone on to apply the Zimin et al. (2003) algorithm in the con-
+text of identifying and tracking Rossby wave packets in daily timescale data (Glatt and
+Wirth, 2014; Souders et al., 2014), however its utility in identifying waveforms on longer
+temporal and larger spatial scales has not previously been investigated. In these studies,
+a spatial map of the wave envelope is constructed for each data time (i.e. E(t, , ), where
+t,  and  represent time, latitude and longitude respectively). The utility of these maps
+is evident when considering the two maps (Figure 3.2) that correspond to the single-
+latitude examples shown in Figure 3.1. For (the diurnal averages of) both 22 May 1986
+3.1 Methodology                                                                          17
+
+
+                       1986-05-22                          2006-07-29
+
+
+
+
+                   0      2     4     6      8     10     12     14     16
+                                            ms"1
+Figure 3.2: Wave envelope (calculated from the 30 day running mean, 500 hPa meridional
+wind) for 22 May 1986 and 29 July 2006. The black contours show the corresponding
+500 hPa streamfunction zonal anomaly (dashed contours indicate negative values and
+the contour interval is 5  106 m2 s"1 ). Wavenumbers 1 9 were retained and the 54.75% S
+latitude band is indicated with a grey dashed line for ease of comparison with Figure 3.1.
+
+
+
+and 29 July 2006, it is clear that the wavenumber three component of the Fourier trans-
+form is dominant at 54.75% S (and at the other nearby latitudes not shown in Figure 3.1).
+An analysis based on single wavenumbers could lead one to believe that both data times
+are associated with a pronounced hemispheric ZW3 pattern, despite the fact that this is
+clearly only true for 29 July (Figure 3.2). On 22 May, the spatial scale of the anomalous
+ow from 200 to 260% E approximately matches wavenumber three, but elsewhere the
+ow is strongly zonal. The other components of the Fourier transform serve to modu-
+late the wavenumber three component accordingly, and by using the wave envelope as
+opposed to a single wavenumber approach, this useful information is retained.
+
+
+
+3.1.2   Index of planetary wave activity
+
+To dene and calculate an appropriate metric of zonal (or planetary) wave activity, E(t, , )
+was calculated from the 500 hPa meridional wind. The latitudinal dimension of E(t, , )
+was eliminated by determining the meridional maximum over the range 40 to 70% S, and
+then the zonal median was taken to eliminate the longitudinal dimension and arrive at
+a single  Planetary Wave Index  (PWI) value for each data time. Since wavenumbers 1 9
+18                                                                 Zonal wave climatology
+
+
+were retained during the process (i.e. essentially all wavenumbers), the PWI represents
+an integrated measure of the  waviness  of the hemispheric circulation.
+     The meridional wind (v) was used in calculating the PWI because it fundamentally
+reflects the presence of waves in the zonal ow. If the ow is purely zonal there are no
+waves and v = 0, while the magnitude of v reflects the activity of the waves. The meridional wind is also directly involved with meridional transports of heat and moisture,
+which impacts directly on surface temperature, precipitation and sea ice. In fact, many
+studies have shown that v (either filtered or unfiltered) contains much more dynamic
+information than alternatives such as the geopotential height (Z) or streamfunction (e.g.
+Berbery and Vera, 1996; Hoskins and Hodges, 2005; Petoukhov et al., 2013), neither of
+which has a direct involvement with meridional exchanges.
+     While better suited to the purposes of this study, the selection of v has important
+implications for the Fourier analyses presented below. From the geostrophic relation we
+know that v " dZ /dx, which means that Z tends to be dominated by longer wavelengths
+(or smaller wavenumbers) than v. In particular, since Z is a sinusoidal function of x in
+Fourier space, it follows that vk " kZk for any given wavenumber k, meaning more of
+the variance in v is explained by shorter waves (i.e. higher wavenumbers) than it is for
+Z. This is an important distinction that is discussed further in Section 3.2. Besides the
+selection of the meridional wind, a number of other factors were taken into consideration
+in devising this methodology:
+
+
+     "  The results show little sensitivity to the choice of atmospheric level because the
+       zonal waves waves are approximately equivalent barotropic. 500 hPa was selected
+       as it represents a mid-to-upper tropospheric level that is below the tropopause in
+       all seasons and at all latitudes of interest.
+
+
+     "  The wave envelope is slightly smoother if wavenumbers greater than nine are left
+       out of the Hilbert transform, but otherwise the result is not appreciably different
+       from when all wavenumbers are retained.
+
+
+     "  The meridional maximum (over 40 to 70% S) was taken to allow for slight north 
+       south variations in the mean latitude of planetary wave activity and also for the
+       fact that the waveform is not perfectly zonally oriented.
+
+
+     "  The zonal median (as opposed to the mean or integral) was taken to guard against
+       large values in one part of the hemisphere overly influencing the end result.
+3.2 Results                                                                              19
+
+
+3.2     Results
+
+A key feature of the PWI is that as its value gets higher, the tropospheric circulation in-
+creasingly exhibits a zonal wave pattern that extends around the entire hemisphere. In
+other words, when the hemispheric circulation becomes highly meridional it tends to do
+so in a coordinated, wave-like manner, which means an integrated measure of the waviness of the hemispheric ow (like the PWI) is a good proxy for planetary wave activity
+(and as mentioned earlier, has the added benefit of simultaneously considering both ZW1
+and ZW3 in a way that allows their phase and amplitude to vary). In order to focus on
+times where planetary wave activity was most clearly evident, the following analysis is
+largely restricted to data times where the PWI was greater than its 90th percentile. The
+presentation of that analysis begins with a summary of the spatial and temporal characteristics of SH planetary wave activity, before considering its relationship with the major
+modes of SH climate variability (SAM and ENSO) and surface conditions.
+
+
+
+3.2.1   Spatial characteristics
+
+The seasonally-averaged spatial patterns associated data times of PWI greater than its
+90th percentile are shown in Figure 3.3. While the coordinated, hemispheric nature of
+those patterns is essentially unique to data times associated with high PWI values, it is
+important to note that there are elements of that mixed ZW1/ZW3 pattern that are not. In
+particular, it appears that the ZW1 component is relatively insensitive to changes in the
+strength of the meridional ow. The main difference between days of very strong (PWI >
+90th percentile) and very weak (PWI < 10th percentile) meridional ow was instead the
+prominence of the ZW3 component (Figure 3.4a). While influential at all times, the ZW3
+component was far more prominent when the meridional ow was strong and therefore
+dominated the streamfunction anomaly patterns (and thus surface impacts) discussed in
+analysis of surface conditions below (Section 3.2.4).
+   Given the dominance of the ZW3, it is not surprising that the ZW3 index of Raphael
+(2004) shows a reasonably high level of agreement with the PWI (Figure 3.5). Having
+said that, it is important to note that the shading of the dots in Figure 3.5   which repre-
+sent the phase of the wavenumber three component of the Fourier transform   are not
+randomly distributed. Whenever the phase of the wavenumber three component of the
+ow does not match up with the location of the three grid points used to calculate the
+ZW3 index (indicated by the dark red or near-white shading in Figure 3.5), a low value
+is recorded for the ZW3 index. The outlying dots in the bottom right hand quadrant are
+particularly noteworthy, as in these cases the PWI (and hence in most cases the amplitude of the wavenumber three component of the ow) is actually quite large. The failure
+of the ZW3 index to capture these out-of-phase patterns means that composite analyses
+20                                                           Zonal wave climatology
+
+
+
+
+                         Annual
+
+
+
+
+                          DJF                          MAM
+
+
+
+
+                          JJA                          SON
+
+
+
+
+Figure 3.3: Composite mean 500 hPa circulation for data times where the PWI was
+greater than its 90th percentile. Grey streamlines indicate the direction of the composite mean wind, while the black contours show the composite mean streamfunction
+zonal anomaly (dashed contours indicate negative values and the contour interval is
+2.5  106 m2 s"1 ).
+3.2 Results                                                                                                                                                                                    21
+
+                                    0.7                                                                                                  0.5
+                                              (a)                                                                                                  (b)
+                                                                                 PWI < 10 pctl                                                                                            1
+
+                                                                                 all data times                                                                                           5
+
+                                    0.6                                          PWI > 90 pctl                                                                                            10
+
+                                                                                                                                         0.4                                              15
+ average variance explained (Rk )
+
+
+
+
+                                                                                                      average variance explained (Rk )
+2
+
+
+
+
+                                                                                                      2
+                                                                                                                                                                                          30
+                                    0.5
+                                                                                                                                                                                          60
+
+                                                                                                                                                                                          90
+
+                                                                                                                                         0.3                                              180
+                                    0.4
+                                                                                                                                                                                          365
+
+
+
+
+                                    0.3
+                                                                                                                                         0.2
+
+
+
+
+                                    0.2
+
+
+
+                                                                                                                                         0.1
+
+                                    0.1
+
+
+
+
+                                    0.0                                                                                                  0.0
+                                          1         2   3     4       5      6         7          8                                            1         2   3     4       5      6   7         8
+
+                                                            wavenumber (k)                                                                                       wavenumber (k)
+
+
+
+
+Figure 3.4: Temporal average (1979 2014) periodograms for the 500 hPa meridional wind
+at 54.75% S. Panel (a) shows three different subsets of the 30 day running mean data (all
+data times, PWI greater than its 90th percentile, PWI less than its 10th percentile), while
+panel (b) includes all data times but varies the running mean (in days) applied to the data
+prior to the Fourier transform. The labels on the vertical axis correspond to Equation 2.1.
+
+
+
+based on that index may overstate the stationarity (and hence the time-mean impacts) of
+the ZW3 component of the ow.
+
+
+
+3.2.2                                          Temporal characteristics
+
+Consistent with previous studies (e.g. van Loon and Rogers, 1984; Mo and White, 1985),
+the composite mean 500 hPa streamfunction zonal anomaly pattern for data times where
+the PWI exceeds its 90th percentile (Figure 3.3) migrates zonally by approximately 15%
+from its most easterly location during summer to its most westerly during winter (notwith-
+standing the fact that the pattern breaks down from around 240 to 330% E during summer).
+It has a slightly larger amplitude during the winter months and the frequency of strong
+planetary wave activity was also far more pronounced at that time of the year (Figure
+3.6b). The seasonal counts of the number of data times exceeding the PWI 90th percentile
+(Figure 3.6a) show that 1980 was associated with a particularly high frequency of planetary wave activity, however there were no statistically significant linear trends in these
+counts for timeseries including (Figure 3.6c) or excluding (i.e. 1981 2014) the year 1980.
+                                     While the results presented here focus is on the monthly (30 day running mean)
+timescale, it is interesting to consider whether similar behaviour is observed at other
+timescales. It can be seen from Figure 3.4b that wavenumber three dominates the aver-
+22                                                                   Zonal wave climatology
+
+
+
+
+                      4
+
+                      3                                                      105
+
+                      2
+                                                                             90
+
+                      1
+
+
+
+
+                                                                                  wave 3 phase ( % E)
+                                                                             75
+         ZW3 index
+
+
+
+
+                      0
+                                                                             60
+                     "1
+                                                                             45
+                     "2
+
+                                                                             30
+                     "3
+
+                                                                             15
+                     "4
+
+                     "5                                                      0
+                       "3   "2   "1   0     1     2      3   4   5     6
+                                      Planetary Wave Index
+
+Figure 3.5: PWI versus the ZW3 index of Raphael (2004). Both were calculated using 500
+hPa, 30 day running mean data (the PWI was calculated from the meridional wind and
+the ZW3 index from the geopotential height zonal anomaly). The shading represents the
+phase of the wavenumber three component of the Fourier transform of the meridional
+wind (expressed as the location, in degrees east, of the rst local maxima), while the
+black line is a linear least-squares line of best t. Both indices have been normalised to
+aid visual comparison (for each index this involved subtracting the mean of the index
+series and then dividing by the standard deviation).
+3.2 Results                                                                                                                                                         23
+
+
+
+
+                                             (a)                                                     DJF              MAM                  JJA            SON
+                             120
+
+
+
+                             100
+
+
+
+                                    80
+     Total data times
+
+
+
+
+                                    60
+
+
+
+                                    40
+
+
+
+                                    20
+
+
+
+                                     0
+                                         1980               1985               1990           1995             2000            2005                2010      2015
+                                    25
+                                         (b)                                                                                                               (c)
+         Percentage of data times
+
+
+
+
+                                    20
+
+                                    15
+
+                                    10
+
+                                     5
+
+                                     0
+                                                                                                           "0.25"0.20"0.15"0.10"0.05 0.00 0.05 0.10 0.15 0.20
+                                         J      F   M   A    M     J   J   A     S    O   N   D
+                                                                                                                            Trend (data times per year)
+
+
+Figure 3.6: Variability and trends in data times where the PWI was greater than its 90th
+percentile. The total data times for each individual season are shown in panel (a), cor-
+responding seasonal linear trends in panel (c) (black represents the annual trend) and
+monthly totals for the entire study period (1979 2014) in panel (b). To account for the fact
+that not all months have an equal number of days, the counts for each month in panel (b)
+are presented as a percentage of the total number of days for that month. Years in panel
+(a) are defined from December to November (e.g. the  year  1980 spans December 1979
+to November 1980) and none of the trends shown in panel (c) are statistically significant
+at the p < 0.10 level.
+24                                                                Zonal wave climatology
+
+
+age periodogram when the running mean applied to the daily 500 hPa meridional wind is
+greater than 10 days, with wavenumber one becoming progressively more influential as
+the smoothing increases. When the same process is repeated using the 500 hPa geopotential height (not shown), the results are very different. The ZW1 dominates at all timescales
+and except for a slight upswing from wavenumber two to three, the variance explained
+monotonically decreases for subsequent wavenumbers. This is an important result be-
+cause van Loon and Jenne (1972) analysed geopotential height data and concluded that
+ZW1 explains (by an appreciable margin) the largest fraction of the spatial variance in
+the 500 hPa SH circulation (a finding that has been quoted in many subsequent papers).
+In light of the results presented here and the previous discussion concerning the fact that
+vk " kZk in Fourier space and that the meridional wind may be a more appropriate quan-
+tity to analyse in this context, it is clear that ZW3 plays a greater role than previously
+thought, particularly when there is a strong meridional component to the hemispheric
+ow.
+
+
+
+
+3.2.3   SAM and ENSO
+
+Composite analysis was also used to assess the relationship between the PWI and the
+major modes of SH climate variability. SAM events were defined according to the 75th
+                                                                            
+and 25th percentiles of the AOI, while positive (El Nino) and negative (La Nina) ENSO
+events were defined as a Nino 3.4 above 0.5% C and below -0.5% C respectively. Composites
+                          
+for each phase of SAM and ENSO were then calculated by taking the average across all
+data times for which the PWI exceeded its 90th percentile and the AOI or Nino 3.4 was
+                                                                           
+greater or less than the relevant threshold.
+     The SAM composites show that the phase of the planetary wave pattern moves east
+during positive SAM events and west during negative events (Figure 3.7). Planetary
+wave activity was also more common when the SAM was negative: of the 1312 data
+times where the PWI exceeded its 90th percentile, 510 (39%) had an AOI that was less
+than the 25th percentile as compared to only 166 (13%) with an AOI greater than the 75th
+percentile. Consistent with this finding, the aforementioned outlying year for planetary
+wave activity (1980; see Figure 3.6b) was associated with a large negative SAM.
+     The association between ENSO and planetary wave activity was far less pronounced.
+                                          
+Besides a subtle east (La Nina)/west (El Nino) movement of the anticyclone over the
+south-east Pacific, no appreciable changes were seen in the phase of the planetary wave
+pattern (not shown) and planetary wave activity was only slightly more common during
+     
+El Nino conditions (282 data times to 176).
+3.2 Results                                                                              25
+
+
+
+
+Figure 3.7: Composite mean 500 hPa streamfunction zonal anomaly for data times where
+the PWI was greater than its 90th percentile and the AOI was greater than its 75th percentile (grey) or less than its 25th percentile (black). Dashed contours indicate negative
+values and the contour interval is 4.0  106 m2 s"1 .
+
+
+
+3.2.4   Surface conditions
+
+In order to assess the influence of planetary wave activity on regional climate variability,
+composite means of variables of interest (the surface air temperature anomaly, precipitation anomaly and sea ice concentration anomaly) were calculated for all data times
+where the PWI exceeded its 90th percentile. In other words, the analysis posed the question: what is the average temperature (or precipitation or sea ice concentration) anomaly
+when there is strong planetary wave activity? The anomalous ow associated with these
+composites (indicated by the 500 hPa streamfunction anomaly as opposed to the stream-
+function zonal anomaly shown earlier) has a very strong ZW3 signature. This is consistent with the spatial characteristics presented earlier (Section 3.2.1), which indicate that
+the distinguishing feature of data times of strong meridional ow is the enhanced ZW3
+component (as opposed to ZW1).
+
+
+
+Surface air temperature
+
+Planetary wave activity was found to be associated with large and widespread surface air
+temperature anomalies over and/or around much of West Antarctica during all seasons
+(Figure 3.8). The most pronounced anomalies were seen during autumn and winter, with
+26                                                              Zonal wave climatology
+
+
+warmer than average conditions over the interior of West Antarctica (associated with an
+anomalous northerly ow) and correspondingly colder than average conditions over the
+Weddell Sea (associated with an anomalous southerly ow). Due to the aforementioned
+seasonal migration (and breakdown during summer) of the mean planetary wave pat-
+tern, warm anomalies were conned to the Antarctica Peninsula during spring, while
+summer was associated with the smallest anomalies of any season.
+     With respect to other sectors of the high southern latitudes, anomalously warm temperatures were widespread over East Antarctica during all seasons except summer. The
+largest anomalies were seen over Wilkes Land during autumn and winter, in association with an anomalous northerly ow in that region. Other features of note included
+anomalously cool temperatures over the Ross Sea and mainland Australia during spring.
+
+
+
+Precipitation
+
+The seasonal composite mean precipitation anomalies generally displayed an alternat-
+ing wet/dry pattern of wavenumber three, consistent with the upper level low/high
+pressure anomalies associated with the enhanced ZW3 component of the hemispheric
+circulation. Within this pattern, the largest anomalies corresponded to regions of either
+enhanced or suppressed ow over significant topography (Figure 3.9). For instance, the
+same anomalous onshore ow that was associated with high temperatures over both
+West Antarctica and Wilkes Land was also associated with large positive coastal precipitation anomalies, with the precise location of those anomalies moving with seasonal variations in the location of the mean planetary wave pattern. In contrast, weakened westerly
+ow over the southern Andes during autumn, winter and spring (but not summer due
+to the breakdown of the wave pattern in that region) was associated with large negative
+precipitation anomalies over Chilean Patagonia. A similar mechanism explains the large
+negative anomalies over New Zealand during winter and spring, when the mean planetary wave pattern is located sufficiently far to the west to exert an appreciable influence
+on the westerly ow over the South Island. Enhanced orographic precipitation due to
+anomalous onshore ow might also play a role in the large positive precipitation anomalies seen over eastern Australia during spring, however the anomalies extend far beyond
+the Great Dividing Range, suggesting that enhanced moisture transport from the Tasman
+Sea might be the dominant mechanism.
+
+
+
+Sea ice
+
+The sea ice composites (Figure 3.10) were highly consistent with the temperature composites. For instance, in autumn and winter anomalous onshore ow and warmth over the
+3.2 Results                                                                        27
+
+
+                            Annual
+
+
+
+
+                             DJF                           MAM
+
+
+
+
+                             JJA                           SON
+
+
+
+
+                       "3          "2   "1   0   1     2         3
+                                             K
+
+Figure 3.8: Composite mean surface air temperature anomaly for data times where the
+PWI was greater than its 90th percentile. Black contours show the corresponding composite mean 500 hPa streamfunction anomaly (dashed contours indicate negative values
+and the contour interval is 2.5  106 m2 s"1 ), while the hatching shows regions where
+the difference between the composite mean and climatological mean is significant at the
+p < 0.01 level.
+28                                                        Zonal wave climatology
+
+
+
+
+                   Annual
+
+
+
+
+                    DJF                            MAM
+
+
+
+
+                    JJA                            SON
+
+
+
+
+                    "0.8    "0.4    0.0     0.4     0.8
+                                   mm/day
+
+     Figure 3.9: As per Figure 3.8, but for the precipitation anomaly.
+3.3 Discussion                                                                           29
+
+
+interior of West Antarctica was in accord with the reduced sea ice concentration over the
+Amundsen Sea, and anomalous offshore ow and cold conditions over the Weddell Sea
+during autumn was consistent with the increased sea ice concentration. In spring, the
+anomalous warmth over the western aspect of the Antarctic Peninsula concurred with
+the reduced sea ice concentration in the Bellingshausen Sea, while the anomalously cold
+temperatures over the Ross Sea coincided with an anomalously high sea ice concentration. The anomalous onshore winds and warmth over Wilkes Land were consistent with
+the reduced sea ice seen immediately to the north of George V Land, Ad lie Land and
+                                                                      e
+the Sabrina Coast of East Antarctica in all seasons except summer (when there is very
+little ice there anyway). One regional feature that does not appear to t with this overall
+consistency was the anomalously high sea ice concentration to the west of the Antarctic Peninsula during autumn, which was not reflected in the corresponding temperature
+composite.
+
+
+
+3.3   Discussion
+
+A novel method for identifying quasi-stationary planetary wave activity has been developed and applied to the problem of characterising the SH zonal waves and their influence on regional climate variability. The method uses the strength of the hemispheric
+meridional ow as a proxy for zonal wave activity, which is quantified by adapting the
+wave envelope construct traditionally used in the identification of synoptic-scale Rossby
+wave packets. Unlike existing studies of zonal wave activity, this approach allows for
+variations in both wave phase and amplitude. Application of the method reveals that
+while both ZW1 and ZW3 are prominent features of the climatological SH circulation,
+the defining feature of highly meridional hemispheric states is an enhancement of the
+ZW3 component. These enhanced ZW3 states are associated with large sea ice anomalies
+over the Amundsen and Bellingshausen Seas and along much of the East Antarctic coast-
+line, large precipitation anomalies in regions of significant topography and anomalously
+warm temperatures over much of the Antarctic continent.
+   In interpreting the results, it is important to clearly dene what is meant by the phrase
+ quasi-stationary planetary wave activity  in this context. It was evident from the analysis
+of the monthly timescale (30 day running mean) meridional wind that the ZW1 and ZW3
+patterns are a prominent feature of the SH circulation even when the hemispheric meridional ow is weak (Figure 3.4a). As the meridional ow gets stronger the ZW3 com-
+ponent becomes increasingly prominent, while the ZW1 component remains relatively
+unchanged. This means the average anomalous ow associated with a highly meridional hemispheric state clearly resembles a ZW3 pattern (Figures 3.8, 3.9 and 3.10). It is
+this highly meridional and anomalous ZW3 circulation that is captured by high values of
+30                                                                         Zonal wave climatology
+
+
+
+
+                       Annual
+
+
+
+
+                            DJF                                    MAM
+
+
+
+
+                            JJA                                    SON
+
+
+
+
+                    "0.13    "0.09   "0.05    "0.01 0.03    0.07    0.11
+                                             ice fraction
+
+     Figure 3.10: As per Figure 3.8, but for the sea ice concentration anomaly.
+3.3 Discussion                                                                           31
+
+
+the PWI and thus is referred to as planetary wave activity.
+   The climatology of planetary wave activity confirms previous results regarding the
+seasonality of the zonal waves (peak activity in winter, seasonal migration of the zonal lo-
+cation/phase), and also identifies a large sector of the western hemisphere (120 to 30% W)
+where the mean wave activity breaks down during summer. In contrast to the results
+presented here, previous studies have suggested a link between planetary wave activity and ENSO (e.g. Trenberth, 1980; Raphael, 2003; Hobbs and Raphael, 2007). Given
+the hemispheric nature of the PWI (i.e. it responds most strongly to coordinated, hemispheric patterns of meridional ow) it is perhaps not surprising that there was not a
+strong link with ENSO, given that teleconnections between ENSO and the high southern
+latitudes tend to be localised around the south-east Pacific (Simmonds and Jacka, 1995;
+Turner, 2004). While this result is not good news for the predictability of planetary wave
+activity, its increased frequency during negative SAM events offers some hope. The identified east/west migration of the mean planetary wave pattern with positive/negative
+phases of the SAM possibly ties in with the zonally asymmetric properties of the SAM
+(e.g. Kidson, 1988; Kidston et al., 2009), however a detailed analysis of this relationship
+was beyond the scope of this thesis.
+   With respect to the link between planetary wave activity and regional climate variability, most relevant investigations have focused on sea ice. The recent study of Raphael and
+Hobbs (2014) takes a new approach to assessing the influence of the atmospheric circulation, focusing on the ice advance (approximately March-August) and retreat (September-
+February) seasons for ve distinct regions of sea ice variability around Antarctica. Their
+examination of the spatial pattern of correlation between sea ice extent and 500 hPa
+geopotential height for each season/region suggests that the ZW3 pattern is the primary
+driver of sea ice variability in the Weddell and Amundsen Bellingshausen Seas during
+the advance season. The results presented here tend to support this finding, particularly
+during the early part (MAM) of the advance season. In contrast, the strong association
+identified between the PWI and sea ice coverage just to the north of George V Land,
+Ad lie Land and the Sabrina Coast in East Antarctica does not seem to be in agreement
+  e
+with the results of Raphael and Hobbs (2014), who found the SAM to be the major driver
+in that region for both the advance and retreat seasons.
+   For the King Haakon VII Sea (10% W to 70% E), Raphael and Hobbs (2014) were un-
+able to identify an obvious atmospheric driver. The results presented here suggest that
+planetary wave activity may play an important role there, since the correlation patterns
+identified by Raphael and Hobbs (2014) bear some resemblance to the mean planetary
+wave patterns shown in this study. The reason the resemblance is not stronger may be
+due to the fact that the association between the PWI and sea ice coverage appears to be
+unidirectional in that region. In MAM, JJA and SON, PWI values greater than the 90th
+percentile are associated with anomalously low sea ice concentrations, while values less
+32                                                                 Zonal wave climatology
+
+
+than the 10th percentile are associated with near average (as opposed to anomalously
+high) concentrations (not shown). Of course, any discussion of the atmospheric drivers
+of sea ice variability is complicated by the relationships between those drivers. For in-
+stance, the SAM and ENSO show many similarities in their influence on sea ice. It is
+unclear whether this is because they operate together in their response mechanism, or
+if the similarity is due to a preferred hemispheric planetary wave response (e.g. Pezza
+et al., 2012).
+     In contrast to the sea ice literature, planetary wave activity is scarcely mentioned in
+relation to SH precipitation variability, even in the regions of significant topography so
+clearly identified in this study. Instead, analyses of precipitation variability over New
+Zealand, Patagonia and eastern Australia tend to focus on the SAM and ENSO, with the
+former generally becoming increasingly influential at higher latitudes (e.g. Ummenhofer
+and England, 2007; Aravena and Luckman, 2009; Kidston et al., 2009; Risbey et al., 2009;
+Garreaud et al., 2013; Jiang et al., 2013). Such analyses may inadvertently capture some
+of the zonal wave influence due to its similarity with the zonally asymmetric features
+of the SAM, however Garreaud et al. (2013) do note that winter precipitation anomalies
+over Patagonia are dominated by a wavenumber three mode rather than a more zon-
+ally symmetric SAM pattern. Planetary wave activity also receives scant attention in
+overviews and analyses of Antarctic temperature variability (e.g. Russell and McGregor,
+2010; Schneider et al., 2012b; Yu et al., 2012). In the main, the results presented here show
+that the enhanced meridional ow associated with planetary wave activity brings warm
+air poleward and thus large positive temperature anomalies are seen throughout most of
+Antarctica, particularly during autumn and winter.
+                                         Chapter 4
+         Pacific-South American pattern
+                  climatology
+
+    The chapter presents a new method for objectively identifying the Pacific-South American (PSA)
+  pattern. The method is used to characterise the climatological characteristics of the pattern and its
+  influence on regional climate variability.
+
+
+
+
+4.1    Methodology
+
+The key methodological advance of the previous chapter was that in comparison to exist-
+ing studies, it more fully exploited the information available from Fourier analysis. The
+use of the Hilbert transform to calculate the wave envelope overcame many of the limitations of existing wave identification methods, leading to a number of new insights into
+the climatological characteristics of the SH zonal waves and their influence on regional
+climate variability. Similar limitations apply to existing methods of PSA pattern identication, which means Fourier analysis may also yield new insights in that context. More
+specifically, identification of the PSA pattern is typically based on EOF analysis, which
+unlike Fourier analysis allows for only a crude representation of variations in wave phase
+(via the PSA-1 and PSA-2 modes, which are 90% out of phase). This has made it difficult to
+interpret characteristics such as the propagation of the pattern and the physical meaning
+of the PSA-1 and PSA-2 modes more generally.
+   This need to precisely quantify the phase of the PSA pattern differs slightly from the
+preceding zonal wave analysis, where capturing spatial variations in wave amplitude
+was of particular importance. This means the methodology developed in the previous
+chapter will need to be modified here slightly to reflect this change in focus. Another
+important difference is the fact that the path of the PSA pattern has a substantial meridional component. In some sense zonally oriented waves can be thought of as the simplest
+wave identification case, because Fourier analysis can be performed along lines of constant latitude. The added complexity of identifying/tracking non-zonal propagation has
+only just begun to be considered in the literature (e.g. Zimin et al., 2006; Souders et al.,
+2014), with most climatologies of synoptic-scale Rossby waves simply avoiding the issue
+
+                                                   33
+34                                              Pacific-South American pattern climatology
+
+
+by focusing solely on zonally orientated waves (e.g. Glatt and Wirth, 2014). Unlike the
+generalised case of all possible non-zonal propagation, analysis of the PSA pattern benefits from the fact that it follows an approximate great circle path (Hoskins and Karoly,
+1981). By rotating the global coordinate system such that the equator (itself a great circle)
+traces the approximate path of the PSA pattern, the identification algorithm developed
+here was able to simply apply Fourier analysis along  the equator  in the new zonal direction. Such grid rotation is commonly used in ocean modelling to avoid coordinate
+singularities caused by the convergence of meridians at the poles (i.e. the grid is rotated
+to place its North Pole over a continent; e.g. Bonaventura et al., 2012), but it had not
+previously been applied in the context of tropospheric wave identification.
+
+
+
+4.1.1     identification algorithm
+
+
+Grid rotation
+
+In order to align the new equator with the approximate path of the PSA pattern, a global
+0.75% latitude by 0.75% longitude grid was defined (i.e. the same resolution as the orig-
+inal ERA-Interim data) with the north pole located at 20% N, 260% E. The 500 hPa zonal
+and meridional wind data were used to calculate the meridional wind relative to the new
+north, and then the temporal anomaly of this new meridional wind was linearly interpolated to the rotated grid for use in the Fourier analysis (e.g. Figure 4.1). It should be
+noted that zonal wave studies (e.g. Chapter 3) tend to skip this final step of calculating
+the anomaly, because in the case of zonal waves the temporal mean of the meridional
+wind is typically close to zero (and hence waveforms defined by the meridional wind
+already oscillate about zero).
+     On this rotated grid, the search region of interest was defined as the area bounded by
+10% S   to 10% N and 115% E to 235% E (this approximate area is referred to as the PSA sector
+at times throughout the thesis). This region (and associated north pole location) was
+selected via visual comparison with existing definitions of the PSA pattern (e.g. Figure
+1.2), however the final results were not sensitive to small changes in pole location or
+search region bounds.
+
+
+
+Fourier analysis
+
+To prepare the meridional wind anomaly for Fourier analysis, the meridional mean was
+calculated over 10% S to 10% N (in order to eliminate the latitudinal dimension) and then
+values outside of 115% E to 235% E were set to zero. Zero padding is a commonly used technique in signal processing when the waveform of interest does not complete an integer
+4.1 Methodology                                                                          35
+
+
+
+
+Figure 4.1: Atmospheric circulation at 500 hPa for a 30 day mean centred on 18 May
+2006. The top panel shows the streamfunction anomaly plotted on a regular global grid
+(dashed contours indicate negative values and the contour interval is 3.0  106 m2 s"1 ),
+while the bottom panel shows the corresponding meridional wind anomaly on a rotated
+grid where the north pole is located at 20% N, 260% E. The solid green box is bounded by
+10% S to 10% N and 115% E to 235% E on the rotated grid and corresponds to the search region
+of interest (or  PSA sector ), while the green dashed line corresponds to the equator on
+the rotated grid.
+36                                            Pacific-South American pattern climatology
+
+
+number of cycles in a given domain, and is equivalent to multiplying the original signal
+(in this case the meridional mean meridional wind anomaly) by a square window function. This multiplication (or convolution) of two waves has consequences in frequency
+space, such that even a perfectly sinusoidal signal that would repeat exactly six times (for
+example) over the zero padded domain would show power at more than one frequency.
+This phenomenon is known as spectral leakage (into the side lobes of the frequency spectrum) and arises due to the fact that a square window function is not square in frequency
+space. In analyses where excessive leakage is undesirable, a Hanning or Hamming win-
+dow can be used instead. In the frequency space these windows do not display as much
+spread into the side lobes, however this comes at the expense of the magnitude of the
+main lobes. Since the selection process used here (see below) focuses identifying the
+main lobes, a square window function was considered most appropriate.
+
+
+identification and characterisation of PSA-like variability
+
+Given that the PSA pattern completes approximately 1.6 to 2.0 cycles (depending on
+the specific EOF mode) over the 120% search area (see Figure 1.2), data times where a
+Fourier transform revealed wavenumber five and six as dominant frequencies over the
+zero padded 360% domain was the focus of this analysis. In particular, a data time was
+said to display PSA-like variability (and hence was selected for further analysis) if the
+amplitude of the wavenumber five and six components of the Fourier transform were
+ranked in the top three of all frequencies. The vague  PSA-like  descriptor is used be-
+cause a number of features besides the PSA pattern (e.g. Antarctic Dipole, ASL, ZW3)
+can exhibit wavenumber 5 6 variability in the PSA sector.
+     Once these data times were selected, additional information from the Fourier trans-
+form was used to characterise the phase and amplitude of the PSA-like variability. With
+respect to the former, it can be seen from Figure 4.2 that within the search area the phase
+of the wavenumber five and six components of the transform (and usually also adjacent
+frequencies like wavenumber four and seven) tend to align both with each other and also
+with the phase of the actual signal. The phase of the wavenumber six component of the
+Fourier transform was therefore used as a proxy for the phase of the signal as a whole,
+and this information was used to separate data times displaying the actual PSA pattern
+from the larger population of PSA-like variability (similar results were obtained using
+wavenumber five). The details of this separation process (e.g. the phase ranges used to
+dene the PSA pattern) are discussed below. In order to quantify the amplitude of PSA-
+like variability, the wave envelope construct defined in Section 3.1.1 was used. Since the
+envelope of the complete signal (i.e. with all wavenumbers retained) can be quite noisy,
+the amplitude of PSA-like variability was defined as the maximum value of the envelope
+when only wavenumbers 4 7 are retained (see Figure 4.2 for an example envelope).
+4.1 Methodology                                                                                                                              37
+
+
+
+
+               15
+                                            1.6
+                                            1.4
+                        amplitude (ms"1 )
+
+
+
+
+                                            1.2
+                                            1.0
+                                            0.8
+               10                           0.6
+                                            0.4
+                                            0.2
+                                            0.0
+                                                  1   2    3456         7   8
+                                                           wavenumber
+                5
+       ms"1
+
+
+
+
+                0
+
+
+
+
+              "5
+
+
+
+
+              "10
+                                                                                                    mean meridional wind, 10.0S to 10.0N
+                                                                                                    reconstructed signal (wavenumbers 4-7)
+                                                                                                    wave envelope (wavenumbers 4-7)
+                                                                                                    Fourier components
+              "15
+                    0                                     50            100     150           200         250           300            350
+                                                                                      longitude
+
+
+Figure 4.2: Fourier analysis of the meridional average (10% S to 10% N) 500 hPa rotated
+meridional wind anomaly for a 30 day mean centred on 18 May 2006 (purple curve). Values outside of the region of interest (115% E to 235% E) have been set to zero. The individual
+Fourier components for wavenumbers 1 8 (grey dashed, with wavenumbers five and six
+highlighted in green) and the reconstructed signal from an inverse Fourier transform
+with wavenumbers 4 7 retained (dashed orange) and its corresponding wave envelope
+(solid orange) are all shown. The inset shows the amplitude of each of the individual
+Fourier components.
+38                                             Pacific-South American pattern climatology
+
+
+Timescale considerations
+
+In applying the identification algorithm to the ERA-Interim dataset, this analysis focused
+on monthly timescale (i.e. 30 day running mean) data at 500 hPa. As with the zonal wave
+analysis, this atmospheric level was selected as it represents a mid-to-upper tropospheric
+level that is below the tropopause in all seasons and at all latitudes of interest. Given the
+equivalent barotropic nature of the PSA pattern (i.e. the wave amplitude increases with
+height but phase lines tend to be vertical) the results do not differ substantially for other
+levels of the troposphere.
+     To explore the implications of this timescale selection, the Fourier transform used in
+the identification process was applied to the 500 hPa rotated meridional wind anomaly
+data (Figure 4.3). That analysis revealed wavenumber seven as the dominant frequency
+for daily timescale data in the PSA sector, with wavenumber six dominating the frequency spectrum for a 10 90 day running window. Given that the PSA pattern is it-
+self characterised by wavenumber 5 6 variability in the PSA sector, this result suggests
+that (a) the PSA pattern is a dominant regional feature on weekly through to seasonal
+timescales, and (b) by extension the climatological results obtained from 30 day running
+mean data may also be relevant at those timescales.
+
+
+
+
+4.2     Results
+
+4.2.1     General PSA-like variability
+
+Before attempting to isolate the PSA pattern using the phase information obtained from
+the identification algorithm, it is worth considering the characteristics of all PSA-like variability. In total, 55% (7163 of 13120) of data times were identified as displaying PSA-like
+variability (i.e. wavenumber ve and six were among the top three ranked frequencies),
+which is consistent with the fact that wavenumber six dominates the Fourier spectrum
+at the monthly timescale (Figure 4.3). Grouping consecutive identifications into discrete
+events revealed a mean event duration of 19.7 data times, with a distribution depicted
+in Figure 4.4a. While interpretation of these duration data is complicated by the 30 day
+running mean applied to the original data (e.g. an event that lasted 10 data times could
+be said to span anywhere between 10 and 40 days) and the occurrence of short events
+immediately before or after a long event (i.e. they could conceivably be considered as a
+single event), it is clear that PSA-like variability often persists for up to a few months at
+a time.
+     Building on this baseline duration data, the life cycle of events lasting longer than 10
+data times was investigated in more detail. As depicted in Figure 4.4b, the amplitude
+4.2 Results                                                                                                      39
+
+
+
+
+                                                  0.25
+                                                                                                      1
+                                                                                                      5
+                                                                                                      10
+                                                                                                      15
+                                                  0.20                                                30
+                                                                                                      60
+                                                                                                      90
+              average variance explained (Rk2 )
+
+
+
+
+                                                                                                      180
+                                                                                                      365
+                                                  0.15
+
+
+
+
+                                                  0.10
+
+
+
+
+                                                  0.05
+
+
+
+
+                                                  0.00
+                                                         1   2   3   4      5      6      7   8   9         10
+                                                                         wavenumber (k)
+
+
+Figure 4.3: Temporal average (1979 2014) periodograms for the meridional average (10% S
+to 10% N) 500 hPa rotated meridional wind anomaly (wind values outside of 115% E to
+235% E were set to zero). Each curve represents a different running mean window that was
+applied to the daily timescale data prior to the analysis. The vertical axis units correspond
+to Equation 2.1.
+40                                           Pacific-South American pattern climatology
+
+
+of these events tended to peak mid-event with some longer-lasting events peaking more
+than once during their lifetime (perhaps suggesting that some events simply merge into
+the next). The mean ( standard deviation) linear phase trend across all events lasting
+longer than 10 data times was 0.12  0.38% E per data time, which indicates that while
+there was a tendency for events to propagate to the east, a substantial proportion moved
+very little or even towards the west during their lifetime. Important insights were also
+obtained by considering the phase distribution across all individual PSA-like data times
+(Figure 4.5). On an annual basis the distribution is clearly bimodal, with the two maxima
+of the kernel density estimate located at 12.75% E and 45.0% E. Since the phase was defined
+as the location of the first local maxima of the wavenumber six component of the Fourier
+transform, this approximate 30% phase separation indicates a pair of spatial patterns that
+are exactly out of phase (Figure 4.6). Taken together these patterns clearly represent the
+single most dominant mode of variability in the PSA sector, and also closely resemble
+the PSA-1 mode identified by previous authors. Unlike the spatial patterns associated
+with the local minima (Figure 4.6), the spatial streamfunction anomalies associated with
+these maxima are of similar magnitude, which suggests that the underlying data times
+tended to display a coordinated wave pattern as opposed to an individual anomaly of
+wavenumber 5 6 scale. On the basis of this finding, it appears that filtering the PSA-like
+data times according to the location of the two local maxima represents a simple and valid
+technique for isolating the PSA pattern from the larger population of PSA-like variability.
+
+
+
+
+4.2.2   The PSA pattern
+
+
+In defining the PSA pattern according to the peaks of the PSA-like phase distribution, it
+was necessary to account for seasonal variations in the location of those peaks (Figure
+4.5). A spread of 15% was considered sufficient to capture these variations and hence the
+15% interval about each local maxima containing the highest mean values (taken from
+the annual kernel density estimate) was determined. This approach was used to account
+of the fact that the phase histograms were not symmetrical about the local maxima and
+it yielded two intervals corresponding to the positive (4.5 to 19.5% E) and negative (37.5
+to 52.5% E) phase of the PSA pattern. Both intervals represented approximately 15% of
+all data times (14.8% for the positive phase versus 15.8% for the negative), which suggests that the two phases have a similar frequency of occurrence. With this definition in
+place, it was possible to investigate variability and trends in the PSA pattern as well as
+its influence on surface temperature, precipitation and sea ice.
+4.2 Results                                                                                                              41
+
+
+                                 140
+                                                                                         (a)
+                                 120
+
+                                 100
+         frequency
+
+
+                                       80
+
+                                       60
+
+                                       40
+
+                                       20
+
+                                        0
+                                            0   20     40        60   80   100     120    140
+                                                     event duration (data times)
+
+                                                                                                                  (b)
+                                       80
+
+
+
+
+                                       70
+
+
+
+
+                                       60
+           wavenumber 6 phase ( % E)
+
+
+
+
+                                       50
+
+
+
+
+                                       40
+
+
+
+
+                                       30
+
+
+
+
+                                       20
+
+
+
+
+                                       10
+
+
+
+
+                                        0
+                                            0               20             40                   60     80   100    120
+                                                                                           data time
+
+
+Figure 4.4: Life cycle characteristics of PSA-like variability. The duration of all events is
+shown in panel (a), while the phase of events lasting more than 10 data times is shown
+in panel (b). Events that showed substantial eastward (defined as a linear phase gradient of greater than 0.25% E per data time) or westward (less than "0.25% E per data time)
+propagation are coloured red and blue respectively, otherwise grey shading is used. The
+intensity of the shading represents the amplitude of the PSA-like variability. The maximum possible phase is 60% E, however for events that cross the cyclic 0/60% E point the
+phase has been adjusted to ensure that a continuous line is maintained (e.g. a phase of
+4% E would be converted to 64% E).
+42                                           Pacific-South American pattern climatology
+
+
+
+
+Figure 4.5: Phase distribution for all data times displaying PSA-like variability. The bars
+show the total count for each 0.75% E interval over the period 1979 2014, while the lines
+represent kernel density estimates for a series of different time periods. Grey shading
+indicates the phase groupings taken to represent the positive (4.5 to 19.5% E) and negative
+(37.5 to 52.5% E) phase of the PSA pattern.
+4.2 Results                                                                              43
+
+                  positive PSA                                   minima 1
+
+
+
+
+                 negative PSA                                    minima 2
+
+
+
+
+Figure 4.6: Composite mean 500 hPa streamfunction anomaly for four different phase
+groupings: positive PSA pattern (4.5 to 19.5% E), minima 1 (22.5 to 37.5% E), negative PSA
+pattern (37.5 to 52.5% E) and minima 2 (50.25 to 6.0% E). Dashed contours indicate negative
+values and the contour interval is 1.5  106 m2 s"1 .
+
+
+
+
+Trends and variability
+
+
+
+During autumn and winter in particular, the middle years of the study period (1991 2002)
+were characterised by a predominance of positive PSA pattern activity, while negative
+phase activity was more common in recent years (Figure 4.5). This variability is reflected
+in the linear trends observed over 1979 2014, with negative phase activity showing a
+statistically significant increasing trend (at the p < 0.05 level) on an annual basis and
+smaller non-significant increasing trends for summer, autumn and winter (Figure 4.7).
+Positive phase activity showed a non-significant decreasing trend on an annual basis and
+also during autumn and winter, with an increasing trend observed for summer (Figure
+4.8). Consistent with previous studies, both phases of the PSA pattern were most active
+during winter and spring (Figure 4.7 and 4.8).
+
+   In attempting to explain annual and decadal variability in PSA pattern activity, previous authors have suggested that coupling between the SAM and ENSO is important (e.g.
+Fogt and Bromwich, 2006). While some degree of coupling is evident in Figure 4.9 (i.e.
+the positive phase of the PSA pattern was most common when positive ENSO events and
+negative SAM events coincided), it is clear that the SAM has a much stronger association
+with PSA pattern activity than ENSO. Recent positive trends in the SAM during summer,
+autumn and to a lesser extent winter (the latter being smaller and not statistically signicant; e.g. Simmonds, 2015) are also broadly consistent with the negative trends observed
+in the PSA pattern during those seasons.
+44                                                                        Pacific-South American pattern climatology
+
+
+
+                                             (a)             DJF            MAM                 JJA                    SON
+                             160
+
+
+                             140
+
+
+                             120
+     Total data times
+
+
+
+
+                             100
+
+
+                                    80
+
+
+                                    60
+
+
+                                    40
+
+
+                                    20
+
+
+                                     0
+                                         1980      1985    1990    1995        2000            2005           2010           2015
+                                    25
+                                         (b)                                                                             (c)
+         Percentage of data times
+
+
+
+
+                                    20
+
+                                    15
+
+                                    10
+
+                                     5
+
+                                     0
+                                                                             0.0   0.2   0.4     0.6    0.8    1.0     1.2   1.4
+                                         J    FMAMJ       JASOND
+                                                                                         Trend (data times per year)
+
+
+Figure 4.7: Variability and trends in the negative phase of the PSA pattern. The total
+PSA-negative data times for each individual season are shown in panel (a), correspond-
+ing seasonal linear trends in panel (c) (black represents the annual trend) and monthly
+totals for the entire study period (1979 2014) in panel (b). To account for the fact that
+not all months have an equal number of days, the counts for each month in panel (b) are
+presented as a percentage of the total number of days for that month. Years in panel (a)
+are defined from December to November (e.g. the  year  1980 spans December 1979 to
+November 1980) and trends that are statistically significant at the p < 0.10 and p < 0.05
+level are indicated with a circle and star respectively.
+4.2 Results                                                                                                                   45
+
+
+
+
+                                            (a)             DJF          MAM             JJA                    SON
+
+
+                            150
+    Total data times
+
+
+
+
+                            100
+
+
+
+
+                                   50
+
+
+
+
+                                   0
+                                        1980      1985    1990    1995     2000        2005           2010             2015
+                                   25
+                                        (b)                                                                           (c)
+        Percentage of data times
+
+
+
+
+                                   20
+
+                                   15
+
+                                   10
+
+                                    5
+
+                                   0
+                                                                         "0.6 "0.4 "0.2       0.0     0.2       0.4     0.6
+                                        J    FMAMJ       JASOND
+                                                                                  Trend (data times per year)
+
+
+                  Figure 4.8: As per Figure 4.7 but for the positive phase of the PSA pattern.
+46                                          Pacific-South American pattern climatology
+
+
+
+
+                             
+Figure 4.9: SAM versus Nino 3.4 for all data times (shown in black) over the period 1979 
+2014. Dots corresponding to PSA-positive and PSA-negative data times were re-coloured
+red and blue respectively and were arranged in the following order from front to back:
+blue, red, black (i.e. a blue dot might have red and/or black dots hidden underneath).
+For clarity, only every seventh data time was plotted. Corresponding histograms and
+                                                          
+kernel density estimates for the SAM (top panel) and Nino 3.4 (right panel) are shown
+and have been scaled according to density as opposed to frequency (hence the amplitudes
+are comparable).
+4.3 Discussion                                                                          47
+
+
+influence on surface variables
+
+In order to assess the influence of the PSA pattern on regional climate variability, the
+composite mean surface air temperature anomaly, precipitation anomaly and sea ice concentration anomaly was calculated for both the positive and negative phase (Figure 4.10).
+On the western ank of the central composite mean streamfunction anomaly associated
+with positive phase activity, anomalously warm conditions were evident over the Ross
+Sea, Amundsen Sea and interior of West Antarctica, particularly during autumn and winter. The northerly ow responsible for those warm conditions also induced large precipitation increases along the West Antarctic coastline and reduced sea ice in the Amundsen
+Sea. On the eastern ank, anomalously cool conditions were evident over the Antarctic Peninsula, Patagonia and the Weddell Sea during all seasons (winter and spring es-
+pecially), with the latter also experiencing large increases in sea ice. Anomalously dry
+conditions were also seen over the Antarctic Peninsula in association with the weaker
+westerly ow.
+   The anomalies associated with the negative phase of the PSA pattern were essentially
+the reverse of the positive phase (Figure 4.10). It is also noteworthy that while the hemispheric composite mean streamfunction anomaly associated with the PSA pattern gives
+the impression of a hemispheric ZW3 pattern, the phase of that pattern and the unremarkable anomalies either side of the Indian Ocean anomaly are inconsistent with the
+characteristics of the dominant ZW3 mode (Chapter 3).
+
+
+
+
+4.3   Discussion
+
+A new and innovative method has been presented for objectively identifying the PSA
+pattern. By rotating the global coordinate system such that the equator (a great circle
+path) traces the approximate path of the PSA pattern, it was possible to adapt the zonal
+wave identification method devised in the previous chapter. In particular, Fourier analysis (and the associated Hilbert transform) could be applied along the equator on the
+rotated grid (i.e. in the zonal direction), allowing for the analysis of the phase and amplitude of wave-like variability in the PSA sector. The climatology produced from the
+application of this method revealed that the PSA pattern is most active during winter
+and spring and often persists for months at a time. While it propagates to the east on
+average, a substantial number of events remain relatively stationary or even propagate
+to the west. The pattern has a strong influence on temperature and precipitation variability over West Antarctica and the Antarctic Peninsula, and on sea ice variability in the
+adjacent Amundsen, Bellingshausen and Weddell Seas.
+   In reconciling the results of the Fourier analysis with existing EOF-based definitions
+48                                                           Pacific-South American pattern climatology
+
+
+
+
+                    surface temperature                precipitation                              sea ice
+PSA positive
+
+
+
+
+               "2    "1      0     1      2   "0.8   "0.4    0.0     0.4   0.8   "0.13 "0.09 "0.05 "0.01 0.03 0.07 0.11
+                             K                              mm/day                                ice fraction
+PSA negative
+
+
+
+
+               "2    "1      0     1      2   "0.8   "0.4    0.0     0.4   0.8   "0.13 "0.09 "0.05 "0.01 0.03 0.07 0.11
+                             K                              mm/day                                ice fraction
+
+
+Figure 4.10: Composite mean surface air temperature anomaly, precipitation anomaly
+and sea ice fraction anomaly for all data times corresponding to the positive (phase
+grouping 4.5 to 19.5% E; top row) or negative (37.5 to 52.5% E; bottom row) phase of the
+PSA pattern. Black contours show the composite mean 500 hPa streamfunction anomaly
+(dashed contours indicate negative values and the contour interval is 1.5  106 m2 s"1 ),
+while the hatching shows regions where the difference between the composite mean and
+climatological mean is significant at the p < 0.01 level.
+4.3 Discussion                                                                            49
+
+
+of the PSA pattern, a strong resemblance was found between the existing PSA-1 mode
+and the spatial pattern corresponding to the bimodal phase peaks of wavenumber 5 6
+dominant variability in the PSA sector. The lack of a higher-order, multi-modal phase
+distribution may explain the degenerate nature of the existing PSA-2 mode (and the difficulty that researchers have had in identifying a tropical driver of that mode). It would
+appear that together, the degenerate EOF-2/EOF-3 pair (e.g. Figure 1.2) may simply rep-
+resent the remaining wavenumber 5 6 variability in the PSA sector, which likely com-
+prises of contributions from the ZW3 as well as isolated ASL and Antarctic Dipole variability.
+    By using the bimodal phase peaks as a means to dene PSA pattern activity, it was
+possible to identify a trend towards the negative phase of the pattern over the period
+1979 2014 on an annual basis and also during summer, autumn and winter. This autumn
+trend (and the high latitude temperature and sea ice anomalies associated with the negative phase of the PSA pattern) is consistent with the work of Ding and Steig (2013), who
+found that autumn warming over the Antarctic Peninsula and associated sea ice declines
+over the Bellingshausen Sea are associated with an atmospheric circulation resembling
+the negative phase of the PSA pattern. While this explanation makes sense on the eastern
+flank of the central circulation anomaly associated with that pattern, the negative phase
+of the PSA pattern is also associated with strong cooling over West Antarctica. Autumn
+temperature declines have not been observed in that region, and thus the results presented here suggest that the PSA-related cooling must have been offset by other factors.
+    In contrast to the autumn warming over the Antarctic Peninsula, winter warming
+over West Antarctica has been associated with an atmospheric circulation resembling the
+positive phase of the PSA pattern (Ding et al., 2011). The climatology presented here
+revealed a (albeit non-significant) trend towards the negative phase of the PSA pattern
+during winter, which raises the question: how is it that winter temperature trends over
+West Antarctica are associated with an atmospheric circulation resembling the positive
+phase of the PSA pattern, but a climatology of PSA pattern activity does not reveal trends
+consistent with that finding? One possible answer to this question comes from Li et al.
+(2015a). They analysed Rossby wave trains associated with observed SST trends in the
+tropical Atlantic, tropical Indian, west Pacific and east Pacific regions and found that
+all four have a centre of action over the Amundsen Sea. While none of these individual
+wave trains resembled the PSA pattern, a linear combination of the four of them did (with
+the tropical Atlantic and west Pacific identified as most influential). In other words, the
+integrated influence of tropical SST trends on the atmospheric circulation resembles the
+positive phase of the PSA pattern, but the waves underpinning that teleconnection do
+not. This result is consistent with earlier studies that identified the tropical Atlantic as a
+driver of recent trends in West Antarctica (Li et al., 2014; Simpkins et al., 2014). Another
+possible answer comes from Fogt and Wovrosh (2015), who suggest that radiative forcing
+50                                            Pacific-South American pattern climatology
+
+
+has played a role in ASL trends that are consistent with warming in West Antarctica.
+     This idea that wave trains from the tropical Atlantic and/or radiatively forced ASL
+variability might be responsible for a teleconnection resembling the PSA pattern (i.e. as
+opposed to changes in actual PSA pattern activity) goes to the heart of the reversibility
+argument made in Section 1.2. For a proposed teleconnection to be robust, it must be
+evident when looking through the lens of both the variable and mechanism of interest.
+However, even if these alternative explanations do reconcile the discrepancy between
+the climatology presented here and winter warming over West Antarctica, the associated
+circulation anomaly would bring cooler conditions and wind-driven increases in sea ice
+along the western Antarctic Peninsula, contrary to the observed warming and sea ice
+declines (Clem and Fogt, 2015). One possible explanation is that the negative autumn sea
+ice anomalies persist into winter (Ding and Steig, 2013), however it is clear that there is
+still work to be done to fully understand recent temperature and sea ice changes in the
+region.
+     One topic not addressed by the climatology presented here is variability in the east 
+west location of the PSA pattern. In response to the emergence of central Pacific ENSO
+events in recent years (e.g. Ashok et al., 2007), some authors have suggested that the PSA
+pattern moves zonally depending on the precise location of the associated tropical SST
+anomalies (e.g. Sun et al., 2013; Wilson et al., 2014a; Ciasto et al., 2015). Others suggest
+that the pattern is relatively stationary (e.g. Liu and Alexander, 2007; Ding et al., 2012),
+however either way the broad region (10% N to 10% S in the rotated coordinate system) used
+by the identification algorithm developed here renders it insensitive to subtle east west
+                                                                                   
+movements. Given that the PSA pattern did not show a strong association with the Nino
+3.4 index (an index that is sensitive to both central and eastern Pacific ENSO events), it
+would be fair to say that even if the location of tropical SSTs does cause the pattern to
+move slightly, this would represent only a small fraction of all PSA pattern activity.
+     This weak association with ENSO challenges our fundamental understanding of the
+PSA pattern. The most commonly held view to date is that the pattern is primarily a
+response to ENSO forcing (e.g. Mo and Paegle, 2001) that is moderated by the state of the
+ atmospheric bridge  (Liu and Alexander, 2007). In particular, the pattern is thought to be
+most active when ENSO and the SAM are in phase (Fogt and Bromwich, 2006). A more
+comprehensive analysis of the relationship between the pattern and tropical convection
+would be required to confirm this (e.g. lagged correlations with SSTs and other indicators
+of tropical convection like the outgoing longwave radiation), but the results presented
+here suggest that the PSA pattern might be better conceptualised as a preferred regional
+atmospheric response to various internal and external forcings (i.e. with ENSO being just
+one of many players). Rather than casting the SAM in a facilitating/bridging role, the
+strong association identified here is more consistent with the work of Ding et al. (2012),
+who suggest that the SAM (or more specifically, the leading EOF mode of SH circulation
+4.3 Discussion                                                                           51
+
+
+variability) represents the superposition of the PSA pattern in the Pacific sector and a
+(largely independent) meridional dipole pattern in the Indian Ocean sector. In contrast
+to Ding et al. (2012) the results presented here downplay the association between the
+SAM/PSA pattern and ENSO, however in an analysis of seasonal timescale data they do
+note that the PSA pattern appears to be a preferred mode that is very sensitive to small
+variations in tropical convection. Tropical SST forcing is one way to force such variations,
+but it is not a requirement. The complex nature of the relationship between tropical SSTs,
+convection and the PSA pattern is something that was explored by Harangozo (2004) and
+certainly warrants more attention.
+                                       Chapter 5
+  A minimum standard for publishing
+        computational results
+
+     This chapter explains the rationale behind the approach taken in documenting the computational
+  aspects of the research and considers how it might be adopted as a minimum communication standard
+  by relevant academic journals.
+
+
+
+
+   The analysis of ERA-Interim data presented in the preceding chapters required the
+use of numerous software packages. Most of these contain many more libraries/sub-
+packages, which together perform a specific task such as data visualisation, EOF analysis, spherical grid rotation or manipulation of netCDF file attributes. A major component of the research therefore involved writing (many thousands of lines of) code to link
+these packages and sub-packages into a coherent data analysis workflow. For parts of the
+workflow where no ready-made software package existed, it was also necessary to write
+a new package/function for that task (e.g. a new Hilbert transform function was written
+by combining pre-existing Fourier analysis routines from the SciPy library).
+   Given the computationally intensive nature of this data analysis, it would be impossible for another researcher to reproduce the results without details of the software and
+code. This is true of essentially all contemporary weather and climate science, and yet
+traditional academic publishing formats and conventions do not allow for the documentation of these aspects of the research methodology. As discussed in Section 1.3, the
+absence of adequate software and code documentation, along with other issues such as
+access to research data, has led to something of a reproducibility crisis in modern computational research (e.g. Peng, 2011).
+   In order to ensure the reproducibility of the zonal wave and PSA pattern analyses
+presented in this thesis, a comprehensive procedure was devised for documenting the
+computational aspects of a research project. In the first instance, this involved a broad
+consultation of the literature to find out (a) why researchers do not currently publish
+their code, and (b) what computational best practices they should follow when they do.
+An approach was then designed (and implemented in Section 2.3 and the journal publications arising from the thesis) that sought to reduce the barriers for researchers, while
+
+                                                 53
+54                             A minimum standard for publishing computational results
+
+
+at the same time promoting established best practices in scientific computing. In order
+to stimulate further discussion and progress in the area of reproducibility, this approach
+was then used as a starting point for defining a minimum communication standard that
+could be adopted by journals in the weather and climate sciences, as well as a set of lesson materials aimed at researchers wanting to learn the skills required to adhere to those
+standards.
+     The details of the literature review (Section 5.1), rationale behind the procedure for
+documenting the computational aspects of a research project (Section 5.2), proposed minimum communication standard (Section 5.3) and lesson materials (Section 5.4) are documented in this chapter.
+
+
+
+5.1     Literature review
+
+The literature on the topic of barriers to publishing code is relatively sparse, however a
+recent survey of the machine learning community found that the top reason for not sharing code was the perceived time required to prepare it for publication, followed by the
+prospect of dealing with questions from users (Stodden, 2010). While many researchers
+are sympathetic to the ideals of open science and reproducible research, it appears that
+the practicalities seem too difficult and time consuming, particularly when the pressure
+to publish is so strong and unrelenting. The vast majority of survey respondents also
+identified as self-taught programmers, which suggests that the computational competency of the community is relatively low.
+     While there are numerous scientific best practices documented in the literature (e.g.
+Wilson et al., 2014b), only a few are directly relevant to the documentation of reproducible
+research. The first is that researchers should be saving the commands used to produce
+a particular result in a file (called a script), so that the sequence of commands can be
+repeated at a later time. While this best practice is something that most weather and
+climate scientists are comfortable with, it is important to note that authors should not
+aim to produce a single script for each key result. This is because a second relevant best
+practice is that of modularising code, rather than copying and pasting. Since duplication
+of any segment of code is error prone (because updates would need to be applied multiple times), researchers should instead aim to develop a whole library/repository of code
+containing many interconnected scripts (i.e. that each import key code segments from
+elsewhere). The revision history of that repository can then be tracked using a version
+control system like Git, Subversion or Mercurial, so that previous versions can be easily
+retrieved (e.g. to find out exactly what commands were used to produce a particular figure that was generated six months ago). These version control systems are easily linked
+to an online hosting service such as GitHub or Bitbucket, which is the means by which a
+5.2 Documenting the computational aspects of a research project                            55
+
+
+code repository can be made publicly available.
+
+   Besides these core best practices, the literature points to a wide range of tools for
+assisting with reproducibility. While these tools are no doubt proposed with good intentions, the bewildering array of options is one reason why an individual working in the
+weather and climate sciences might place reproducibility in the  too hard  basket. An appropriate solution for any given scientist no doubt exists within that collection of tools,
+but it is heavily obscured. Consider the  regular  scientist described in Box 5.1. In consult-
+ing the literature on reproducible computational research, they would be confronted with
+options including data provenance tracking systems like VisTrails (Freire and Silva, 2012)
+and PyRDM (Jacobs et al., 2014), software environment managers like Docker and Va-
+grant (Stodden and Miguez, 2014), and even online services like RunMyCode.org where
+your code and data can be run by others (Stodden et al., 2012). These might be good options for small teams of software engineers or experienced scientific programmers deal-
+ing with very large workflows (e.g. the post-processing of thousands of model runs),
+complex model simulations and/or production style code (e.g. they might be develop-
+ing a satellite retrieval algorithm that has high re-use potential in the wider community),
+but a regular scientist has neither the requisite computational experience or a research
+problem of sufficient scale and complexity to necessarily require and/or make use of
+such tools. The procedure outlined below was designed with this regular scientist in
+mind. It looked to minimise both the time involved and the complexity of the associated
+tools, while at the same time remaining faithful to established best practices in scientific
+computing.
+
+
+
+
+5.2    Documenting the computational aspects of a research project
+
+
+At first glance, the only difference between a regular thesis or journal article and that
+presented here is the addition of a short computation section (e.g. Section 2.3). That
+section accompanies the traditional description of data and methods and briefly cites the
+major software packages used in the research, before pointing the reader to three key
+supplementary items: (1) a more detailed description of the software used, (2) a version
+controlled code repository and (3) a collection of supplementary log files that capture
+the data processing steps taken in producing each key result. These items are hosted
+at Figshare (Irving, 2016a), which is a website where researchers commonly archive the
+ long tail  of their research (e.g. supplementary figures, code and data).
+56                             A minimum standard for publishing computational results
+
+
+
+
+     The procedure for documenting computational results outlined in this chapter was
+     developed with a  regular  weather/climate scientist in mind. A characterisation
+     of this scientist is given below and is based on the few documented surveys of
+     how computational scientists do their work (Hannay et al., 2009; Stodden, 2010;
+     Momcheva and Tollerud, 2015), editorials describing current computational practices (e.g. Easterbrook, 2014) and the author s personal experience teaching at numerous Software Carpentry workshops over the past few years (Section 5.4). This
+     regular scientist:
+
+        "  Works with publicly available data (e.g. reanalysis data) that is often large in
+          size (e.g. it might be tens or hundreds of gigabytes), but is not so large as to
+          be considered  big data. 
+
+        "  Acquired the knowledge to develop and use scientific software from peers
+          and through self-study, as opposed to formal education and training.
+
+        "  Primarily relies on software like Python, MATLAB, IDL, NCL or R, which has
+          a large user/support base and is relatively simple to install on a Windows,
+          Mac or Linux computer.
+
+        "  Does most of their work on a desktop or intermediate computer (as opposed
+          to a supercomputer).
+
+        "  Is only writing code for a specific task/paper and is not looking for community uptake.
+
+        "  Works on their own or in a very small team (e.g. 2 3 other scientists) and
+          does not have access to professional software developers for support.
+
+     Some scientists might be regular in most but not all aspects of their work (e.g.
+     all the points above might apply except they occasionally use a highly specialised
+     software package that does not have a large support base) so this characterisation
+     can be thought of as a baseline or minimum level of computation that essentially
+     all weather and climate scientists are engaged in.
+
+
+                         Box 5.1: Description of a regular scientist.
+5.2 Documenting the computational aspects of a research project                           57
+
+
+5.2.1   Software description
+
+There is an important difference between citing the software that was used in a study
+(so that authors get appropriate academic credit) and describing it in sufficient detail
+so as to convey the precise version and computing environment (Jackson, cited 2015).
+Recognising this, the computation section begins with a high-level description of the
+software used, including citations to any papers written about the software. Authors
+of scientific software are increasingly publishing with journals like the Journal of Open
+Research Software, so it is important for users of that software to cite those papers within
+their manuscripts. This high-level description also briefly articulates the general tasks
+each software item was used for (e.g. plotting, data analysis, file manipulation). Such
+an overview does not provide sufficient detail to recreate the computing environment
+used in the study, so it was also necessary to provide a link to a supplementary file that
+documents the precise version of each software package used and the operating system
+upon which it was run (namely the name, version number, release date, institution and
+DOI or URL; Box 5.2).
+
+
+
+5.2.2   Code repository
+
+Most of the examples of reproducible research currently available in the literature produce a pristine code repository (i.e. one that only contains code directly relevant to that
+paper), however this is a potentially time consuming practice that would likely involve
+a degree of cutting and pasting from code used in other projects/papers. As such, it
+should not be an expectation for regular scientists who are not looking for broad-scale
+community uptake of their code. Instead, the approach taken here was to simply provide
+a copy (i.e. a zip file that was uploaded to Figshare alongside the software description
+and log files) of the version controlled code repository that the author uses in his daily
+work. There is code in that  everyday  repository that is not relevant to the zonal wave
+or PSA pattern analyses, but this is not a problem. Readers will probably never look at
+that code (because it is not referred to in the associated log files), and what is the harm if
+they do? Students and other scientists could potentially learn from it, and in the best case
+scenario they would inform the author of a bug or possible improvement to the code.
+   This potential for receiving suggested bug fixes and/or improvements is one of the
+major advantages of documenting code in an open and reproducible manner. At dedicated code sharing websites such as GitHub and Bitbucket such suggestions are submit-
+ted via  pull request  and many useful features are provided to facilitate the process (e.g.
+you can directly comment on and discuss specific sections of code). For this reason, a
+link to the associated GitHub page is also provided in Section 2.3. This has the added
+advantage of allowing the reader to access to the very latest version of the repository, in
+58                          A minimum standard for publishing computational results
+
+
+
+
+     Operating system:
+
+     Ubuntu. 12.04. April 2012. Canonical Ltd.
+         http://www.ubuntu.com/
+
+     Software packages:
+
+     netCDF Operators. 4.4.6. September 2014. netCDF Operators Project.
+         http://sourceforge.net/projects/nco/
+     Climate Data Operators. 1.7.0. October 2015. Max Plank Institut fur
+         Meteorologie. Hamburg, Germany.
+         https://code.zmaw.de/projects/cdo
+     Anaconda. 2.0.1. July 2014. Continuum Analytics. Austin, Texas.
+         http://docs.continuum.io/anaconda/
+     Python. 2.7.10. May 2015. Python Software Foundation.
+         https://www.python.org/
+     NumPy. 1.10.1. October 2015. NumPy Developers.
+         http://www.numpy.org/
+     SciPy. 0.16.0. July 2015. SciPy Developers.
+         http://www.scipy.org/scipylib/
+     xray. 0.5.1. June 2015. xray Developers.
+         http://xray.readthedocs.org/
+     windspharm. 1.3.1. June 2014. Andrew Dawson.
+         http://ajdawson.github.io/windspharm/
+     eofs. 0.5.0. June 2014. Andrew Dawson.
+         http://ajdawson.github.io/eofs/
+     pyqt_fit. 1.3.3. August 2014. Pierre Barbier de Reuille.
+         https://pyqt-fit.readthedocs.org/
+     matplotlib. 1.4.3. July 2015. Matplotlib Development Team.
+         http://matplotlib.org/
+     seaborn. 0.6.0. June 2015. Michael Waskom.
+         http://stanford.edu/mwaskom/software/seaborn/
+     iris. 1.8.1. June 2015. Met Office. Exeter, England.
+         http://scitools.org.uk/
+     cartopy. 0.13.0. June 2015. Met Office. Exeter, England.
+         http://scitools.org.uk/
+
+
+
+Box 5.2: Software environment used in producing the results presented in this thesis
+(and documented at Irving, 2016a).
+5.2 Documenting the computational aspects of a research project                           59
+
+
+case further code development is done in future. An important point here is that while
+the provision of a link to the associated GitHub page is a nice extra step, it cannot be a
+substitute for the zip file copy of the code uploaded to Figshare. This is because archiving
+sites such as Figshare and Zenodo issue DOIs, which function as a perpetual link to the
+resource and can only be obtained by agencies that commit to maintain a reliable level
+of preservation (Potter and Smith, cited 2015). GitHub does not provide a similar level
+of preservation (e.g. the URL would no longer work if the name of the repository was
+changed).
+
+
+
+5.2.3   Log les
+
+A code repository and software description on their own are not much use to a reader;
+they also need to know how that code was used in generating the results presented. It
+turns out that in the weather and climate sciences, the answer to adequately documenting
+the computational steps involved in producing a given result has been staring us in the
+face for years. As a community, we have almost universally adopted a self-describing
+file format (i.e. a format where metadata can be stored within the file) called network
+Common Data Form (netCDF), which means we have been able to develop numerous
+software tools for processing and manipulating data stored in that format. The most well
+known of these are a collection of command line tools known as the NetCDF Operators
+(NCO) and Climate Data Operators (CDO). Whenever an NCO or CDO command is
+executed, a time stamp followed by a copy of the command line entry is automatically
+placed into the global attributes of the output netCDF file, thus maintaining a history of
+the provenance of that data (see Box 5.3 for examples of NCO and CDO entries).
+   What is important here is not the specific software tools or file format (there are many
+researchers who do not use NCO, CDO, or netCDF files) but rather the deceptively simple method for recording previous computational steps. Using any of the programming
+languages common to the weather and climate sciences, a user can obtain details of the
+associated command line entry and append such text to the global attributes of a netCDF
+file (or a corresponding metadata text file if dealing with file formats that are not self-
+describing). In fact, in all of these languages such tasks can be achieved with just a few
+lines of additional code. This thesis provides a log file containing a complete NCO/CDO-
+style history for each figure; see Box 5.3 for details of one of those files and the associated
+page on Figshare (Irving, 2016a) for the complete set.
+   An important feature of these log files is that they are both readable and writable by
+any weather and climate scientist. If advanced practitioners are tracking their computational steps with tools like VisTrails then they can certainly submit log files (or equivalent
+documentation) exported from those tools, but as a minimum standard it is important
+60                              A minimum standard for publishing computational results
+
+
+that elaborate tools are not a requirement. By spelling out every single computational
+step (i.e. from initial data download to the final plot/result), the log files also ensure that
+readers do not need to be familiar with build tools like Make or other workflow management tools in order to figure out which computational steps were executed and in what
+order. Other features of note include:
+
+     "  Besides a slight amendment to the initial download entry of the log file shown in
+        Box 5.3 (the default text provided by the ERA-Interim data server was not particularly self explanatory), no manual editing of its contents was done. This means
+        that if a reviewer asked for a slight modification to the figure, for instance, the re-
+        generation of a new log file would be trivial. By resisting the urge to clean up the
+        file (e.g. one might consider removing path details) it also doubles as a record that
+        is highly useful to the author in retracing their own steps (e.g. they could use it to
+        recall where they stored the output data on their local machine).
+
+     "  It cannot be assumed that the latest version of any code repository was used to generate all the results in a given paper. The unique version control revision number
+        (known as a hash value) was therefore recorded in the log files, wherever a script
+        written by the author was executed. Languages like Python, R and MATLAB are
+        able to link with version control systems like Git, so the retrieval of the revision
+        number can be automated.
+
+     "  When more than one input file is passed to an NCO or CDO function, the history of
+        only one of those files is retained in the output file. On occasions where this is not
+        appropriate (i.e. where the histories of the multiple input files are very different),
+        it is important to ensure that the history of all input files is retained. There are a
+        number of examples of this in the log files provided on Figshare.
+
+
+
+
+5.3      A formal minimum standard
+
+5.3.1    Implications and practicalities
+
+Before formally proposing a minimum standard for the communication of computational
+results, it is worth considering the implications and practicalities of adopting a standard
+based on the approach described above. The reproducibility of published results would
+presumably improve, which may also lead to increased trust, interest and citations (Pi-
+wowar et al., 2007), but what else would it mean for authors and reviewers? Would there
+be barriers to overcome in implementing such a standard, and what could be done to
+make the transition easier?
+5.3 A formal minimum standard                                                     61
+
+
+
+
+   Mon Nov 16 09:11:28 2015: /usr/local/anaconda/bin/python /home/STUDENT/
+       dbirving/climate-analysis/visualisation/plot_hilbert.py /mnt/meteo0/
+       data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_030day-
+       runmean_native.nc va /mnt/meteo0/data/simmonds/dbirving/ERAInterim/
+       data/zw/figures/hilbert_zw_w19_va_ERAInterim_500hPa_030day-
+       runmean_native-55S_1986-05-22_2006-07-29.eps 1 2 --latitude -55 -55
+       --dates 1986-05-22 2006-07-29 --wavenumbers 1 9 --figure_size 15 6 --
+       envelope 1 9 (Git hash: a9573e4)
+
+   Tue Jun 30 07:35:49 2015: cdo runmean,30 /mnt/meteo0/data/simmonds/
+       dbirving/ERAInterim/data/va_ERAInterim_500hPa_daily_native.nc /mnt/
+       meteo0/data/simmonds/dbirving/ERAInterim/data/
+       va_ERAInterim_500hPa_030day-runmean_native.nc
+
+   Wed Mar 18 17:17:14 2015: cdo mergetime va_ERAInterim_500hPa_daily
+       -2014-06-01-to-2014-12-31_native.nc ../data/
+       va_ERAInterim_500hPa_daily_native_orig.nc ../data/
+       va_ERAInterim_500hPa_daily_native.nc
+
+   Mon Nov 10 17:15:49 2014: ncatted -O -a level,va,o,c,500hPa
+       va_ERAInterim_500hPa_daily_native.nc
+
+   Mon Nov 10 16:31:05 2014: ncatted -O -a long_name,va,o,c,northward_wind
+       va_ERAInterim_500hPa_daily_native.nc
+
+   Thu Aug 21 10:57:46 2014: ncatted -O -a axis,time,c,c,T
+       va_ERAInterim_500hPa_daily_native.nc
+
+   Thu Aug 21 10:34:46 2014: ncrename -O -v v,va
+       va_ERAInterim_500hPa_daily_native.nc
+
+   Thu Aug 21 10:26:49 2014: cdo invertlat -sellonlatbox,0,359.9,-90,90 -
+       daymean va_ERAInterim_500hPa_6hourly_native.nc
+       va_ERAInterim_500hPa_daily_native.nc
+
+   Thu Aug 21 10:14:59 2014: cdo mergetime ../download/
+       va_ERAInterim_500hPa_6hourly-1979-1988_native_unpacked.nc ../download
+       /va_ERAInterim_500hPa_6hourly-1989-1998_native_unpacked.nc ../
+       download/va_ERAInterim_500hPa_6hourly-1999-2008_native_unpacked.nc
+       ../download/va_ERAInterim_500hPa_6hourly-2009-2014_native_unpacked.nc
+        va_ERAInterim_500hPa_6hourly_native.nc
+
+   Thu Aug 21 10:13:35 2014: ncpdq -P upk va_ERAInterim_500hPa_6hourly
+       -2009-2014_native.nc va_ERAInterim_500hPa_6hourly-2009-2014
+       _native_unpacked.nc
+
+   Wed Aug 20 23:16:22 2014: Initial download of 6 hourly, 500 hPa
+       meridional wind ERA-Interim data in 5 or 10 year chunks (e.g.
+       va_ERAInterim_500hPa_6hourly-2009-2014_native.nc) from http://apps.
+       ecmwf.int/datasets/data/interim-full-daily/
+
+
+
+Box 5.3: Log file corresponding to Figure 3.1. Details regarding the software and code
+referred to in the log file are provided in Section 2.3.
+62                              A minimum standard for publishing computational results
+
+
+Authors
+
+As previously mentioned, Stodden (2010) identified the time involved as the largest barrier to sharing code. There are numerous authors who argue that the best practices like
+scripting and version control save time in the long run (e.g. Sandve et al., 2013; Wilson
+et al., 2014b) and objective evidence is beginning to emerge in support of this claim (Sim-
+perler and Wilson, 2015). This means that once researchers have learned and adopted
+these practices, they may actually save time. In the author s experience as a Software
+Carpentry instructor (Section 5.4), many weather and climate scientists are comfortable
+with the idea of scripting, but very few use version control. Learning these new skills is
+not overly time consuming (Software Carpentry teaches them in a short two-day work-
+shop), but on a local level it requires an individual or institution to take the lead in liaising
+with Software Carpentry to nd volunteer instructors and to coordinate other logistics.
+A good example is the Australian Meteorological and Oceanographic Society (AMOS),
+which has hosted a Software Carpentry workshop alongside its annual conference for
+the past three years running. Of course, it is also possible to learn these skills by follow-
+ing an online tutorial (e.g. all the Software Carpentry lessons are available online), but
+there is an added benefit to the social aspect of a workshop. It helps to reduce the embarrassment many scientists have about the quality of their code (i.e. they see that their
+peers are no  better  at coding than they are), which is an important part of achieving the
+required cultural shift towards an acceptance of code sharing (Barnes, 2010).
+     The other potentially time consuming task associated with adopting a minimum standard would be dealing with requests for assistance. One suggested solution to this problem is to make it clear that authors are not obliged to support others in repeating their
+computations (Easterbrook, 2014). This is probably the only feasible solution, but it is
+worth noting that even if not formally obliged, some authors may fear that refusing re-
+quests will make it look like they are uncooperative and/or have something to hide.
+     Some researchers also face barriers relating to security and proprietary, particularly
+if they are using large code bases that have been developed for research and/or operations within government laboratories, national weather bureaus and private companies (Stodden, 2010). Such code bases are increasingly being made public (e.g. the Australian
+Bureau of Meteorology and CSIRO host the code for their Climate and Weather Science
+Laboratory in a public GitHub repository), but any proposed minimum standard would
+need to allow some flexibility for researchers who are unable to make their code public
+for these reasons (the code archived by MPI-M is available via request only, which might
+be an acceptable solution in many cases). For those concerned about getting appropriate
+academic credit for highly novel and original code, a separate publication (e.g. in the
+Journal of Open Research Software) or software license (e.g. Morin et al., 2012) might also be
+an option.
+5.3 A formal minimum standard                                                            63
+
+
+Reviewers
+
+
+In requiring authors to make their code available, it would be important to convey to re-
+viewers that they are not expected to review the code associated with a submission; they
+simply have to check that it is sufficiently documented (i.e. that the code is available in
+an online repository and that log files have been provided for all figures and key results).
+Not only would it be unrealistic to have reviewers examine submitted code due to the
+wide variety of software tools and programming languages out there, it would also be
+inconsistent with the way scientific methods have always been reviewed. For instance, in
+the 1980s it was common for weather and climate scientists to manually identify weather
+systems of interest (e.g. polar lows) from satellite imagery. The reviewers of the day were
+not required to go through all the satellite images and check that the author had counted
+correctly, they simply had to check that the criteria for polar low identification was adequately documented. This is not to say that counting errors were not made on the part
+of authors (as with computer code today there were surely numerous errors/bugs), it
+was just not the job of the reviewer to find them. Author errors are revealed when other
+studies show conflicting results and/or when other authors try to replicate key results,
+which is a process that would be greatly enhanced by having a minimum standard for the
+communication of computational results. This idea of conceptualising the peer review of
+code as a post publication process is consistent with the publication system envisaged by
+the open evaluation movement (e.g. Kriegeskorte et al., 2012).
+
+
+
+
+5.3.2   Proposed standards
+
+To assist in establishing a minimum standard for the communication of computational
+results, it is proposed that the following text (or something in the same spirit) could be
+inserted into the author and reviewer guidelines of journals in the weather and climate
+sciences (institutions that have their own internal review process could also adopt these
+guidelines). In places, the language borrows from the guidelines recently adopted by
+Nature (Nature, 2014). It is anticipated that a journal would provide links to examples of
+well documented computational results to help both authors and reviewers in complying
+with these guidelines. The journal could decide to host the supplementary materials itself
+(i.e. the software description, code repository and log files), or encourage the author to
+host these items at an external location that can guarantee persistent, long-term access
+(e.g. an institutionally supported site like MPI-M provides for its researchers or an online
+academic archive such as Figshare or Zenodo).
+64                                A minimum standard for publishing computational results
+
+
+Author guidelines
+
+If computer code is central to any of the paper s major conclusions, then the following is
+required as a minimum standard:
+
+     1. A statement describing whether (and where) that code is available and setting out
+       any restrictions on accessibility.
+
+     2. A high-level description of the software used to execute that code (including citations for any academic papers written to describe that software).
+
+     3. A supplementary file outlining the precise version of the software packages and operating system used. This information should be presented in the following format:
+       name, version number, release date, institution, DOI or URL.
+
+     4. A supplementary log file for each major result (including key figures) listing all
+       computational steps taken from the initial download/attainment of the data to the
+       final result (i.e. the log files describe how the code and software were used to produce the major results).
+
+     It is recommended that items 1 and 2 are included in a  Computation  (or similarly
+named) section within the manuscript itself. Any practical issues preventing code sharing will be evaluated by the editors, who reserve the right to decline a paper if important
+code is unavailable. While not a compulsory requirement, best practice for code sharing
+involves managing code with a version control system such as Git, Subversion or Mer-
+curial, which is then linked to a publicly accessible online repository such as GitHub or
+Bitbucket. In the log les a unique revision number (or hash value) can then be quoted
+to indicate the precise version of the code repository that was used. Authors are not
+expected to produce a brand new repository to accompany their paper; an  everyday 
+repository which also contains code not relevant to the paper is acceptable. Authors
+should also note that they are not obliged to support reviewers or readers in repeating
+their computations.
+
+
+Reviewer guidelines
+
+The reviewer guidelines for most journals already ask if the methodology is explained in
+sufficient detail so that the paper s scientific conclusions could be tested by others. Such
+guidelines could simply be added to as follows:  If computer code is central to any of
+those conclusions, then reviewers should ensure that the authors are compliant with the
+minimum standards outlined in the author guidelines. It should be noted that reviewers
+are not obliged to assess or execute the code associated with a submission. They must
+simply check that it is adequately documented. 
+5.4 Software Carpentry lesson materials                                                 65
+
+
+5.4    Software Carpentry lesson materials
+
+Software Carpentry is a volunteer organisation whose members teach basic program-
+ming skills to researchers in science, engineering and medicine (Wilson, 2014). Over the
+past few years it has run hundreds of two-day workshops at research institutions around
+the world and is now a global leader in computing education. One key to the success
+of the organisation has been the fact that most qualified Software Carpentry instructors
+are research scientists as opposed to professional software developers. This avoids a
+well-known teaching phenomenon called expert blind spot; the instructors can remember what it is like not to understand basic programming concepts and are able to write
+scientist-appropriate lesson materials.
+   As part of the 2013 AMOS conference in Melbourne, Greg Wilson (the founder of
+Software Carpentry) flew to Australia to run a workshop for the AMOS community. Like
+all Software Carpentry workshops, it delivered lessons on automating tasks using the
+Unix shell, structured programming in Python (including how to write programs that
+are executable at the command line) and version control using Git. While these are all
+the basic skills required to adhere to the proposed communication standards, it was felt
+that an additional  capstone  lesson was required to pull all those skills together into a
+coherent example specific to the weather and climate sciences. Over the next few months,
+the author completed the Software Carpentry instructor training course and developed
+this capstone lesson (Irving, 2015), before delivering it and the rest of the core Software
+Carpentry materials at a workshop alongside the 2014 AMOS conference in Hobart (and
+again at the 2015 conference in Brisbane). Importantly, that lesson describes how to create
+the log files discussed in Section 5.2.3.
+
+
+
+
+5.5    Discussion
+
+In order to combat the reproducibility crisis in published computational research, a sim-
+ple procedure for communicating computational results has been demonstrated and its
+rationale discussed. The procedure involves authors providing three key supplementary
+items: (1) a description of the software packages and operating system used, (2) a (prefer-
+ably version controlled and publicly accessible) code repository, and (3) a collection of
+supplementary log files that capture the data processing steps taken in producing each
+key result. It should provide a starting point for weather and climate scientists (and per-
+haps computational scientists more generally) looking to publish reproducible research,
+and could be adopted as a minimum standard by relevant academic journals.
+   The procedure/standard was developed to be consistent with recommended computational best practices and seeks to minimise the time burden on authors, which has
+66                            A minimum standard for publishing computational results
+
+
+been identified as the most important barrier to publishing code. In particular, best practice dictates that at a minimum weather and climate scientists should be (a) writing data
+analysis scripts so they can re-run their analyses, (b) using version control to manage
+those scripts for backup and ease of sharing/collaboration and (c) storing the details of
+their analysis steps in the global history attribute of their netCDF data files (or following
+an equivalent process for other file formats) to ensure the complete provenance of their
+data. In order to make their published results reproducible, it follows that the minimum
+an author would need to do is simply make those history attributes available (via log
+files) along with the associated code repository and a description of the software used
+to execute that code. The attainment of this minimum standard would involve a slight
+change to the workflow of many regular weather and climate scientists (e.g. most do not
+use version control), however the standard has been designed to only require skills that
+can be learned very quickly (e.g. at a two-day Software Carpentry workshop).
+     While widespread adoption of this minimum standard would be a great starting point
+for reproducible research, it is worth noting that as a community we should ultimately
+aim much higher. By way of analogy, minimum standards in the construction industry
+ensure that buildings will not fall over or otherwise kill their inhabitants, but if everyone
+only built to those minimum standards our cities would be hugely energy inefficient. The
+proposed minimum standard for computational research ensures that published results
+are reproducible (which is a big improvement on the current state of affairs), but recreating workflows from the log files, daily code repositories and software descriptions of
+even just moderately complex analyses would be a tedious and time consuming process.
+Once comfortable with the skills and processes required to meet the minimum standard,
+authors should seek to go beyond them to improve the comprehensibility of their published computational results, in the same way that builders should strive for a five-star
+energy rating. The precise tools and methods used in this endeavour will vary from author to author; basic analyses might only require the inclusion of informative REAMDE
+files that explain in plain language how to execute the code, while others might choose to
+provide informative ow diagrams exported from provenance tracking systems like Vis-
+Trails, pre-package their code/software for ease of installation (e.g. for inclusion in the
+Python Package Index) and/or make their software environment available via Docker.
+As previously mentioned, it would not be appropriate to include these many varied (and
+often complex) options in any minimum standards, but they represent an excellent next-
+step for scientists who have mastered the basics and will hopefully see more uptake as
+the computational competency of the community improves over time.
+                                          Chapter 6
+                                    Conclusions
+     This chapter summarises the major contributions of the thesis, including a discussion of the associated limitations and directions for further research.
+
+
+
+6.1    New approaches to wave identification
+The first major contribution of the thesis is the new approaches it presents for the identication and characterisation of long-lived, quasi-stationary waveforms. In particular, the
+common feature of the zonal wave and PSA pattern analyses is that relative to previous
+work, they both more fully exploit the information available from Fourier analysis. In
+the case of the zonal waves, the key methodological advance was the use of the Hilbert
+transform to calculate the wave envelope. Adapted from recent studies of synoptic-scale
+Rossby wave packets, the wave envelope is able to capture spatial variations in wave
+amplitude, which is particularly useful when trying to determine whether a given zonal
+wave pattern spans the entire longitudinal domain of interest.
+   The analysis of the PSA pattern also utilised the wave envelope, however the key ad-
+vance of that work related more generally to the successful application of Fourier analysis to a non-zonal waveform. Using a grid rotation method traditionally applied in ocean
+modelling, it was possible to dene a new global grid whose equator traced the approximate (great circle) path of the PSA pattern. Fourier analysis could then be applied along
+the equator in the new zonal direction, allowing for what was essentially the first detailed
+analysis of the phase of the pattern. A limitation of both the PSA pattern and zonal wave
+identification methods was the occurrence of false positives (e.g. not every data time
+associated with a large PWI displayed a coordinated hemispheric wave pattern), how-
+ever the false positive rate was likely lower than for existing grid point or EOF-based
+approaches to wave identification (e.g. Section 3.2.1).
+   While an obvious future application for these new approaches is subsequent studies
+of SH zonal wave activity and/or the PSA pattern, they could also be adapted for use
+in studies of other quasi-stationary waveforms. The most closely related waveform is
+the Pacific-North American (PNA) pattern (Wallace and Gutzler, 1981), which plays an
+important role in winter climate variability over the North Pacific and North America
+(e.g. Notaro et al., 2006). Like its SH counterpart, the PNA pattern follows an approximate great circle path, has traditionally been analysed via EOF analysis and has been
+implicated in recent mid-to-high latitude trends (e.g. Ding et al., 2014; Liu et al., 2015).
+Other non-zonal waveforms that do not follow an approximate great circle path would
+be more challenging, however methods have been developed for applying Fourier anal-
+ysis to synoptic-scale, non-zonal waveforms (Zimin et al., 2006; Souders et al., 2014) and
+may represent a starting point for further research.
+
+
+
+6.2     New insights into the zonally asymmetric features of the SH
+        circulation
+
+Application of the new wave identification approaches revealed new insights into both
+the fundamental characteristics of the zonally asymmetric circulation and its influence on
+regional climate variability. With respect to the former, it was found that while ZW1 and
+ZW3 are both prominent features of the climatological circulation, the defining feature of
+highly meridional hemispheric states is an enhancement of the ZW3 component. The results also confirmed the existence of the PSA-1 mode described by previous authors, but
+questioned the physical reality of the PSA-2 mode. Only a weak relationship was found
+between the PSA pattern and ENSO, suggesting that the pattern might be better conceptualised as a preferred regional atmospheric response to various external (and internal)
+forcings.
+     These insights highlight a number of areas for further research. Given that the PSA
+pattern is widely regarded as the primary mechanism by which ENSO influences the
+high southern latitudes, our understanding of the relationship between the pattern and
+tropical convection may need to be revisited. Forcing of the zonal waves is also an area
+that warrants further attention. While they are thought to owe their existence to the
+configuration of the SH land masses and significant topography (Baines and Fraedrich,
+1989), little is known about the drivers of zonal wave variability. The results presented
+here suggest that ZW3 variability would be a particularly important focus for this future
+work.
+     Surface temperature, precipitation and sea ice were shown to vary strongly in association with the zonal waves and PSA pattern, which provides a strong case for this future
+research into their fundamental characteristics. The documented influence of the zonal
+waves on regional climate variability is also of particular relevance to future studies of
+Antarctic temperature and mid-to-high latitude precipitation variability, given that the
+waves have received scant attention in this area to date. The identified seasonal trends
+towards the negative phase of the PSA pattern were not consistent with recent warming
+over West Antarctica (and were only partially consistent with warming over the Antarctic Peninsula), which suggests that further research is still needed to fully reconcile the
+6.3 A practical solution to the reproducibility crisis                                     69
+
+
+role of the atmosphere in recent mid-to-high latitude trends.
+   As with studies concerning regional climate trends, a limitation of the zonal wave and
+PSA pattern climatologies presented here is the relatively short time period over which
+the study was conducted. Modes of climate variability such as the Interdecadal Pacific
+Oscillation (Power et al., 1999) vary over decadal and longer timescales, which means a
+36 year study period is unlikely to capture the full range of variability. The sparsity of the
+observational network prior to the beginning of the satellite era means it would be difcult for future studies to extend the time period back beyond 1979. In fact, even after 1979
+the lack of observational data for assimilation in the mid-to-high southern latitudes is a
+source of uncertainty for all reanalysis products. Future studies might consider comparing results obtained from multiple latest-generation reanalysis products, in an attempt to
+at least partially quantify this uncertainty.
+
+
+
+6.3    A practical solution to the reproducibility crisis
+
+The results presented in this thesis are completely reproducible, thanks to the addition of
+a brief computation section detailing the associated software and code (Section 2.3). The
+procedure used for documenting these computational aspects of the work was developed
+to be consistent with recommended computational best practices and seeks to minimise
+the time burden on authors, which has been identified as the most important barrier to
+publishing code. It should provide a starting point for weather and climate scientists
+looking to publish reproducible research, and a detailed proposal has been outlined ex-
+plaining how journals might adopt the procedure as a formal minimum communication
+standard.
+   With this practical solution (Irving and Simmonds, 2015) and proposed minimum
+standard (Irving, 2016b) now published in the peer reviewed literature, the next step is
+to lobby relevant decision makers. Since both articles were published in journals man-
+aged by the American Meteorological Society (AMS), the most obvious decision makers
+to target in the first instance were the AMS Board on Data Stewardship. They recently
+decided upon a set of dataset disclosure standards that now apply to all AMS journals
+(Mayernik et al., 2015) and hence code is next on their agenda. At the time of writing, the
+proposed minimum communication standard outlined in Chapter 5 is set to be discussed
+by the Board at the AMS Annual Meeting in January 2016. A number of researchers have
+volunteered to try and adhere to the standard when they write their next paper, and their
+feedback will be forwarded on. Another prominent publisher in the weather and climate
+sciences is the Royal Meteorological Society, so they could be approached next. Societies
+like the American Geophysical Union and the European Geosciences Union also manage
+a number of journals that publish weather and climate science, however in many cases
+70                                                                           Conclusions
+
+
+these journals also publish work relating to other fields of geoscientific research. A question that needs to be considered in more detail is whether the proposed communication
+standard could be adopted in other computational sciences. If it can, then the impact of
+this thesis might be felt far beyond the narrow eld of weather and climate science.
+                           
+
+
