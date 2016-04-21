@@ -1,25 +1,29 @@
 Mon Nov 23 11:42:10 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/visualisation/plot_map.py 2 2 --infile /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/psa/eof-sf_ERAInterim_500hPa_monthly_native-sh-zonal-anom.nc empirical_orthogonal_function_1 none none none colour0 1 PlateCarree --infile /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/psa/eof-sf_ERAInterim_500hPa_monthly_native-sh-zonal-anom.nc empirical_orthogonal_function_2 none none none colour0 2 PlateCarree --infile /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/psa/eof-sf_ERAInterim_500hPa_monthly_native-sh-zonal-anom.nc empirical_orthogonal_function_3 none none none colour0 3 PlateCarree --infile /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/psa/eof-sf_ERAInterim_500hPa_monthly_native-sh-zonal-anom.nc empirical_orthogonal_function_4 none none none colour0 4 PlateCarree --palette RdBu_r --subplot_headings EOF_1_-_14.6% EOF_2_-_10.1% EOF_3_-_9.4% EOF_4_-_6.9% --figure_size 11 4.5 --ofile /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/psa/eof-sf_ERAInterim_500hPa_monthly_native-sh-zonal-anom.eps --region sh --units correlation --colourbar_ticks -1 -0.8 -0.6 -0.4 -0.2 0 0.2 0.4 0.6 0.8 1.0 --line -10 -10 115 235 green solid RotatedPole_260E_20N low --line 10 10 115 235 green solid RotatedPole_260E_20N low --line -10 10 115 115 green solid RotatedPole_260E_20N low --line -10 10 235 235 green solid RotatedPole_260E_20N low (Git hash: db1fff2)
+
 Tue Oct 20 10:04:53 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_eof.py --maxlat 0.0 --eof_scaling 3 --pc_scaling 1 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_monthly_native-zonal-anom.nc streamfunction /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/psa/eof-sf_ERAInterim_500hPa_monthly_native-sh-zonal-anom.nc --time 1979-01-01 2014-12-31 (Git hash: dd6d414)
 Tue Oct 20 08:36:17 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_zonal_anomaly.py /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_monthly_native.nc sf /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_monthly_native-zonal-anom.nc (Git hash: 2e8f203)
 Tue Oct 20 08:34:20 2015: /usr/local/anaconda/bin/python /home/STUDENT/dbirving/climate-analysis/data_processing/calc_wind_quantities.py streamfunction /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/ua_ERAInterim_500hPa_monthly_native.nc ua /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_monthly_native.nc va /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/sf_ERAInterim_500hPa_monthly_native.nc (Git hash: 2e8f203)
-History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/ua_ERAInterim_500hPa_monthly_native.nc: 
- Tue Oct 20 08:30:58 2015: ncatted -O -a level,ua,o,c,500hPa /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:30:57 2015: ncatted -O -a long_name,ua,o,c,eastward_wind /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:30:56 2015: ncatted -O -a standard_name,ua,o,c,eastward_wind /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:30:56 2015: ncatted -O -a calendar,global,d,, /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:30:55 2015: ncrename -O -v u,ua /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:30:52 2015: cdo invertlat -sellonlatbox,0,359.9,-90,90 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/u_ERAInterim_500hPa_monthly_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:30:24 2015: ncpdq -P upk /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/u_ERAInterim_500hPa_monthly_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/u_ERAInterim_500hPa_monthly_native.nc
-2015-10-19 21:11:05 GMT by grib_to_netcdf-1.13.1: grib_to_netcdf /data/data04/scratch/netcdf-atls14-a562cefde8a29a7288fa0b8b7f9413f7-xaa1PB.target -o /data/data04/scratch/netcdf-atls14-a562cefde8a29a7288fa0b8b7f9413f7-X7F133.nc -utime 
-History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_monthly_native.nc: 
- Tue Oct 20 08:31:47 2015: ncatted -O -a level,va,o,c,500hPa /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:31:46 2015: ncatted -O -a long_name,va,o,c,northward_wind /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:31:46 2015: ncatted -O -a standard_name,va,o,c,northward_wind /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:31:46 2015: ncatted -O -a calendar,global,d,, /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:31:45 2015: ncrename -O -v v,va /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:31:42 2015: cdo invertlat -sellonlatbox,0,359.9,-90,90 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/v_ERAInterim_500hPa_monthly_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
-Tue Oct 20 08:30:43 2015: ncpdq -P upk /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/v_ERAInterim_500hPa_monthly_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/v_ERAInterim_500hPa_monthly_native.nc
-2015-10-19 21:18:51 GMT by grib_to_netcdf-1.13.1: grib_to_netcdf /data/data04/scratch/netcdf-atls12-a562cefde8a29a7288fa0b8b7f9413f7-nRWbiX.target -o /data/data04/scratch/netcdf-atls12-a562cefde8a29a7288fa0b8b7f9413f7-j9zpWk.nc -utime 
+
+    History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/ua_ERAInterim_500hPa_monthly_native.nc: 
+    
+    Tue Oct 20 08:30:58 2015: ncatted -O -a level,ua,o,c,500hPa /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:30:57 2015: ncatted -O -a long_name,ua,o,c,eastward_wind /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:30:56 2015: ncatted -O -a standard_name,ua,o,c,eastward_wind /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:30:56 2015: ncatted -O -a calendar,global,d,, /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:30:55 2015: ncrename -O -v u,ua /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:30:52 2015: cdo invertlat -sellonlatbox,0,359.9,-90,90 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/u_ERAInterim_500hPa_monthly_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/ua_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:30:24 2015: ncpdq -P upk /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/u_ERAInterim_500hPa_monthly_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/u_ERAInterim_500hPa_monthly_native.nc
+    Mon Oct 19 21:11:05 2015: Initial download of monthly 500 hPa zonal wind ERA-Interim data (i.e. u_ERAInterim_500hPa_monthly_native.nc) from http://apps.ecmwf.int/datasets/data/interim-full-moda/levtype=pl/
+
+
+    History of /mnt/meteo0/data/simmonds/dbirving/ERAInterim/data/va_ERAInterim_500hPa_monthly_native.nc: 
  
- 
+    Tue Oct 20 08:31:47 2015: ncatted -O -a level,va,o,c,500hPa /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:31:46 2015: ncatted -O -a long_name,va,o,c,northward_wind /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:31:46 2015: ncatted -O -a standard_name,va,o,c,northward_wind /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:31:46 2015: ncatted -O -a calendar,global,d,, /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:31:45 2015: ncrename -O -v v,va /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:31:42 2015: cdo invertlat -sellonlatbox,0,359.9,-90,90 /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/v_ERAInterim_500hPa_monthly_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/va_ERAInterim_500hPa_monthly_native.nc
+    Tue Oct 20 08:30:43 2015: ncpdq -P upk /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/v_ERAInterim_500hPa_monthly_native.nc /mnt/meteo0/data/simmonds/dbirving/ERAInterim/download/v_ERAInterim_500hPa_monthly_native.nc
+    Mon Oct 19 21:18:51 2015: Initial download of monthly 500 hPa meridional wind ERA-Interim data (i.e. v_ERAInterim_500hPa_monthly_native.nc) from http://apps.ecmwf.int/datasets/data/interim-full-moda/levtype=pl/
  
