@@ -121,7 +121,15 @@ Variability and trends in data times where the PWI was greater than its 90th per
 \end{center}
 \end{figure}
 
-While the results presented here focus is on the monthly (30 day running mean) timescale, it is interesting to consider whether similar behaviour is observed at other timescales. It can be seen from Figure \ref{fig:periodograms}b that wavenumber three dominates the average periodogram when the running mean applied to the daily 500 hPa meridional wind is greater than 10 days, with wavenumber one becoming progressively more influential as the smoothing increases. When the same process is repeated using the 500 hPa geopotential height (not shown), the results are very different. The ZW1 dominates at all timescales and except for a slight upswing from wavenumber two to three, the variance explained monotonically decreases for subsequent wavenumbers. This is an important result because \citet{vanLoon1972} analysed geopotential height data and concluded that ZW1 explains (by an appreciable margin) the largest fraction of the spatial variance in the 500 hPa SH circulation (a finding that has been quoted in many subsequent papers). In light of the results presented here and the previous discussion concerning the fact that $v_k \propto k Z_k$ in Fourier space and that the meridional wind may be a more appropriate quantity to analyse in this context, it is clear that ZW3 plays a greater role than previously thought, particularly when there is a strong meridional component to the hemispheric flow. 
+While the results presented here focus is on the monthly (30 day running mean) timescale, it is interesting to consider whether similar behaviour is observed at other timescales. It can be seen from Figure \ref{fig:periodograms}b that wavenumber three dominates the average periodogram when the running mean applied to the daily 500 hPa meridional wind is greater than 10 days, with wavenumber one becoming progressively more influential as the smoothing increases. When the same process is repeated using the 500 hPa geopotential height, the results are very different (Figure \ref{fig:zg_periodograms}). The ZW1 dominates at all timescales and except for a slight upswing from wavenumber two to three, the variance explained monotonically decreases for subsequent wavenumbers. This is an important result because \citet{vanLoon1972} analysed geopotential height data and concluded that ZW1 explains (by an appreciable margin) the largest fraction of the spatial variance in the 500 hPa SH circulation (a finding that has been quoted in many subsequent papers). In light of the results presented here and the previous discussion concerning the fact that $v_k \propto k Z_k$ in Fourier space and that the meridional wind may be a more appropriate quantity to analyse in this context, it is clear that ZW3 plays a greater role than previously thought, particularly when there is a strong meridional component to the hemispheric flow. 
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=1\columnwidth]{figures/zonalwaves/Figure3-7.eps}
+\caption[Temporal average (1979--2014) periodograms for the 500 hPa geopotential height at 54.75$^{\circ}$S]{\label{fig:zg_periodograms}
+Temporal average (1979--2014) periodograms for the 500 hPa geopotential height at 54.75$^{\circ}$S. The legend indicates the running mean (in days) applied to the data prior to the Fourier transform. The labels on the vertical axis correspond to Equation \ref{eq:variance_explained}.}
+\end{center}
+\end{figure}
 
   
 \subsection{SAM and ENSO}
@@ -134,7 +142,7 @@ The association between ENSO and planetary wave activity was far less pronounced
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.56\columnwidth]{figures/zonalwaves/Figure3-7.eps}
+\includegraphics[width=0.56\columnwidth]{figures/zonalwaves/Figure3-8.eps}
 \caption[Comparison of the composite mean 500 hPa streamfunction zonal anomaly for data times where the PWI was greater than its 90th percentile and the SAM was (a) positive and (b) negative]{\label{fig:sam_composite}
 Composite mean 500 hPa streamfunction zonal anomaly for data times where the PWI was greater than its 90th percentile \textit{and} the AOI was greater than its 75th percentile (grey) or less than its 25th percentile (black). Dashed contours indicate negative values and the contour interval is $4.0 \times 10^6 \: m^2 s^{-1}$.}
 \end{center}
@@ -154,7 +162,7 @@ With respect to other sectors of the high southern latitudes, anomalously warm t
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{figures/zonalwaves/Figure3-8.eps}
+\includegraphics[width=0.7\columnwidth]{figures/zonalwaves/Figure3-9.eps}
 \caption[Composite mean surface air temperature anomaly for data times where the PWI was greater than its 90th percentile]{\label{fig:tas_composite}
 Composite mean surface air temperature anomaly for data times where the PWI was greater than its 90th percentile. Black contours show the corresponding composite mean 500 hPa streamfunction anomaly (dashed contours indicate negative values and the contour interval is $2.5 \times 10^6 \: m^2 s^{-1}$), while the hatching shows regions where the difference between the composite mean and climatological mean is significant at the $p < 0.01$ level.}
 \end{center}
@@ -166,7 +174,7 @@ The seasonal composite mean precipitation anomalies generally displayed an alter
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{figures/zonalwaves/Figure3-9.eps}
+\includegraphics[width=0.7\columnwidth]{figures/zonalwaves/Figure3-10.eps}
 \caption[As per Figure \ref{fig:tas_composite}, but for the precipitation anomaly]{\label{fig:pr_composite}
 As per Figure \ref{fig:tas_composite}, but for the precipitation anomaly.}
 \end{center}
@@ -179,7 +187,7 @@ The sea ice composites (Figure \ref{fig:sic_composite}) were highly consistent w
  
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{figures/zonalwaves/Figure3-10.eps}
+\includegraphics[width=0.7\columnwidth]{figures/zonalwaves/Figure3-11.eps}
 \caption[As per Figure \ref{fig:tas_composite}, but for the sea ice concentration anomaly]{\label{fig:sic_composite}
 As per Figure \ref{fig:tas_composite}, but for the sea ice concentration anomaly.}
 \end{center}
